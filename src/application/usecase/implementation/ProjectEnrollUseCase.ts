@@ -18,12 +18,12 @@ export class ProjectEnrollUseCase implements IProjectEnrollUseCase {
     @inject(CreateLeaderToEnroll) private leaderToEnroll: CreateLeaderToEnroll
   ) {}
 
-  public async create({ leader, project, student }: InputEnrollDTO): Promise<OutputEnrollDTO> {
-    const _student = await this.studentEnroll.create(student);
-    const _project = await this.projectToEnroll.create(project);
-    const _leader = await this.leaderToEnroll.create(leader, _project);
+  public async create(input: InputEnrollDTO): Promise<OutputEnrollDTO> {
+    const student = await this.studentEnroll.create(input.student);
+    const project = await this.projectToEnroll.create(input.project);
+    const leader = await this.leaderToEnroll.create(input.leader, project);
 
-    const enroll: Enroll = Enroll.create(_student, _leader, _project);
+    const enroll: Enroll = Enroll.create(student, leader, project);
     const { idLeader, idProject, idStudent } = await this.enrollProject.register(enroll);
 
     const idsEnroll: OutputEnrollDTO = {
