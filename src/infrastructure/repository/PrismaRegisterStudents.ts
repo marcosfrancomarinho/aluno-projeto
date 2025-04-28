@@ -12,7 +12,7 @@ export interface DatasStudents {
 
 @injectable()
 export class PrismaRegisterStudents implements RegisterStudents {
-  public async register(student: Student): Promise<ID> {
+  public async execute(student: Student): Promise<ID> {
     const data: DatasStudents = {
       registration: student.getRegistrationStudent(),
       name: student.getNameStudent(),

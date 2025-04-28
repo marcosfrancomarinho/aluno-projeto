@@ -10,11 +10,11 @@ type LeaderType = InputEnrollDTO['leader'];
 
 @injectable()
 export class CreateLeaderToEnroll {
-  public constructor(@inject(PrismaSearchLeaderProject) private searchLeaderProject: SearchLeaderProject) {}
+  public constructor(@inject(PrismaSearchLeaderProject) private leaderProject: SearchLeaderProject) {}
 
   public async execute(input: LeaderType, project: Project): Promise<Leader> {
     const email: Email = Email.create(input.email);
-    const leader: Leader | null = await this.searchLeaderProject.search(email, project);
+    const leader: Leader | null = await this.leaderProject.search(email, project);
 
     if (!leader) throw new Error('advisor inexistent or does not have the expertise for the project');
 

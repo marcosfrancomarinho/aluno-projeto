@@ -27,14 +27,14 @@ export class CreateStudentToEnroll {
     const registration: ID = ID.create(this.idGenerator.create());
     let student: Student = Student.create(registration, name, email);
 
-    const studentFound: Student | null = await this.searchStudents.search(student);
+    const studentFound: Student | null = await this.searchStudents.execute(student);
 
     if (studentFound) {
       student = studentFound;
       return student;
     }
 
-    await this.registerStudents.register(student);
+    await this.registerStudents.execute(student);
     return student;
   }
 }

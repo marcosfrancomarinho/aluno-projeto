@@ -14,7 +14,7 @@ import { Specialty } from '../valueobject/Specialty';
 export class CreateLeaderValid {
   public constructor(
     @inject(UUID) private idGenerator: IdGenerator,
-    @inject(PrimaSearchProjectExistence) private searchProjectExistence: SearchProjectExistence
+    @inject(PrimaSearchProjectExistence) private projectExistence: SearchProjectExistence
   ) {}
 
   public async create(input: InputLeaderDTO): Promise<Leader> {
@@ -23,7 +23,7 @@ export class CreateLeaderValid {
     const email: Email = Email.create(input.email);
     const specialty: Specialty = Specialty.create(input.specialty);
 
-    const code: ID | null = await this.searchProjectExistence.search(specialty);
+    const code: ID | null = await this.projectExistence.search(specialty);
 
     if (!code) throw new Error('specialization is not part of the projects');
 
