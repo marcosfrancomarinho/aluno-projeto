@@ -7,7 +7,7 @@ import { RegisterLeaderUseCase } from '../../../application/usecase/implementati
 @injectable()
 export class RegisterLeaderControllers implements IRegisterLeaderControllers {
   public constructor(@inject(RegisterLeaderUseCase) private leader: IRegisterLeaderUseCase) {}
-  public async toRegister(request: Request, response: Response, next: NextFunction): Promise<void> {
+  public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { name, specialty, email } = request.body;
       const { idLeader } = await this.leader.register({ name, specialty, email });
