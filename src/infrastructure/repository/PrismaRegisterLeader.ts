@@ -12,7 +12,7 @@ export interface DatasLeader {
 
 @injectable()
 export class PrismaRegisterLeader implements RegisterLeader {
-  public async register(leader: Leader): Promise<ID> {
+  public async execute(leader: Leader): Promise<ID> {
     
     const data: DatasLeader = {
       code: leader.getCodeLeader(),

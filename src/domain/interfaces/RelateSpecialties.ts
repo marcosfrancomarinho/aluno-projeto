@@ -7,5 +7,5 @@ export interface IdRelateSpecialties {
 }
 
 export interface RelateSpecialties {
-  relate(leader: Leader): Promise<IdRelateSpecialties>;
+  execute(leader: Leader): Promise<IdRelateSpecialties>;
 }

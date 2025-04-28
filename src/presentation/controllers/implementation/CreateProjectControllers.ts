@@ -7,11 +7,11 @@ import { CreateProjectUseCase } from '../../../application/usecase/implementatio
 
 @injectable()
 export class CreateProjectControllers implements ICreateProjectControllers {
-  public constructor(@inject(CreateProjectUseCase) private createProjectUseCase: ICreateProjectUseCase) {}
+  public constructor(@inject(CreateProjectUseCase) private project: ICreateProjectUseCase) {}
   public async toCreate(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { name } = request.body;
-      const { idProject }: OutputProjectDTO = await this.createProjectUseCase.create({ name });
+      const { idProject }: OutputProjectDTO = await this.project.create({ name });
       response.status(200).json({ idProject, message: 'project create successfully' });
     } catch (error) {
       next(error);

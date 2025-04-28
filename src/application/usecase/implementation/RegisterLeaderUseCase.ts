@@ -22,18 +22,18 @@ export class RegisterLeaderUseCase implements IRegisterLeaderUseCase {
 
   public async register(input: InputLeaderDTO): Promise<OutputLeaderDTO> {
     const leader: Leader = await this.leaderValid.create(input);
-    const responseSearchLeader: Leader | null = await this.searchLeader.search(leader);
+    const leaderFound: Leader | null = await this.searchLeader.execute(leader);
 
-    if (responseSearchLeader) {
-      leader.updateCodeLeader(responseSearchLeader.getCodeLeader());
+    if (leaderFound) {
+      leader.updateCodeLeader(leaderFound.getCodeLeader());
       return await this.createRelateSpecialties(leader);
     }
-    await this.registerLeader.register(leader);
+    await this.registerLeader.execute(leader);
     return await this.createRelateSpecialties(leader);
   }
 
   private async createRelateSpecialties(leader: Leader): Promise<OutputLeaderDTO> {
-    const { idLeader } = await this.relateSpecialties.relate(leader);
+    const { idLeader } = await this.relateSpecialties.execute(leader);
     const ID: OutputLeaderDTO = { idLeader: idLeader.getValue() };
     return ID;
   }

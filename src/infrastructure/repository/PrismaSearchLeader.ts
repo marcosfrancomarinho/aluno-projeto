@@ -6,7 +6,7 @@ import { Name } from '../../domain/valueobject/Name';
 import { Client } from './Client';
 
 export class PrismaSearchLeader implements SearchLeader {
-  public async search(_leader: Leader): Promise<Leader | null> {
+  public async execute(_leader: Leader): Promise<Leader | null> {
     const emailLeader: string = _leader.getEmailLeader();
     const codeLeader: string = _leader.getSpecialtyLeader();
     const leader = await Client.leader.findUnique({ where: { email: emailLeader } });

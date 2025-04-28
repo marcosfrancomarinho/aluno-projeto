@@ -17,17 +17,17 @@ export class CreateLeaderValid {
     @inject(PrimaSearchProjectExistence) private searchProjectExistence: SearchProjectExistence
   ) {}
 
-  public async create({ email, name, specialty }: InputLeaderDTO): Promise<Leader> {
-    const _code: ID = ID.create(this.idGenerator.create());
-    const _name: Name = Name.create(name);
-    const _email: Email = Email.create(email);
-    const _specialty: Specialty = Specialty.create(specialty);
+  public async create(input: InputLeaderDTO): Promise<Leader> {
+    const id: ID = ID.create(this.idGenerator.create());
+    const name: Name = Name.create(input.name);
+    const email: Email = Email.create(input.email);
+    const specialty: Specialty = Specialty.create(input.specialty);
 
-    const codeSpecialty: ID | null = await this.searchProjectExistence.search(_specialty);
+    const code: ID | null = await this.searchProjectExistence.search(specialty);
 
-    if (!codeSpecialty) throw new Error('specialization is not part of the projects');
+    if (!code) throw new Error('specialization is not part of the projects');
 
-    const leader: Leader = Leader.create(_code, _name, _email, codeSpecialty);
+    const leader: Leader = Leader.create(id, name, email, code);
     return leader;
   }
 }

@@ -20,8 +20,8 @@ export class CreateProjectUseCase implements ICreateProjectUseCase {
     const code: ID = ID.create(this.idGenerator.create());
     const name: Specialty = Specialty.create(input.name);
     const project: Project = Project.create(code, name);
-    const id: ID = await this.createProject.create(project);
-    const idProject: OutputProjectDTO = { idProject: id.getValue() };
+    await this.createProject.execute(project);
+    const idProject: OutputProjectDTO = { idProject: code.getValue() };
     return idProject;
   }
 }

@@ -8,7 +8,7 @@ export interface DataLeader {
   code_project: string;
 }
 export class PrismaRelateSpecialties implements RelateSpecialties {
-  public async relate(leader: Leader): Promise<IdRelateSpecialties> {
+  public async execute(leader: Leader): Promise<IdRelateSpecialties> {
     const data: DataLeader = {
       code_leader: leader.getCodeLeader(),
       code_project: leader.getSpecialtyLeader(),

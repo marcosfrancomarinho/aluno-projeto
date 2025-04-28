@@ -8,12 +8,12 @@ import { IEnrollProjectControllers } from '../interfaces/IEnrollProjectControlle
 
 @injectable()
 export class EnrollProjectControllers implements IEnrollProjectControllers {
-  public constructor(@inject(ProjectEnrollUseCase) private projectEnrollUseCase: IProjectEnrollUseCase) {}
+  public constructor(@inject(ProjectEnrollUseCase) private enrollment: IProjectEnrollUseCase) {}
 
   public async toEnroll(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { student, leader, project } = request.body as InputEnrollDTO;
-      const idsEnroll: OutputEnrollDTO = await this.projectEnrollUseCase.create({ student, leader, project });
+      const idsEnroll: OutputEnrollDTO = await this.enrollment.create({ student, leader, project });
       response.status(200).json({ ...idsEnroll, message: 'enroll whith successfully' });
     } catch (error) {
       next(error);

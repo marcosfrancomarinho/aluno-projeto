@@ -14,23 +14,23 @@ import { Name } from '../valueobject/Name';
 type StudentType = InputEnrollDTO['student'];
 
 @injectable()
-export class CreateStudentEnroll {
+export class CreateStudentToEnroll {
   public constructor(
     @inject(PrismaRegisterStudents) private registerStudents: RegisterStudents,
     @inject(PrismaSearchStudents) private searchStudents: SearchStudents,
     @inject(UUID) private idGenerator: IdGenerator
   ) {}
 
-  public async create({ name, email }: StudentType): Promise<Student> {
-    const nameStudent: Name = Name.create(name);
-    const emailStudent: Email = Email.create(email);
-    const registrationStudent: ID = ID.create(this.idGenerator.create());
-    let student: Student = Student.create(registrationStudent, nameStudent, emailStudent);
+  public async execute(input: StudentType): Promise<Student> {
+    const name: Name = Name.create(input.name);
+    const email: Email = Email.create(input.email);
+    const registration: ID = ID.create(this.idGenerator.create());
+    let student: Student = Student.create(registration, name, email);
 
-    const responseSearchStudent: Student | null = await this.searchStudents.search(student);
+    const studentFound: Student | null = await this.searchStudents.search(student);
 
-    if (responseSearchStudent) {
-      student = responseSearchStudent;
+    if (studentFound) {
+      student = studentFound;
       return student;
     }
 

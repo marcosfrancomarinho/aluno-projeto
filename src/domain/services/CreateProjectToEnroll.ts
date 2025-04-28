@@ -12,13 +12,13 @@ type ProjectType = InputEnrollDTO['project'];
 export class CreateProjectToEnroll {
   public constructor(@inject(PrimaSearchProjectExistence) private searchProjectExistence: SearchProjectExistence) {}
 
-  public async create({ name }: ProjectType): Promise<Project> {
-    const nameProject: Specialty = Specialty.create(name);
-    const codeProject: ID | null = await this.searchProjectExistence.search(nameProject);
+  public async execute(input: ProjectType): Promise<Project> {
+    const name: Specialty = Specialty.create(input.name);
+    const code: ID | null = await this.searchProjectExistence.search(name);
 
-    if (!codeProject) throw new Error('non-existent project in the institution');
+    if (!code) throw new Error('non-existent project in the institution');
 
-    const project: Project = Project.create(codeProject, nameProject);
+    const project: Project = Project.create(code, name);
     return project;
   }
 }

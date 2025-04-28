@@ -9,7 +9,7 @@ export interface DataProject {
 }
 
 export class PrismaCreateProject implements CreateProject {
-  public async create(project: Project): Promise<ID> {
+  public async execute(project: Project): Promise<ID> {
     const data: DataProject = {
       code: project.getCodeProject(),
       name: project.getNameProject(),
