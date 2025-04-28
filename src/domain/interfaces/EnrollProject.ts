@@ -1,4 +1,4 @@
-import { Enroll } from '../services/Enroll';
+import { Enroll } from '../entities/Enroll';
 import { ID } from '../valueobject/ID';
 
 export interface IdEnroll {

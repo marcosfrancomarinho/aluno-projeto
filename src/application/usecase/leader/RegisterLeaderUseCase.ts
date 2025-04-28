@@ -1,41 +1,27 @@
 import { inject, injectable } from 'tsyringe';
-import { IdGenerator } from '../../../domain/interfaces/IdGenerator';
+import { Leader } from '../../../domain/entities/Leader';
+import { RegisterLeader } from '../../../domain/interfaces/RegisterLeader';
+import { RelateSpecialties } from '../../../domain/interfaces/RelateSpecialties';
+import { SearchLeader } from '../../../domain/interfaces/SearchLeader';
+import { PrismaRegisterLeader } from '../../../infrastructure/repository/PrismaRegisterLeader';
+import { PrismaRelateSpecialties } from '../../../infrastructure/repository/PrismaRelateSpecialties';
+import { PrismaSearchLeader } from '../../../infrastructure/repository/PrismaSearchLeader';
 import { InputDTO } from '../../dto/leader/InputDTO';
 import { OutputDTO } from '../../dto/leader/OutputDTO';
 import { IRegisterLeaderUseCase } from './IRegisterLeaderUseCase';
-import { UUID } from '../../../infrastructure/idgenerator/UUID';
-import { PrismaRegisterLeader } from '../../../infrastructure/repository/PrismaRegisterLeader';
-import { RegisterLeader } from '../../../domain/interfaces/RegisterLeader';
-import { Name } from '../../../domain/valueobject/Name';
-import { ID } from '../../../domain/valueobject/ID';
-import { Specialty } from '../../../domain/valueobject/Specialty';
-import { Leader } from '../../../domain/entities/Leader';
-import { PrimaSearchProjectExistence } from '../../../infrastructure/repository/PrismaSearchProjectExistence';
-import { SearchProjectExistence } from '../../../domain/interfaces/SearchProjectExistence';
-import { Email } from '../../../domain/valueobject/Email';
-import { PrismaRelateSpecialties } from '../../../infrastructure/repository/PrismaRelateSpecialties';
-import { RelateSpecialties } from '../../../domain/interfaces/RelateSpecialties';
-import { PrismaSearchLeader } from '../../../infrastructure/repository/PrismaSearchLeader';
-import { SearchLeader } from '../../../domain/interfaces/SearchLeader';
+import { LeaderServices } from '../../../domain/services/leader/LeaderServices';
 
 @injectable()
 export class RegisterLeaderUseCase implements IRegisterLeaderUseCase {
   public constructor(
-    @inject(UUID) private idGenerator: IdGenerator,
     @inject(PrismaRegisterLeader) private registerLeader: RegisterLeader,
-    @inject(PrimaSearchProjectExistence) private searchProjectExistence: SearchProjectExistence,
     @inject(PrismaSearchLeader) private searchLeader: SearchLeader,
-    @inject(PrismaRelateSpecialties) private relateSpecialties: RelateSpecialties
+    @inject(PrismaRelateSpecialties) private relateSpecialties: RelateSpecialties,
+    @inject(LeaderServices) private leaderServices: LeaderServices
   ) {}
 
   public async register(input: InputDTO): Promise<OutputDTO> {
-    const code: ID = ID.create(this.idGenerator.create());
-    const name: Name = Name.create(input.name);
-    const email: Email = Email.create(input.email);
-    const specialty: Specialty = Specialty.create(input.specialty);
-
-    const codeProject: ID | null = await this.searchProjectExistence.search(specialty);
-    const leader: Leader = Leader.create(code, name, email, codeProject);
+    const leader: Leader = await this.leaderServices.create(input);
     const responseSearchLeader: Leader | null = await this.searchLeader.search(leader);
 
     if (responseSearchLeader) {

@@ -8,14 +8,14 @@
     "dev": "tsx --watch src/main.ts",
     "type": "tsc --watch --noEmit",
     "build": "node esbuild.config.js",
-    "migrate": "prisma generate && prisma migrate dev --name start"
+    "migrate": "prisma generate && prisma migrate dev --name start && prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "cors": "^2.8.5",
     "cuid": "^3.0.0",
     "express": "^5.1.0",
-    "reflect-metadata": "^0.2.2",
+    "reflect-metadata": "^0.2.2", 
     "tsyringe": "^4.10.0",
     "uuid": "^11.1.0"
   },

@@ -1,5 +1,5 @@
 import { EnrollProject, IdEnroll } from '../../domain/interfaces/EnrollProject';
-import { Enroll } from '../../domain/services/Enroll';
+import { Enroll } from '../../domain/entities/Enroll';
 import { ID } from '../../domain/valueobject/ID';
 import { Client } from './Client';
 

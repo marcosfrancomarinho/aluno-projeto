@@ -52,5 +52,5 @@ model enroll {
   leader     leader  @relation(fields: [id_leader], references: [code])
   project    project @relation(fields: [id_project], references: [code])
 
-  @@id([id_leader, id_student, id_project])
+  @@id([id_student, id_project])
 }

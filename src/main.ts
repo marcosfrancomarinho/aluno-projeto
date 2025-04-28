@@ -8,8 +8,7 @@ const app = express();
 const port: number = Number(process.env.PORT ?? '3000');
 const options: CorsOptions = {
   methods: ['POST'],
-  origin: ['*'],
-  allowedHeaders: ['Content-Type', 'Authorizations'],
+  origin: '*',
 };
 
 app.use(cors(options));

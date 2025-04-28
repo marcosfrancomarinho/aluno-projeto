@@ -4,8 +4,8 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "marcos marinho",
-    "email": "marcos@gmail.com",
+    "name": "maria sobrinho",
+    "email": "maria@gmail.com",
     "specialty": "logica de progamação"
 }
 
@@ -25,11 +25,11 @@ Content-Type: application/json
 
 {
     "student": {
-        "name": "maria",
-        "email": "maria@gmail.com"
+        "name": "carlos",
+        "email": "carlos@gmail.com"
     },
     "leader": {
-        "email": "marcos@gmail.com"
+        "email": "maria@gmail.com"
     },
     "project": {
         "name": "logica de progamaçao"
