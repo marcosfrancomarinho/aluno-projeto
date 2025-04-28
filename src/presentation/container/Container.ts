@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
-import { IRegisterLeaderControllers } from '../controllers/leader/IRegisterLeaderControllers';
-import { RegisterLeaderControllers } from '../controllers/leader/RegisterLeaderControllers';
-import { ICreateProjectControllers } from '../controllers/project/ICreateProjectControllers';
-import { CreateProjectControllers } from '../controllers/project/CreateProjectControllers';
-import { IEnrollProjectControllers } from '../controllers/enroll/IEnrollProjectControllers';
-import { EnrollProjectControllers } from '../controllers/enroll/EnrollProjectCotrollers';
+import { IRegisterLeaderControllers } from '../controllers/interfaces/IRegisterLeaderControllers';
+import { RegisterLeaderControllers } from '../controllers/implementation/RegisterLeaderControllers';
+import { ICreateProjectControllers } from '../controllers/interfaces/ICreateProjectControllers';
+import { CreateProjectControllers } from '../controllers/implementation/CreateProjectControllers';
+import { IEnrollProjectControllers } from '../controllers/interfaces/IEnrollProjectControllers';
+import { EnrollProjectControllers } from '../controllers/implementation/EnrollProjectCotrollers';
 
 export class Container {
   public static dependecies() {

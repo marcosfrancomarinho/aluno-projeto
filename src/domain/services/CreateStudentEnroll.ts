@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe';
-import { InputDTO } from '../../../application/dto/enroll/InputDTO';
-import { UUID } from '../../../infrastructure/idgenerator/UUID';
-import { PrismaRegisterStudents } from '../../../infrastructure/repository/PrismaRegisterStudents';
-import { PrismaSearchStudents } from '../../../infrastructure/repository/PrismaSearchStudents';
-import { Student } from '../../entities/Student';
-import { IdGenerator } from '../../interfaces/IdGenerator';
-import { RegisterStudents } from '../../interfaces/RegisterStudents';
-import { SearchStudents } from '../../interfaces/SearchStudents';
-import { Email } from '../../valueobject/Email';
-import { ID } from '../../valueobject/ID';
-import { Name } from '../../valueobject/Name';
+import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
+import { UUID } from '../../infrastructure/idgenerator/UUID';
+import { PrismaRegisterStudents } from '../../infrastructure/repository/PrismaRegisterStudents';
+import { PrismaSearchStudents } from '../../infrastructure/repository/PrismaSearchStudents';
+import { Student } from '../entities/Student';
+import { IdGenerator } from '../interfaces/IdGenerator';
+import { RegisterStudents } from '../interfaces/RegisterStudents';
+import { SearchStudents } from '../interfaces/SearchStudents';
+import { Email } from '../valueobject/Email';
+import { ID } from '../valueobject/ID';
+import { Name } from '../valueobject/Name';
 
-type StudentType = InputDTO['student'];
+type StudentType = InputEnrollDTO['student'];
 
 @injectable()
-export class StudentServices {
+export class CreateStudentEnroll {
   public constructor(
     @inject(PrismaRegisterStudents) private registerStudents: RegisterStudents,
     @inject(PrismaSearchStudents) private searchStudents: SearchStudents,

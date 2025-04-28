@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { ICreateProjectControllers } from './ICreateProjectControllers';
+import { ICreateProjectControllers } from '../interfaces/ICreateProjectControllers';
 import { inject, injectable } from 'tsyringe';
-import { CreateProjectUseCase } from '../../../application/usecase/project/CreateProjectUseCase';
-import { ICreateProjectUseCase } from '../../../application/usecase/project/ICreateProjectUseCase';
-import { OutputDTO } from '../../../application/dto/project/OutputDTO';
+import { ICreateProjectUseCase } from '../../../application/usecase/interfaces/ICreateProjectUseCase';
+import { OutputProjectDTO } from '../../../application/dto/OutputProjectDTO';
+import { CreateProjectUseCase } from '../../../application/usecase/implementation/CreateProjectUseCase';
 
 @injectable()
 export class CreateProjectControllers implements ICreateProjectControllers {
@@ -11,7 +11,7 @@ export class CreateProjectControllers implements ICreateProjectControllers {
   public async toCreate(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { name } = request.body;
-      const { idProject }: OutputDTO = await this.createProjectUseCase.create({ name });
+      const { idProject }: OutputProjectDTO = await this.createProjectUseCase.create({ name });
       response.status(200).json({ idProject, message: 'project create successfully' });
     } catch (error) {
       next(error);

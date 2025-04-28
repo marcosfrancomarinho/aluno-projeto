@@ -1,15 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { InputDTO } from '../../../application/dto/enroll/InputDTO';
-import { PrismaSearchLeaderProject } from '../../../infrastructure/repository/PrismaSearchLeaderProject';
-import { Leader } from '../../entities/Leader';
-import { Project } from '../../entities/Project';
-import { SearchLeaderProject } from '../../interfaces/SearchLeaderProject';
-import { Email } from '../../valueobject/Email';
+import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
+import { PrismaSearchLeaderProject } from '../../infrastructure/repository/PrismaSearchLeaderProject';
+import { Leader } from '../entities/Leader';
+import { Project } from '../entities/Project';
+import { SearchLeaderProject } from '../interfaces/SearchLeaderProject';
+import { Email } from '../valueobject/Email';
 
-type LeaderType = InputDTO['leader'];
+type LeaderType = InputEnrollDTO['leader'];
 
 @injectable()
-export class LeaderServices {
+export class CreateLeaderToEnroll {
   public constructor(@inject(PrismaSearchLeaderProject) private searchLeaderProject: SearchLeaderProject) {}
 
   public async create({ email }: LeaderType, project: Project): Promise<Leader> {
@@ -17,7 +17,7 @@ export class LeaderServices {
     const leader: Leader | null = await this.searchLeaderProject.search(emailLeader, project);
 
     if (!leader) throw new Error('advisor inexistent or does not have the expertise for the project');
-    
+
     return leader;
   }
 }

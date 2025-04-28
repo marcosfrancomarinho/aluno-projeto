@@ -1,15 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { InputDTO } from '../../../application/dto/enroll/InputDTO';
-import { PrimaSearchProjectExistence } from '../../../infrastructure/repository/PrismaSearchProjectExistence';
-import { Project } from '../../entities/Project';
-import { SearchProjectExistence } from '../../interfaces/SearchProjectExistence';
-import { ID } from '../../valueobject/ID';
-import { Specialty } from '../../valueobject/Specialty';
+import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
+import { PrimaSearchProjectExistence } from '../../infrastructure/repository/PrismaSearchProjectExistence';
+import { Project } from '../entities/Project';
+import { SearchProjectExistence } from '../interfaces/SearchProjectExistence';
+import { ID } from '../valueobject/ID';
+import { Specialty } from '../valueobject/Specialty';
 
-type ProjectType = InputDTO['project'];
+type ProjectType = InputEnrollDTO['project'];
 
 @injectable()
-export class ProjectServices {
+export class CreateProjectToEnroll {
   public constructor(@inject(PrimaSearchProjectExistence) private searchProjectExistence: SearchProjectExistence) {}
 
   public async create({ name }: ProjectType): Promise<Project> {

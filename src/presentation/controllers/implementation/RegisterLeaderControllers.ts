@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { IRegisterLeaderControllers } from './IRegisterLeaderControllers';
+import { IRegisterLeaderControllers } from '../interfaces/IRegisterLeaderControllers';
 import { inject, injectable } from 'tsyringe';
-import { RegisterLeaderUseCase } from '../../../application/usecase/leader/RegisterLeaderUseCase';
-import { IRegisterLeaderUseCase } from '../../../application/usecase/leader/IRegisterLeaderUseCase';
+import { IRegisterLeaderUseCase } from '../../../application/usecase/interfaces/IRegisterLeaderUseCase';
+import { RegisterLeaderUseCase } from '../../../application/usecase/implementation/RegisterLeaderUseCase';
 
 @injectable()
 export class RegisterLeaderControllers implements IRegisterLeaderControllers {
