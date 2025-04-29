@@ -24,11 +24,12 @@ export class RegisterLeaderUseCase implements IRegisterLeaderUseCase {
     const leader: Leader = await this.leaderValid.create(input);
     const leaderFound: Leader | null = await this.searchLeader.execute(leader);
 
-    if (leaderFound) {
-      leader.updateCodeLeader(leaderFound.getCodeLeader());
+    if (!leaderFound) {
+      await this.registerLeader.execute(leader);
       return await this.createRelateSpecialties(leader);
     }
-    await this.registerLeader.execute(leader);
+    
+    leader.updateCode(leaderFound.getCodeLeader());
     return await this.createRelateSpecialties(leader);
   }
 

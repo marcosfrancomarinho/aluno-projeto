@@ -16,7 +16,7 @@ export class Leader {
   public getEmailLeader(): string {
     return this.email.getValue();
   }
-  public updateCodeLeader(codeLeader: string): void {
+  public updateCode(codeLeader: string): void {
     this.code = ID.create(codeLeader);
   }
   public static create(code: ID, name: Name, email: Email, specialty: ID): Leader {
