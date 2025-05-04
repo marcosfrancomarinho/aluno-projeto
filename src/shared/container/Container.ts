@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
-import { LeaderCreatorControllers } from '../controllers/LeaderCreatorControllers';
-import { ProjectCreatorControllers } from '../controllers/ProjectCreatorControllers';
-import { StudentEnrollerInProjectControllers } from '../controllers/StudentEnrollerInProjectControllers';
+import { LeaderCreatorControllers } from '../../presentation/controllers/LeaderCreatorControllers';
+import { ProjectCreatorControllers } from '../../presentation/controllers/ProjectCreatorControllers';
+import { StudentEnrollerInProjectControllers } from '../../presentation/controllers/StudentEnrollerInProjectControllers';
 
 export class Container {
   public static dependecies() {

@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import { Container } from '../container/Container';
+import { Container } from '../../shared/container/Container';
 
 export class Routers {
   public static toLoading(app: Express) {
