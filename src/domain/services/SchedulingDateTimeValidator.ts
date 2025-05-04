@@ -1,15 +1,15 @@
 import { inject, injectable } from 'tsyringe';
-import { Scheduling } from '../entities/Scheduling';
-import { SchedulingDateTimeValidatorServices } from '../interfaces/SchedulingDateTimeValidatorServices';
-import { UUID } from '../../infrastructure/idgenerator/UUID';
-import { IdGenerator } from '../interfaces/IdGenerator';
-import { ID } from '../valueobject/ID';
-import { Timestamp } from '../valueobject/Timestamp';
 import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
-import { Specialty } from '../valueobject/Specialty';
+import { UUID } from '../../infrastructure/idgenerator/UUID';
 import { PrismaProjectFinderByName } from '../../infrastructure/repository/PrismaProjectFinderByName';
-import { ProjectFinderByName } from '../interfaces/ProjectFinderByDateAndName';
 import { Project } from '../entities/Project';
+import { Scheduling } from '../entities/Scheduling';
+import { IdGenerator } from '../interfaces/IdGenerator';
+import { ProjectFinderByName } from '../interfaces/ProjectFinderByDateAndName';
+import { SchedulingDateTimeValidatorServices } from '../interfaces/SchedulingDateTimeValidatorServices';
+import { ID } from '../valueobject/ID';
+import { Specialty } from '../valueobject/Specialty';
+import { Timestamp } from '../valueobject/Timestamp';
 
 @injectable()
 export class SchedulingDateTimeValidator implements SchedulingDateTimeValidatorServices {

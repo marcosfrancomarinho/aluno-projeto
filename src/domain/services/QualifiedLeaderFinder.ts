@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe';
 import { PrismaSpecialistAdvisorFinder } from '../../infrastructure/repository/PrismaSpecialistAdvisorFinder';
 import { Leader } from '../entities/Leader';
 import { Project } from '../entities/Project';
+import { LeaderRquest, QualifiedLeaderFinderServices } from '../interfaces/QualifiedLeaderFinderServices';
 import { SpecialistAdvisorFinder } from '../interfaces/SearchLeaderProject';
 import { Email } from '../valueobject/Email';
-import { LeaderRquest, QualifiedLeaderFinderServices } from '../interfaces/QualifiedLeaderFinderServices';
 
 @injectable()
 export class QualifiedLeaderFinder implements QualifiedLeaderFinderServices {

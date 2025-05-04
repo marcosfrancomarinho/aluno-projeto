@@ -1,16 +1,16 @@
 import { inject, injectable } from 'tsyringe';
+import { Enrollment } from '../../../domain/entities/Enrollment';
+import { Scheduling } from '../../../domain/entities/Scheduling';
+import { SchedulingDateTimeValidatorServices } from '../../../domain/interfaces/SchedulingDateTimeValidatorServices';
 import { StudentEnrollerInProject } from '../../../domain/interfaces/StudentEnrollerInProject';
+import { ValidateEnrollmentCreatorServices } from '../../../domain/interfaces/ValidateEnrollmentCreatorServices';
+import { SchedulingDateTimeValidator } from '../../../domain/services/SchedulingDateTimeValidator';
+import { ValidateEnrollmentCreator } from '../../../domain/services/ValidateEnrollmentCreator';
+import { ID } from '../../../domain/valueobject/ID';
 import { PrismaStudentEnrollerInProject } from '../../../infrastructure/repository/PrismaStudentEnrollerInProject';
 import { EnrollRequestDTO } from '../../dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../dto/EnrollResponseDTO';
 import { StudentEnrollerInProjectUseCase } from '../interfaces/StudentEnrollerInProjectUseCase';
-import { ID } from '../../../domain/valueobject/ID';
-import { ValidateEnrollmentCreator } from '../../../domain/services/ValidateEnrollmentCreator';
-import { ValidateEnrollmentCreatorServices } from '../../../domain/interfaces/ValidateEnrollmentCreatorServices';
-import { Enrollment } from '../../../domain/entities/Enrollment';
-import { Scheduling } from '../../../domain/entities/Scheduling';
-import { SchedulingDateTimeValidator } from '../../../domain/services/SchedulingDateTimeValidator';
-import { SchedulingDateTimeValidatorServices } from '../../../domain/interfaces/SchedulingDateTimeValidatorServices';
 
 @injectable()
 export class StudentEnrollerInProjectHandler implements StudentEnrollerInProjectUseCase {

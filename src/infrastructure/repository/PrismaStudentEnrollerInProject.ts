@@ -1,8 +1,8 @@
-import { StudentEnrollerInProject } from '../../domain/interfaces/StudentEnrollerInProject';
 import { Enrollment } from '../../domain/entities/Enrollment';
+import { Scheduling } from '../../domain/entities/Scheduling';
+import { StudentEnrollerInProject } from '../../domain/interfaces/StudentEnrollerInProject';
 import { ID } from '../../domain/valueobject/ID';
 import { Client } from './Client';
-import { Scheduling } from '../../domain/entities/Scheduling';
 
 export type DatasEnroll = {
   code: string;

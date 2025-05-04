@@ -1,9 +1,9 @@
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { Request, Response, NextFunction } from 'express';
-import { StudentEnrollerInProjectHandler } from '../../application/usecase/implementation/StudentEnrollerInProjectHandler';
-import { StudentEnrollerInProjectUseCase } from '../../application/usecase/interfaces/StudentEnrollerInProjectUseCase';
 import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../application/dto/EnrollResponseDTO';
+import { StudentEnrollerInProjectHandler } from '../../application/usecase/implementation/StudentEnrollerInProjectHandler';
+import { StudentEnrollerInProjectUseCase } from '../../application/usecase/interfaces/StudentEnrollerInProjectUseCase';
 
 @injectable()
 export class StudentEnrollerInProjectControllers {

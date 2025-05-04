@@ -1,15 +1,15 @@
 import { inject, injectable } from 'tsyringe';
 import { UUID } from '../../infrastructure/idgenerator/UUID';
+import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
 import { PrismaStudentFinder } from '../../infrastructure/repository/PrismaStudentFinder';
 import { Student } from '../entities/Student';
+import { EnsureStudentExistsForEnrollmentServices, StudentRequest } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { StudentCreator } from '../interfaces/StudentCreator';
 import { StudentFinder } from '../interfaces/StudentFinder';
 import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
-import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
-import {  EnsureStudentExistsForEnrollmentServices, StudentRequest } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
 
 @injectable()
 export class EnsureStudentExistsForEnrollment implements EnsureStudentExistsForEnrollmentServices {

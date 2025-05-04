@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe';
+import { Leader } from '../../../domain/entities/Leader';
+import { ProjectBasedAdvisorFinder } from '../../../domain/interfaces/ProjectBasedAdvisorFinder';
 import { Specialty } from '../../../domain/valueobject/Specialty';
+import { PrismaProjectBasedAdvisorFinder } from '../../../infrastructure/repository/PrismaProjectBasedAdvisorFinder';
+import { LeaderContactResquestDTO } from '../../dto/LeaderContactRequestDTO';
 import { LeaderContactResponseDTO } from '../../dto/LeaderContactResponseDTO';
 import { ProjectBasedAdvisorFinderUseCase } from '../interfaces/ProjectBasedAdvisorFinderUseCase';
-import { PrismaProjectBasedAdvisorFinder } from '../../../infrastructure/repository/PrismaProjectBasedAdvisorFinder';
-import { ProjectBasedAdvisorFinder } from '../../../domain/interfaces/ProjectBasedAdvisorFinder';
-import { Leader } from '../../../domain/entities/Leader';
-import { LeaderContactResquestDTO } from '../../dto/LeaderContactRequestDTO';
 
 @injectable()
 export class ProjectBasedAdvisorFinderHandler implements ProjectBasedAdvisorFinderUseCase {

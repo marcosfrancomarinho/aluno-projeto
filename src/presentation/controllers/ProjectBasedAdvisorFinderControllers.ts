@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
+import { LeaderContactResquestDTO } from '../../application/dto/LeaderContactRequestDTO';
+import { LeaderContactResponseDTO } from '../../application/dto/LeaderContactResponseDTO';
 import { ProjectBasedAdvisorFinderHandler } from '../../application/usecase/implementation/ProjectBasedAdvisorFinderHandler';
 import { ProjectBasedAdvisorFinderUseCase } from '../../application/usecase/interfaces/ProjectBasedAdvisorFinderUseCase';
-import { LeaderContactResponseDTO } from '../../application/dto/LeaderContactResponseDTO';
-import { LeaderContactResquestDTO } from '../../application/dto/LeaderContactRequestDTO';
 
 @injectable()
 export class ProjectBasedAdvisorFinderControllers {

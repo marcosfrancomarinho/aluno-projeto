@@ -1,15 +1,15 @@
 import { inject, injectable } from 'tsyringe';
+import { Project } from '../../../domain/entities/Project';
+import { IdGenerator } from '../../../domain/interfaces/IdGenerator';
+import { ProjectCreator } from '../../../domain/interfaces/ProjectCreator';
+import { ID } from '../../../domain/valueobject/ID';
+import { Specialty } from '../../../domain/valueobject/Specialty';
+import { Timestamp } from '../../../domain/valueobject/Timestamp';
+import { UUID } from '../../../infrastructure/idgenerator/UUID';
+import { PrismaProjectCreator } from '../../../infrastructure/repository/PrismaProjectCreator';
 import { ProjectRequestDTO } from '../../dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../../dto/ProjectResponseDTO';
-import { ProjectCreator } from '../../../domain/interfaces/ProjectCreator';
-import { UUID } from '../../../infrastructure/idgenerator/UUID';
-import { IdGenerator } from '../../../domain/interfaces/IdGenerator';
-import { Specialty } from '../../../domain/valueobject/Specialty';
-import { ID } from '../../../domain/valueobject/ID';
-import { Project } from '../../../domain/entities/Project';
 import { ProjectCreatorUseCase } from '../interfaces/ProjectCreatorUseCase';
-import { PrismaProjectCreator } from '../../../infrastructure/repository/PrismaProjectCreator';
-import { Timestamp } from '../../../domain/valueobject/Timestamp';
 
 @injectable()
 export class ProjectCreatorHandler implements ProjectCreatorUseCase {

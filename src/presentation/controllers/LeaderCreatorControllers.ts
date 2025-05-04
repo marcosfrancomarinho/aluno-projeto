@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { LeaderCreatorUseCase } from '../../application/usecase/interfaces/LeaderCreatorUseCase';
 import { LeaderCreatorHandler } from '../../application/usecase/implementation/LeaderCreatorHandler';
+import { LeaderCreatorUseCase } from '../../application/usecase/interfaces/LeaderCreatorUseCase';
 
 @injectable()
 export class LeaderCreatorControllers {

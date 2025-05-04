@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { ProjectCreatorUseCase } from '../../application/usecase/interfaces/ProjectCreatorUseCase';
+import { ProjectRequestDTO } from '../../application/dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../../application/dto/ProjectResponseDTO';
 import { ProjectCreatorHandler } from '../../application/usecase/implementation/ProjectCreatorHandler';
-import { ProjectRequestDTO } from '../../application/dto/ProjectRequestDTO';
+import { ProjectCreatorUseCase } from '../../application/usecase/interfaces/ProjectCreatorUseCase';
 
 @injectable()
 export class ProjectCreatorControllers {
