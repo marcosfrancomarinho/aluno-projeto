@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe';
-import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
-import { PrismaSearchLeaderProject } from '../../infrastructure/repository/PrismaSearchLeaderProject';
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
+import { PrismaSpecialistAdvisorFinder } from '../../infrastructure/repository/PrismaSpecialistAdvisorFinder';
 import { Leader } from '../entities/Leader';
 import { Project } from '../entities/Project';
-import { SearchLeaderProject } from '../interfaces/SearchLeaderProject';
+import { SpecialistAdvisorFinder } from '../interfaces/SearchLeaderProject';
 import { Email } from '../valueobject/Email';
 
-type LeaderType = InputEnrollDTO['leader'];
+type LeaderRquest = EnrollRequestDTO['leader'];
 
 @injectable()
 export class CreateLeaderToEnroll {
-  public constructor(@inject(PrismaSearchLeaderProject) private leaderProject: SearchLeaderProject) {}
+  public constructor(@inject(PrismaSpecialistAdvisorFinder) private specialistAdvisorFinder: SpecialistAdvisorFinder) {}
 
-  public async execute(input: LeaderType, project: Project): Promise<Leader> {
+  public async execute(input: LeaderRquest, project: Project): Promise<Leader> {
     const email: Email = Email.create(input.email);
-    const leader: Leader | null = await this.leaderProject.search(email, project);
+    const leader: Leader | null = await this.specialistAdvisorFinder.find(email, project);
 
     if (!leader) throw new Error('advisor inexistent or does not have the expertise for the project');
 

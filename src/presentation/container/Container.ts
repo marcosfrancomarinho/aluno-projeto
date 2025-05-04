@@ -1,20 +1,17 @@
 import { container } from 'tsyringe';
-import { IRegisterLeaderControllers } from '../controllers/interfaces/IRegisterLeaderControllers';
-import { RegisterLeaderControllers } from '../controllers/implementation/RegisterLeaderControllers';
-import { ICreateProjectControllers } from '../controllers/interfaces/ICreateProjectControllers';
-import { CreateProjectControllers } from '../controllers/implementation/CreateProjectControllers';
-import { IEnrollProjectControllers } from '../controllers/interfaces/IEnrollProjectControllers';
-import { EnrollProjectControllers } from '../controllers/implementation/EnrollProjectCotrollers';
+import { LeaderCreatorControllers } from '../controllers/LeaderCreatorControllers';
+import { ProjectCreatorControllers } from '../controllers/ProjectCreatorControllers';
+import { StudentEnrollerInProjectControllers } from '../controllers/StudentEnrollerInProjectControllers';
 
 export class Container {
   public static dependecies() {
-    const registerLeader: IRegisterLeaderControllers = container.resolve(RegisterLeaderControllers);
-    const createProject: ICreateProjectControllers = container.resolve(CreateProjectControllers);
-    const enrollProject: IEnrollProjectControllers = container.resolve(EnrollProjectControllers);
+    const leaderCreator = container.resolve(LeaderCreatorControllers);
+    const projectCreator = container.resolve(ProjectCreatorControllers);
+    const studentEnrollerInProject = container.resolve(StudentEnrollerInProjectControllers);
     return {
-      registerLeader,
-      createProject,
-      enrollProject,
+      leaderCreator,
+      projectCreator,
+      studentEnrollerInProject,
     };
   }
 }

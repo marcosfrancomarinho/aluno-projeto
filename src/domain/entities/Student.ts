@@ -7,10 +7,10 @@ export class Student {
   public getEmailStudent(): string {
     return this.email.getValue();
   }
-  public getNameStudent(): string {
+  public getName(): string {
     return this.name.getValue();
   }
-  public getRegistrationStudent(): string {
+  public getRegistration(): string {
     return this.registration.getValue();
   }
   public static create(registration: ID, name: Name, email: Email): Student {

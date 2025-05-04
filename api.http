@@ -29,7 +29,7 @@ Content-Type: application/json
         "email": "carlos@gmail.com"
     },
     "leader": {
-        "email": "maria@gmail.com"
+        "email": "lara@gmail.com"
     },
     "project": {
         "name": "logica de progamaçao"

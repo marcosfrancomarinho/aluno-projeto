@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe';
-import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
-import { PrimaSearchProjectExistence } from '../../infrastructure/repository/PrismaSearchProjectExistence';
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
+import { PrimaSpecialtyExistenceFinder } from '../../infrastructure/repository/PrimaSpecialtyExistenceFinder';
 import { Project } from '../entities/Project';
-import { SearchProjectExistence } from '../interfaces/SearchProjectExistence';
+import { SpecialtyExistenceFinder } from '../interfaces/SpecialtyExistenceFinder';
 import { ID } from '../valueobject/ID';
 import { Specialty } from '../valueobject/Specialty';
 
-type ProjectType = InputEnrollDTO['project'];
+type EnrollRequest = EnrollRequestDTO['project'];
 
 @injectable()
 export class CreateProjectToEnroll {
-  public constructor(@inject(PrimaSearchProjectExistence) private projectExistence: SearchProjectExistence) {}
+  public constructor(@inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder) {}
 
-  public async execute(input: ProjectType): Promise<Project> {
+  public async execute(input: EnrollRequest): Promise<Project> {
     const name: Specialty = Specialty.create(input.name);
-    const code: ID | null = await this.projectExistence.search(name);
+    const code: ID | null = await this.specialtyExistenceFinder.find(name);
 
     if (!code) throw new Error('non-existent project in the institution');
 

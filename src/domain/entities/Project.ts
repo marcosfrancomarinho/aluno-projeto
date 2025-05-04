@@ -4,7 +4,7 @@ import { Specialty } from '../valueobject/Specialty';
 export class Project {
   private constructor(private code: ID, private name: Specialty) {}
 
-  public getCodeProject(): string {
+  public getCode(): string {
     return this.code.getValue();
   }
   public getNameProject(): string {

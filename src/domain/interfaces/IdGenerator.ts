@@ -1,3 +1,5 @@
+import { ID } from "../valueobject/ID";
+
 export interface IdGenerator {
-  create(): string;
+  generete(): ID;
 }

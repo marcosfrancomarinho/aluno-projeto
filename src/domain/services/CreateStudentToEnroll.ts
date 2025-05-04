@@ -1,40 +1,40 @@
 import { inject, injectable } from 'tsyringe';
-import { InputEnrollDTO } from '../../application/dto/InputEnrollDTO';
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { UUID } from '../../infrastructure/idgenerator/UUID';
-import { PrismaRegisterStudents } from '../../infrastructure/repository/PrismaRegisterStudents';
-import { PrismaSearchStudents } from '../../infrastructure/repository/PrismaSearchStudents';
+import { PrismaStudentFinder } from '../../infrastructure/repository/PrismaStudentFinder';
 import { Student } from '../entities/Student';
 import { IdGenerator } from '../interfaces/IdGenerator';
-import { RegisterStudents } from '../interfaces/RegisterStudents';
-import { SearchStudents } from '../interfaces/SearchStudents';
+import { StudentCreator } from '../interfaces/StudentCreator';
+import { StudentFinder } from '../interfaces/StudentFinder';
 import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
+import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
 
-type StudentType = InputEnrollDTO['student'];
+type EnrollRequest = EnrollRequestDTO['student'];
 
 @injectable()
 export class CreateStudentToEnroll {
   public constructor(
-    @inject(PrismaRegisterStudents) private registerStudents: RegisterStudents,
-    @inject(PrismaSearchStudents) private searchStudents: SearchStudents,
+    @inject(PrismaStudentCreator) private studentCreator: StudentCreator,
+    @inject(PrismaStudentFinder) private studentFinder: StudentFinder,
     @inject(UUID) private idGenerator: IdGenerator
   ) {}
 
-  public async execute(input: StudentType): Promise<Student> {
+  public async execute(input: EnrollRequest): Promise<Student> {
     const name: Name = Name.create(input.name);
     const email: Email = Email.create(input.email);
-    const registration: ID = ID.create(this.idGenerator.create());
+    const registration: ID = this.idGenerator.generete();
     let student: Student = Student.create(registration, name, email);
 
-    const studentFound: Student | null = await this.searchStudents.execute(student);
+    const studentFound: Student | null = await this.studentFinder.find(student);
 
     if (studentFound) {
       student = studentFound;
       return student;
     }
 
-    await this.registerStudents.execute(student);
+    await this.studentCreator.create(student);
     return student;
   }
 }

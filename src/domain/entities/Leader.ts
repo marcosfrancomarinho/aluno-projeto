@@ -4,16 +4,16 @@ import { Name } from '../valueobject/Name';
 
 export class Leader {
   private constructor(private code: ID, private name: Name, private email: Email, private specialty: ID) {}
-  public getSpecialtyLeader(): string {
+  public getSpecialty(): string {
     return this.specialty.getValue();
   }
-  public getCodeLeader(): string {
+  public getCode(): string {
     return this.code.getValue();
   }
-  public getNameLeader(): string {
+  public getName(): string {
     return this.name.getValue();
   }
-  public getEmailLeader(): string {
+  public getEmail(): string {
     return this.email.getValue();
   }
   public updateCode(codeLeader: string): void {
