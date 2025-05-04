@@ -1,5 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { UUID } from '../../infrastructure/idgenerator/UUID';
 import { PrismaStudentFinder } from '../../infrastructure/repository/PrismaStudentFinder';
 import { Student } from '../entities/Student';
@@ -10,11 +9,10 @@ import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
 import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
-
-type EnrollRequest = EnrollRequestDTO['student'];
+import { EnrollRequest, EnsureStudentExistsForEnrollmentServices } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
 
 @injectable()
-export class CreateStudentToEnroll {
+export class EnsureStudentExistsForEnrollment implements EnsureStudentExistsForEnrollmentServices {
   public constructor(
     @inject(PrismaStudentCreator) private studentCreator: StudentCreator,
     @inject(PrismaStudentFinder) private studentFinder: StudentFinder,

@@ -9,9 +9,10 @@ import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
 import { Specialty } from '../valueobject/Specialty';
+import { ValidatedLeaderCreatorServices } from '../interfaces/ValidatedLeaderCreatorServices';
 
 @injectable()
-export class CreateLeaderValid {
+export class ValidatedLeaderCreator implements ValidatedLeaderCreatorServices {
   public constructor(
     @inject(UUID) private idGenerator: IdGenerator,
     @inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder

@@ -1,27 +1,30 @@
 import { inject, injectable } from 'tsyringe';
 import { Enrolment } from '../../../domain/entities/Enroll';
 import { StudentEnrollerInProject } from '../../../domain/interfaces/StudentEnrollerInProject';
-import { CreateLeaderToEnroll } from '../../../domain/services/CreateLeaderToEnroll';
-import { CreateProjectToEnroll } from '../../../domain/services/CreateProjectToEnroll';
-import { CreateStudentToEnroll } from '../../../domain/services/CreateStudentToEnroll';
+import { QualifiedLeaderFinder } from '../../../domain/services/QualifiedLeaderFinder';
+import { ResolveProjectForEnrollment } from '../../../domain/services/ResolveProjectForEnrollment';
+import { EnsureStudentExistsForEnrollment } from '../../../domain/services/EnsureStudentExistsForEnrollment';
 import { PrismaStudentEnrollerInProject } from '../../../infrastructure/repository/PrismaStudentEnrollerInProject';
 import { EnrollRequestDTO } from '../../dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../dto/EnrollResponseDTO';
 import { StudentEnrollerInProjectUseCase } from '../interfaces/StudentEnrollerInProjectUseCase';
+import { QualifiedLeaderFinderServices } from '../../../domain/interfaces/QualifiedLeaderFinderServices';
+import { EnsureStudentExistsForEnrollmentServices } from '../../../domain/interfaces/EnsureStudentExistsForEnrollmentServices';
+import { ResolveProjectForEnrollmentServices } from '../../../domain/interfaces/ResolveProjectForEnrollmentServices';
 
 @injectable()
 export class StudentEnrollerInProjectHandler implements StudentEnrollerInProjectUseCase {
   public constructor(
-    @inject(CreateStudentToEnroll) private createStudent: CreateStudentToEnroll,
-    @inject(CreateProjectToEnroll) private createProject: CreateProjectToEnroll,
+    @inject(EnsureStudentExistsForEnrollment) private ensureStudentExistsForEnrollment: EnsureStudentExistsForEnrollmentServices,
+    @inject(ResolveProjectForEnrollment) private resolveProjectForEnrollment: ResolveProjectForEnrollmentServices,
     @inject(PrismaStudentEnrollerInProject) private studentEnrollerInProject: StudentEnrollerInProject,
-    @inject(CreateLeaderToEnroll) private createLeader: CreateLeaderToEnroll
+    @inject(QualifiedLeaderFinder) private qualifiedLeaderFinder: QualifiedLeaderFinderServices
   ) {}
 
   public async enroll(input: EnrollRequestDTO): Promise<EnrollResponseDTO> {
-    const student = await this.createStudent.execute(input.student);
-    const project = await this.createProject.execute(input.project);
-    const leader = await this.createLeader.execute(input.leader, project);
+    const student = await this.ensureStudentExistsForEnrollment.execute(input.student);
+    const project = await this.resolveProjectForEnrollment.resolve(input.project);
+    const leader = await this.qualifiedLeaderFinder.find(input.leader, project);
 
     const enrolment: Enrolment = Enrolment.create(student, leader, project);
 

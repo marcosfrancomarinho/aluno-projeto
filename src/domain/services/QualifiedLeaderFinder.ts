@@ -1,18 +1,16 @@
 import { inject, injectable } from 'tsyringe';
-import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { PrismaSpecialistAdvisorFinder } from '../../infrastructure/repository/PrismaSpecialistAdvisorFinder';
 import { Leader } from '../entities/Leader';
 import { Project } from '../entities/Project';
 import { SpecialistAdvisorFinder } from '../interfaces/SearchLeaderProject';
 import { Email } from '../valueobject/Email';
-
-type LeaderRquest = EnrollRequestDTO['leader'];
+import { LeaderRquest, QualifiedLeaderFinderServices } from '../interfaces/QualifiedLeaderFinderServices';
 
 @injectable()
-export class CreateLeaderToEnroll {
+export class QualifiedLeaderFinder implements QualifiedLeaderFinderServices {
   public constructor(@inject(PrismaSpecialistAdvisorFinder) private specialistAdvisorFinder: SpecialistAdvisorFinder) {}
 
-  public async execute(input: LeaderRquest, project: Project): Promise<Leader> {
+  public async find(input: LeaderRquest, project: Project): Promise<Leader> {
     const email: Email = Email.create(input.email);
     const leader: Leader | null = await this.specialistAdvisorFinder.find(email, project);
 
