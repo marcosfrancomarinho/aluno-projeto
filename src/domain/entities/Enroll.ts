@@ -8,7 +8,7 @@ export class Enrolment {
     return new Enrolment(student, leader, project);
   }
 
-  public getIdsEnroll() {
+  public getIds() {
     return {
       id_leader: this.leader.getCode(),
       id_student: this.student.getRegistration(),

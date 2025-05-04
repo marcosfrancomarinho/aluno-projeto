@@ -11,7 +11,7 @@ export type DatasEnroll = {
 
 export class PrismaStudentEnrollerInProject implements StudentEnrollerInProject {
   public async enroll(enroll: Enrolment): Promise<RegistrationIds> {
-    const data: DatasEnroll = enroll.getIdsEnroll();
+    const data: DatasEnroll = enroll.getIds();
 
     const { id_leader, id_project, id_student } = await Client.enroll.create({ data });
 

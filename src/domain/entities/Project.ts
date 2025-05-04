@@ -7,7 +7,7 @@ export class Project {
   public getCode(): string {
     return this.code.getValue();
   }
-  public getNameProject(): string {
+  public getName(): string {
     return this.name.getValue();
   }
   public static create(code: ID, name: Specialty): Project {

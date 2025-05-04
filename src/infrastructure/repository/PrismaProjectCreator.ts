@@ -12,7 +12,7 @@ export class PrismaProjectCreator implements ProjectCreator {
   public async create(project: Project): Promise<ID> {
     const data: DatasProject = {
       code: project.getCode(),
-      name: project.getNameProject(),
+      name: project.getName(),
     };
     const { code } = await Client.project.create({ data });
     const idProject: ID = ID.create(code);
