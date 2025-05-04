@@ -8,7 +8,7 @@
     "dev": "tsx --watch src/main.ts",
     "type": "tsc --watch --noEmit",
     "build": "node esbuild.config.js",
-    "migrate": "prisma --schema generate"
+    "migrate": "prisma --schema generate && prisma migrate dev --name start"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
