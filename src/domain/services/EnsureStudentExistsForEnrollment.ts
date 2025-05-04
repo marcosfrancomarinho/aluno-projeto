@@ -9,7 +9,7 @@ import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
 import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
-import { EnrollRequest, EnsureStudentExistsForEnrollmentServices } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
+import {  EnsureStudentExistsForEnrollmentServices, StudentRequest } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
 
 @injectable()
 export class EnsureStudentExistsForEnrollment implements EnsureStudentExistsForEnrollmentServices {
@@ -19,7 +19,7 @@ export class EnsureStudentExistsForEnrollment implements EnsureStudentExistsForE
     @inject(UUID) private idGenerator: IdGenerator
   ) {}
 
-  public async execute(input: EnrollRequest): Promise<Student> {
+  public async execute(input: StudentRequest): Promise<Student> {
     const name: Name = Name.create(input.name);
     const email: Email = Email.create(input.email);
     const registration: ID = this.idGenerator.generete();

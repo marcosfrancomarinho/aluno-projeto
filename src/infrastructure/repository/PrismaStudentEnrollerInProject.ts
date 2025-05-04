@@ -1,24 +1,34 @@
-import { RegistrationIds, StudentEnrollerInProject } from '../../domain/interfaces/StudentEnrollerInProject';
-import { Enrolment } from '../../domain/entities/Enroll';
+import { StudentEnrollerInProject } from '../../domain/interfaces/StudentEnrollerInProject';
+import { Enrollment } from '../../domain/entities/Enrollment';
 import { ID } from '../../domain/valueobject/ID';
 import { Client } from './Client';
+import { Scheduling } from '../../domain/entities/Scheduling';
 
 export type DatasEnroll = {
+  code: string;
   id_leader: string;
   id_student: string;
   id_project: string;
 };
 
+
+export type DatasScheduling = {
+  code: string;
+  timestamp: Date;
+};
+
 export class PrismaStudentEnrollerInProject implements StudentEnrollerInProject {
-  public async enroll(enroll: Enrolment): Promise<RegistrationIds> {
-    const data: DatasEnroll = enroll.getIds();
+  public async enroll(enroll: Enrollment, scheduling: Scheduling): Promise<ID> {
+    const datasEnroll: DatasEnroll = enroll.getIdentifiers();
+    const datasScheduling: DatasScheduling = scheduling.getPersistenceData();
 
-    const { id_leader, id_project, id_student } = await Client.enroll.create({ data });
+    const code: string = await Client.$transaction(async ({ enroll, scheduling }) => {
+      const { code } = await enroll.create({ data: datasEnroll });
+      await scheduling.create({ data: { ...datasScheduling, id_enroll: code } });
+      return code;
+    });
 
-    const leaderId: ID = ID.create(id_leader);
-    const projectId: ID = ID.create(id_student);
-    const studentId: ID = ID.create(id_project);
-
-    return { leaderId, projectId, studentId };
+    const enrollmentId: ID = ID.create(code);
+    return enrollmentId;
   }
 }

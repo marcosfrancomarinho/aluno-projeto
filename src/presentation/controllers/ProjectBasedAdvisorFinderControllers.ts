@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import { ProjectBasedAdvisorFinderHandler } from '../../application/usecase/implementation/ProjectBasedAdvisorFinderHandler';
 import { ProjectBasedAdvisorFinderUseCase } from '../../application/usecase/interfaces/ProjectBasedAdvisorFinderUseCase';
-import { ProjectRequestDTO } from '../../application/dto/ProjectRequestDTO';
 import { LeaderContactResponseDTO } from '../../application/dto/LeaderContactResponseDTO';
+import { LeaderContactResquestDTO } from '../../application/dto/LeaderContactRequestDTO';
 
 @injectable()
 export class ProjectBasedAdvisorFinderControllers {
@@ -12,7 +12,7 @@ export class ProjectBasedAdvisorFinderControllers {
   ) {}
   public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      const { name } = request.query as ProjectRequestDTO;
+      const { name } = request.query as LeaderContactResquestDTO;
       const leaderContacts: LeaderContactResponseDTO[] = await this.projectBasedAdvisorFinderHandler.findAll({
         name,
       });

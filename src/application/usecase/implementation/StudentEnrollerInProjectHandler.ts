@@ -1,40 +1,34 @@
 import { inject, injectable } from 'tsyringe';
-import { Enrolment } from '../../../domain/entities/Enroll';
 import { StudentEnrollerInProject } from '../../../domain/interfaces/StudentEnrollerInProject';
-import { QualifiedLeaderFinder } from '../../../domain/services/QualifiedLeaderFinder';
-import { ResolveProjectForEnrollment } from '../../../domain/services/ResolveProjectForEnrollment';
-import { EnsureStudentExistsForEnrollment } from '../../../domain/services/EnsureStudentExistsForEnrollment';
 import { PrismaStudentEnrollerInProject } from '../../../infrastructure/repository/PrismaStudentEnrollerInProject';
 import { EnrollRequestDTO } from '../../dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../dto/EnrollResponseDTO';
 import { StudentEnrollerInProjectUseCase } from '../interfaces/StudentEnrollerInProjectUseCase';
-import { QualifiedLeaderFinderServices } from '../../../domain/interfaces/QualifiedLeaderFinderServices';
-import { EnsureStudentExistsForEnrollmentServices } from '../../../domain/interfaces/EnsureStudentExistsForEnrollmentServices';
-import { ResolveProjectForEnrollmentServices } from '../../../domain/interfaces/ResolveProjectForEnrollmentServices';
+import { ID } from '../../../domain/valueobject/ID';
+import { ValidateEnrollmentCreator } from '../../../domain/services/ValidateEnrollmentCreator';
+import { ValidateEnrollmentCreatorServices } from '../../../domain/interfaces/ValidateEnrollmentCreatorServices';
+import { Enrollment } from '../../../domain/entities/Enrollment';
+import { Scheduling } from '../../../domain/entities/Scheduling';
+import { SchedulingDateTimeValidator } from '../../../domain/services/SchedulingDateTimeValidator';
+import { SchedulingDateTimeValidatorServices } from '../../../domain/interfaces/SchedulingDateTimeValidatorServices';
 
 @injectable()
 export class StudentEnrollerInProjectHandler implements StudentEnrollerInProjectUseCase {
   public constructor(
-    @inject(EnsureStudentExistsForEnrollment) private ensureStudentExistsForEnrollment: EnsureStudentExistsForEnrollmentServices,
-    @inject(ResolveProjectForEnrollment) private resolveProjectForEnrollment: ResolveProjectForEnrollmentServices,
     @inject(PrismaStudentEnrollerInProject) private studentEnrollerInProject: StudentEnrollerInProject,
-    @inject(QualifiedLeaderFinder) private qualifiedLeaderFinder: QualifiedLeaderFinderServices
+    @inject(ValidateEnrollmentCreator) private validateEnrollmentCreator: ValidateEnrollmentCreatorServices,
+    @inject(SchedulingDateTimeValidator) private schedulingDateTimeValidator: SchedulingDateTimeValidatorServices
   ) {}
 
   public async enroll(input: EnrollRequestDTO): Promise<EnrollResponseDTO> {
-    const student = await this.ensureStudentExistsForEnrollment.execute(input.student);
-    const project = await this.resolveProjectForEnrollment.resolve(input.project);
-    const leader = await this.qualifiedLeaderFinder.find(input.leader, project);
+    const enrollment: Enrollment = await this.validateEnrollmentCreator.create(input);
+    const scheduling: Scheduling = await this.schedulingDateTimeValidator.validate(input);
+    
+    const enrollmentId: ID = await this.studentEnrollerInProject.enroll(enrollment, scheduling);
 
-    const enrolment: Enrolment = Enrolment.create(student, leader, project);
-
-    const { leaderId, projectId, studentId } = await this.studentEnrollerInProject.enroll(enrolment);
-
-    const enrollmentIds: EnrollResponseDTO = {
-      leaaderId: leaderId.getValue(),
-      projectId: projectId.getValue(),
-      studentId: studentId.getValue(),
+    const enrollmentIdGenereted: EnrollResponseDTO = {
+      enrollmentId: enrollmentId.getValue(),
     };
-    return enrollmentIds;
+    return enrollmentIdGenereted;
   }
 }

@@ -1,8 +1,9 @@
 import { ID } from '../valueobject/ID';
 import { Specialty } from '../valueobject/Specialty';
+import { Timestamp } from '../valueobject/Timestamp';
 
 export class Project {
-  private constructor(private code: ID, private name: Specialty) {}
+  private constructor(private code: ID, private name: Specialty, private timestamp: Timestamp) {}
 
   public getCode(): string {
     return this.code.getValue();
@@ -10,7 +11,13 @@ export class Project {
   public getName(): string {
     return this.name.getValue();
   }
-  public static create(code: ID, name: Specialty): Project {
-    return new Project(code, name);
+  public getTimestamp(): Date {
+    return this.timestamp.getValue();
+  }
+  public getTimestampInMilliseconds(): number {
+    return this.timestamp.getTimeMilliseconds();
+  }
+  public static create(code: ID, name: Specialty, timestamp: Timestamp): Project {
+    return new Project(code, name, timestamp);
   }
 }

@@ -40,17 +40,31 @@ model specialty {
 model project {
   code      String      @id
   name      String      @unique
+  timestamp DateTime
   enroll    enroll[]
   specialty specialty[]
 }
 
 model enroll {
+  code       String
   id_leader  String
   id_student String
   id_project String
-  student    student @relation(fields: [id_student], references: [registration])
-  leader     leader  @relation(fields: [id_leader], references: [code])
-  project    project @relation(fields: [id_project], references: [code])
+  student    student      @relation(fields: [id_student], references: [registration])
+  leader     leader       @relation(fields: [id_leader], references: [code])
+  project    project      @relation(fields: [id_project], references: [code])
+  scheduling scheduling[]
 
-  @@id([id_student, id_project])
+  @@id([code])
+  @@unique([id_student, id_project])
+}
+
+model scheduling {
+  code      String 
+  timestamp DateTime
+  id_enroll String
+  createdAt DateTime @default(now())
+  enroll    enroll   @relation(fields: [id_enroll], references: [code])
+
+  @@id([code])
 }

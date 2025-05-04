@@ -4,22 +4,22 @@ import { Project } from '../entities/Project';
 import { SpecialtyExistenceFinder } from '../interfaces/SpecialtyExistenceFinder';
 import { ID } from '../valueobject/ID';
 import { Specialty } from '../valueobject/Specialty';
-import { EnrollRequest } from '../interfaces/EnsureStudentExistsForEnrollmentServices';
-import { ResolveProjectForEnrollmentServices } from '../interfaces/ResolveProjectForEnrollmentServices';
-
-
+import { ResolveProjectForEnrollmentServices } from '../interfaces/ResolveProjectForEnrollmentServices'; 
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
+import { Timestamp } from '../valueobject/Timestamp';
 
 @injectable()
 export class ResolveProjectForEnrollment implements ResolveProjectForEnrollmentServices {
   public constructor(@inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder) {}
 
-  public async resolve(input: EnrollRequest): Promise<Project> {
-    const name: Specialty = Specialty.create(input.name);
+  public async resolve({ project, timestamp }: EnrollRequestDTO): Promise<Project> {
+    const name: Specialty = Specialty.create(project.name);
     const code: ID | null = await this.specialtyExistenceFinder.find(name);
+    const datahours: Timestamp = Timestamp.create(timestamp);
 
     if (!code) throw new Error('non-existent project in the institution');
 
-    const project: Project = Project.create(code, name);
-    return project;
+    const projectCreated: Project = Project.create(code, name, datahours);
+    return projectCreated;
   }
 }

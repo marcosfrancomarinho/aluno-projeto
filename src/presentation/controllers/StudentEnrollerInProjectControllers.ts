@@ -13,9 +13,9 @@ export class StudentEnrollerInProjectControllers {
 
   public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
-      const { student, leader, project } = request.body as EnrollRequestDTO;
+      const { student, leader, project, timestamp } = request.body as EnrollRequestDTO;
 
-      const idsEnroll: EnrollResponseDTO = await this.studentEnrollerInProjectHandler.enroll({ student, leader, project });
+      const idsEnroll: EnrollResponseDTO = await this.studentEnrollerInProjectHandler.enroll({ student, leader, project, timestamp });
 
       response.status(200).json({ ...idsEnroll, message: 'enroll whith successfully' });
     } catch (error) {

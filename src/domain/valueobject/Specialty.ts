@@ -10,6 +10,9 @@ export class Specialty {
     const formattedSpecialty: string = this.normalizeString(specialty);
     return new Specialty(formattedSpecialty);
   }
+  public static with(specialty: string): Specialty {
+    return new Specialty(specialty);
+  }
   private static normalizeString(specialty: string) {
     return specialty
       .normalize('NFD')
@@ -25,4 +28,3 @@ export class Specialty {
     if (!checked) throw new Error(`specialty /${specialty}/ invalid`);
   }
 }
-

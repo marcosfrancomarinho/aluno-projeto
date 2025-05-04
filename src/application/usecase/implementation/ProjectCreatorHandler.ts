@@ -9,6 +9,7 @@ import { ID } from '../../../domain/valueobject/ID';
 import { Project } from '../../../domain/entities/Project';
 import { ProjectCreatorUseCase } from '../interfaces/ProjectCreatorUseCase';
 import { PrismaProjectCreator } from '../../../infrastructure/repository/PrismaProjectCreator';
+import { Timestamp } from '../../../domain/valueobject/Timestamp';
 
 @injectable()
 export class ProjectCreatorHandler implements ProjectCreatorUseCase {
@@ -16,11 +17,12 @@ export class ProjectCreatorHandler implements ProjectCreatorUseCase {
     @inject(UUID) private idGenerator: IdGenerator,
     @inject(PrismaProjectCreator) private projectCreator: ProjectCreator
   ) {}
-  
+
   public async create(input: ProjectRequestDTO): Promise<ProjectResponseDTO> {
     const code: ID = this.idGenerator.generete();
     const name: Specialty = Specialty.create(input.name);
-    const project: Project = Project.create(code, name);
+    const timestamp: Timestamp = Timestamp.create(input.timestamp);
+    const project: Project = Project.create(code, name, timestamp);
 
     await this.projectCreator.create(project);
 
