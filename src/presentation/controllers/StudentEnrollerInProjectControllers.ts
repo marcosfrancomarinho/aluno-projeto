@@ -8,14 +8,14 @@ import { EnrollResponseDTO } from '../../application/dto/EnrollResponseDTO';
 @injectable()
 export class StudentEnrollerInProjectControllers {
   public constructor(
-    @inject(StudentEnrollerInProjectHandler) private studentEnrollerInProject: StudentEnrollerInProjectUseCase
+    @inject(StudentEnrollerInProjectHandler) private studentEnrollerInProjectHandler: StudentEnrollerInProjectUseCase
   ) {}
 
   public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { student, leader, project } = request.body as EnrollRequestDTO;
 
-      const idsEnroll: EnrollResponseDTO = await this.studentEnrollerInProject.enroll({ student, leader, project });
+      const idsEnroll: EnrollResponseDTO = await this.studentEnrollerInProjectHandler.enroll({ student, leader, project });
 
       response.status(200).json({ ...idsEnroll, message: 'enroll whith successfully' });
     } catch (error) {

@@ -23,3 +23,10 @@ export class Leader {
     return new Leader(code, name, email, specialty);
   }
 }
+
+
+// SELECT l.code, l.name, l.email, p.name 
+// FROM spcialty AS s
+// INNER JOIN leader l ON l.code = s.code_leader
+// INNER JOIN project p ON p.code = s.code_project
+// WHERE l.name = ??

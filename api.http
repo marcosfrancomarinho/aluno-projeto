@@ -4,9 +4,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "maria sobrinho",
-    "email": "maria@gmail.com",
-    "specialty": "logica de progamação"
+    "name": "paulo sobrinho",
+    "email": "paulo@gmail.com",
+    "specialty": "logica progamação"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "matematica financeira"
+    "name": "logica progamação"
 }
 
 ###
@@ -35,3 +35,6 @@ Content-Type: application/json
         "name": "logica de progamaçao"
     }
 }
+
+###
+GET http://localhost:3000/finder-leader?name=logica%20progamação

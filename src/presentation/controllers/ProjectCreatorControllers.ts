@@ -6,13 +6,13 @@ import { ProjectCreatorHandler } from '../../application/usecase/implementation/
 
 @injectable()
 export class ProjectCreatorControllers {
-  public constructor(@inject(ProjectCreatorHandler) private projectCreator: ProjectCreatorUseCase) {}
+  public constructor(@inject(ProjectCreatorHandler) private projectCreatorHandler: ProjectCreatorUseCase) {}
 
   public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
     try {
       const { name } = request.body;
 
-      const { projectId }: ProjectResponseDTO = await this.projectCreator.create({ name });
+      const { projectId }: ProjectResponseDTO = await this.projectCreatorHandler.create({ name });
 
       response.status(200).json({ projectId, message: 'project create successfully' });
     } catch (error) {
