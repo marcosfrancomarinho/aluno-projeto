@@ -13,7 +13,7 @@ const options: CorsOptions = {
 
 app.use(cors(options));
 app.use(express.json());
-Routers.toLoading(app);
+Routers.start(app);
 app.use(HandleError.catch);
 
 app.listen(port, () => {

@@ -2,7 +2,7 @@ import { Express } from 'express';
 import { Container } from '../../shared/container/Container';
 
 export class Routers {
-  public static toLoading(app: Express) {
+  public static start(app: Express) {
     const { leaderCreator, projectCreator, studentEnrollerInProject, projectBasedAdvisorFinder } = Container.dependecies();
 
     app.post('/register-leader', leaderCreator.execute.bind(leaderCreator));
