@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "name": "andreia marinho",
     "email": "andreia@gmail.com",
-    "specialty": "fisica"
+    "specialty": "matematica"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "fisica",
+    "name": "matematica",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -33,10 +33,10 @@ Content-Type: application/json
         "email": "andreia@gmail.com"
     },
     "project": {
-        "name": "fisica"
+        "name": "matematica"
     },
     "timestamp":"2025-12-05T12:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=fisica
+GET http://localhost:3000/finder-leader?name=matematica

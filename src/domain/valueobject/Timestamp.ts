@@ -24,7 +24,6 @@ export class Timestamp {
     const regex: RegExp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(Z|[+-]\d{2}:\d{2})?$/;
 
     const checked: boolean = !!timestamp && regex.test(timestamp.trim());
-    console.log(checked);
     if (!checked) throw new Error(`Date ${timestamp} invalid. default(YYYY-MM-DDTHH:MH:SS).`);
 
     return timestamp;

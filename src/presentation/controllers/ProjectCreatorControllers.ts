@@ -1,23 +1,23 @@
-import { NextFunction, Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
-import { ProjectRequestDTO } from '../../application/dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../../application/dto/ProjectResponseDTO';
 import { ProjectCreatorHandler } from '../../application/usecase/implementation/ProjectCreatorHandler';
+import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { ProjectCreatorUseCase } from '../../application/usecase/interfaces/ProjectCreatorUseCase';
+import { ControllerHttp } from '../../domain/interfaces/ControllerHttp';
 
 @injectable()
-export class ProjectCreatorControllers {
+export class ProjectCreatorControllers implements ControllerHttp{
   public constructor(@inject(ProjectCreatorHandler) private projectCreatorHandler: ProjectCreatorUseCase) {}
 
-  public async execute(request: Request, response: Response, next: NextFunction): Promise<void> {
+  public async execute(http: HttpContext): Promise<void> {
     try {
-      const { name, timestamp } = request.body as ProjectRequestDTO;
+      const { name, timestamp } = http.getRequestBody();
 
       const { projectId }: ProjectResponseDTO = await this.projectCreatorHandler.create({ name, timestamp });
 
-      response.status(200).json({ projectId, message: 'project create successfully' });
+      http.send(200, { projectId, message: 'project create successfully' });
     } catch (error) {
-      next(error);
+      http.send(400, error);
     }
   }
 }

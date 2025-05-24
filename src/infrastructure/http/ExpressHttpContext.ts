@@ -1,0 +1,17 @@
+import { HttpContext } from '../../domain/interfaces/HttpContext';
+import { Request, Response } from 'express';
+
+export class ExpressHttpContext implements HttpContext {
+  public constructor(private request: Request, private response: Response) {}
+  public getRequestBody<T = any>(): T {
+    const { body } = this.request.body;
+    return body as T;
+  }
+  public getRequestQuery<T = any>(): T {
+    const { query } = this.request.query;
+    return query as T;
+  }
+  public send(status: number, data: any): void {
+    this.response.status(status).json(data);
+  }
+}
