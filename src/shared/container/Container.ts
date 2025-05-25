@@ -6,16 +6,16 @@ import { StudentEnrollerInProjectControllers } from '../../presentation/controll
 
 export class Container {
   public  dependencies() {
-    const leaderCreator = container.resolve(LeaderCreatorControllers);
-    const projectCreator = container.resolve(ProjectCreatorControllers);
-    const studentEnrollerInProject = container.resolve(StudentEnrollerInProjectControllers);
-    const projectBasedAdvisorFinder = container.resolve(ProjectBasedAdvisorFinderControllers);
+    const leaderCreatorControllers = container.resolve(LeaderCreatorControllers);
+    const projectCreatorControllers = container.resolve(ProjectCreatorControllers);
+    const studentEnrollerInProjectControllers = container.resolve(StudentEnrollerInProjectControllers);
+    const projectBasedAdvisorFinderControllers = container.resolve(ProjectBasedAdvisorFinderControllers);
     
     return {
-      leaderCreator,
-      projectCreator,
-      studentEnrollerInProject,
-      projectBasedAdvisorFinder,
+      leaderCreatorControllers,
+      projectCreatorControllers,
+      studentEnrollerInProjectControllers,
+      projectBasedAdvisorFinderControllers,
     };
   }
 }

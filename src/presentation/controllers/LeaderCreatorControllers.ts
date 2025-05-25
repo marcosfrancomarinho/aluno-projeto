@@ -2,21 +2,21 @@ import { inject, injectable } from 'tsyringe';
 import { LeaderCreatorHandler } from '../../application/usecase/implementation/LeaderCreatorHandler';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { LeaderCreatorUseCase } from '../../application/usecase/interfaces/LeaderCreatorUseCase';
-import { ControllerHttp } from '../../domain/interfaces/ControllerHttp';
+import { HttpController } from '../../domain/interfaces/HttpController';
 
 @injectable()
-export class LeaderCreatorControllers  implements ControllerHttp{
+export class LeaderCreatorControllers implements HttpController {
   public constructor(@inject(LeaderCreatorHandler) private leaderCreator: LeaderCreatorUseCase) {}
 
-  public async execute(http: HttpContext): Promise<void> {
+  public async execute(httpContext: HttpContext): Promise<void> {
     try {
-      const { name, specialty, email } = http.getRequestBody();
+      const { name, specialty, email } = httpContext.getRequestBody();
 
       const { leaderID, specialtyId } = await this.leaderCreator.create({ name, specialty, email });
 
-      http.send(200, { leaderID, specialtyId, message: 'leader registered successfully' });
+      httpContext.send(200, { leaderID, specialtyId, message: 'leader registered successfully' });
     } catch (error) {
-      http.send(400, error);
+      httpContext.send(400, error);
     }
   }
 }

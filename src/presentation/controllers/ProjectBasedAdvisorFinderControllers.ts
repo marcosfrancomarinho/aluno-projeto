@@ -3,22 +3,22 @@ import { LeaderContactResponseDTO } from '../../application/dto/LeaderContactRes
 import { ProjectBasedAdvisorFinderHandler } from '../../application/usecase/implementation/ProjectBasedAdvisorFinderHandler';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { ProjectBasedAdvisorFinderUseCase } from '../../application/usecase/interfaces/ProjectBasedAdvisorFinderUseCase';
-import { ControllerHttp } from '../../domain/interfaces/ControllerHttp';
+import { HttpController } from '../../domain/interfaces/HttpController';
 
 @injectable()
-export class ProjectBasedAdvisorFinderControllers implements ControllerHttp{
+export class ProjectBasedAdvisorFinderControllers implements HttpController {
   public constructor(
     @inject(ProjectBasedAdvisorFinderHandler) private projectBasedAdvisorFinderHandler: ProjectBasedAdvisorFinderUseCase
   ) {}
-  public async execute(http: HttpContext): Promise<void> {
+  public async execute(httpContext: HttpContext): Promise<void> {
     try {
-      const { name } = http.getRequestQuery();
+      const { name } = httpContext.getRequestQuery();
       const leaderContacts: LeaderContactResponseDTO[] = await this.projectBasedAdvisorFinderHandler.findAll({
         name,
       });
-      http.send(200, leaderContacts);
+      httpContext.send(200, leaderContacts);
     } catch (error) {
-      http.send(400, error);
+      httpContext.send(400, error);
     }
   }
 }

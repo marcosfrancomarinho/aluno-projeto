@@ -1,5 +1,5 @@
 import { HttpContext } from './HttpContext';
 
-export interface ControllerHttp {
+export interface HttpController {
   execute(http: HttpContext): Promise<void>;
 }

@@ -14,9 +14,9 @@ export class ExpressHttpServer implements HttpServer {
   }
 
   public on(method: Method, path: string, handle: (http: HttpContext) => Promise<void>): void {
-    this.app[method](path, (request: Request, response: Response) => {
+    this.app[method](path, async (request: Request, response: Response) => {
       const context: HttpContext = new ExpressHttpContext(request, response);
-      handle(context);
+      await handle(context);
     });
   }
 

@@ -4,9 +4,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "marcos marinho",
-    "email": "marcos@gmail.com",
-    "specialty": "ingles"
+    "name": "pedro pascal",
+    "email": "pedro@gmail.com",
+    "specialty": "ciencia humana"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "ingles",
+    "name": "ciencia humana",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -30,10 +30,10 @@ Content-Type: application/json
         "email": "marcos@gmail.com"
     },
     "leader": {
-        "email": "andreia@gmail.com"
+        "email": "pedro@gmail.com"
     },
     "project": {
-        "name": "informatica"
+        "name": "ciencia da computação"
     },
     "timestamp":"2025-12-05T12:00:00"
 }
