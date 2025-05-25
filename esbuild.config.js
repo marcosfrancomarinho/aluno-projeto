@@ -1,6 +1,7 @@
 const { build } = require('esbuild');
 const { dependencies } = require('./package.json');
 const { main } = require('./package.json');
+
 build({
   entryPoints: [main],
   bundle: true,

@@ -4,9 +4,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "andreia marinho",
-    "email": "andreia@gmail.com",
-    "specialty": "informatica"
+    "name": "marcos marinho",
+    "email": "marcos@gmail.com",
+    "specialty": "ingles"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "informatica",
+    "name": "ingles",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -33,10 +33,10 @@ Content-Type: application/json
         "email": "andreia@gmail.com"
     },
     "project": {
-        "name": "matematica"
+        "name": "informatica"
     },
     "timestamp":"2025-12-05T12:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=informatica
+GET http://localhost:3000/finder-leader?name=ingles
