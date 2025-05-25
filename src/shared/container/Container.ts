@@ -5,7 +5,7 @@ import { ProjectCreatorControllers } from '../../presentation/controllers/Projec
 import { StudentEnrollerInProjectControllers } from '../../presentation/controllers/StudentEnrollerInProjectControllers';
 
 export class Container {
-  public static dependecies() {
+  public  dependencies() {
     const leaderCreator = container.resolve(LeaderCreatorControllers);
     const projectCreator = container.resolve(ProjectCreatorControllers);
     const studentEnrollerInProject = container.resolve(StudentEnrollerInProjectControllers);
