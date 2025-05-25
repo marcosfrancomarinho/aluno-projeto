@@ -17,6 +17,7 @@ export class ProjectCreatorControllers implements HttpController {
 
       httpContext.send(200, { projectId, message: 'project create successfully' });
     } catch (error) {
+      console.log(error)
       httpContext.send(400, error);
     }
   }

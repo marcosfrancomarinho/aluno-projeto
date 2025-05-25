@@ -1,7 +1,7 @@
+import cors from 'cors';
+import express, { Express, Request, Response } from 'express';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { HttpServer, Method } from '../../domain/interfaces/HttpServer';
-import express, { Express, Request, Response } from 'express';
-import cors from 'cors';
 import { ExpressHttpContext } from './ExpressHttpContext';
 
 export class ExpressHttpServer implements HttpServer {
@@ -13,10 +13,10 @@ export class ExpressHttpServer implements HttpServer {
     this.app.use(cors());
   }
 
-  public on(method: Method, path: string, handle: (http: HttpContext) => Promise<void>): void {
+  public on(method: Method, path: string, handler: (httpContext: HttpContext) => Promise<void>): void {
     this.app[method](path, async (request: Request, response: Response) => {
       const context: HttpContext = new ExpressHttpContext(request, response);
-      await handle(context);
+      await handler(context);
     });
   }
 

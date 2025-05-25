@@ -1,9 +1,13 @@
 import { Container } from '../../shared/container/Container';
-import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { HttpServer } from '../../domain/interfaces/HttpServer';
+import { HttpController } from '../../domain/interfaces/HttpController';
 
 export class Routers {
   public constructor(private container: Container) {}
+
+  private asHandler(controller: HttpController) {
+    return controller.execute.bind(controller);
+  }
 
   public register(server: HttpServer) {
     const {
@@ -13,12 +17,12 @@ export class Routers {
       projectBasedAdvisorFinderControllers,
     } = this.container.dependencies();
 
-    server.on('post', '/register-leader', async (http: HttpContext) => await leaderCreatorControllers.execute(http));
+    server.on('post', '/register-leader', this.asHandler(leaderCreatorControllers));
 
-    server.on('post', '/create-project', async (http: HttpContext) => await projectCreatorControllers.execute(http));
+    server.on('post', '/create-project', this.asHandler(projectCreatorControllers));
 
-    server.on('post', '/enroll-project', async (http: HttpContext) => await studentEnrollerInProjectControllers.execute(http));
+    server.on('post', '/enroll-project', this.asHandler(studentEnrollerInProjectControllers));
 
-    server.on('get', '/finder-leader', async (http: HttpContext) => await projectBasedAdvisorFinderControllers.execute(http));
+    server.on('get', '/finder-leader', this.asHandler(projectBasedAdvisorFinderControllers));
   }
 }

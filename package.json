@@ -11,6 +11,7 @@
     "migrate": "prisma generate && prisma migrate dev --name start"
   },
   "dependencies": {
+    "@fastify/cors": "^11.0.1",
     "@hono/node-server": "^1.14.2",
     "@prisma/client": "^6.6.0",
     "cors": "^2.8.5",
