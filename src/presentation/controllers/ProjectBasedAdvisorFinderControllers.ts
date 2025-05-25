@@ -18,7 +18,7 @@ export class ProjectBasedAdvisorFinderControllers implements HttpController {
       });
       httpContext.send(200, leaderContacts);
     } catch (error) {
-      httpContext.send(400, error);
+      httpContext.handlerError(error);
     }
   }
 }

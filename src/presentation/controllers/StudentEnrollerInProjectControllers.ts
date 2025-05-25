@@ -24,7 +24,7 @@ export class StudentEnrollerInProjectControllers implements HttpController {
 
       httpContext.send(200, { ...idsEnroll, message: 'enroll whith successfully' });
     } catch (error) {
-      httpContext.send(400, error);
+      httpContext.handlerError(error);
     }
   }
 }

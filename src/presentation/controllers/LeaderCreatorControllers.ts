@@ -16,7 +16,7 @@ export class LeaderCreatorControllers implements HttpController {
 
       httpContext.send(200, { leaderID, specialtyId, message: 'leader registered successfully' });
     } catch (error) {
-      httpContext.send(400, error);
+      httpContext.handlerError(error);
     }
   }
 }

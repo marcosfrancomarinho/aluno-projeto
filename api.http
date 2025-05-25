@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "name": "pedro pascal",
     "email": "pedro@gmail.com",
-    "specialty": "ciencia humana"
+    "specialty": "estudos sociais"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "contabilidade",
+    "name": "estudos sociais",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -33,7 +33,7 @@ Content-Type: application/json
         "email": "pedro@gmail.com"
     },
     "project": {
-        "name": "ciencia da computação"
+        "name": "estudos sociais"
     },
     "timestamp":"2025-12-05T12:00:00"
 }

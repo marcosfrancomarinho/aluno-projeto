@@ -9,9 +9,14 @@ export class ExpressHttpContext implements HttpContext {
   }
   public getRequestQuery<T = any>(): T {
     const { query } = this.request;
-    return query as T; 
+    return query as T;
   }
   public send(status: number, data: any): void {
     this.response.status(status).json(data);
+  }
+  public handlerError(error: any): void {
+    this.response.status(400).send({
+      message: error.message,
+    });
   }
 }

@@ -9,7 +9,7 @@ function main(): void {
   const port: number = Number(process.env.PORT ?? '3000');
   const container: Container = new Container();
   const routers: Routers = new Routers(container);
-  const server: HttpServer = new ExpressHttpServer() ?? new FastifyHttpServer();
+  const server: HttpServer =  new FastifyHttpServer() ?? new ExpressHttpServer;
   routers.register(server);
   server.listen(port);
 }
