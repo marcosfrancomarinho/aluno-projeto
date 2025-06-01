@@ -3,26 +3,26 @@ import { HttpServer } from '../../domain/interfaces/HttpServer';
 import { HttpController } from '../../domain/interfaces/HttpController';
 
 export class Routers {
-  public constructor(private container: Container) {}
+  public constructor(private server: HttpServer) {}
 
   private asHandler(controller: HttpController) {
     return controller.execute.bind(controller);
   }
 
-  public register(server: HttpServer) {
+  public register(container: Container) {
     const {
       leaderCreatorControllers,
       projectCreatorControllers,
       studentEnrollerInProjectControllers,
       projectBasedAdvisorFinderControllers,
-    } = this.container.dependencies();
+    } = container.dependencies();
 
-    server.on('post', '/register-leader', this.asHandler(leaderCreatorControllers));
+    this.server.on('post', '/register-leader', this.asHandler(leaderCreatorControllers));
 
-    server.on('post', '/create-project', this.asHandler(projectCreatorControllers));
+    this.server.on('post', '/create-project', this.asHandler(projectCreatorControllers));
 
-    server.on('post', '/enroll-project', this.asHandler(studentEnrollerInProjectControllers));
+    this.server.on('post', '/enroll-project', this.asHandler(studentEnrollerInProjectControllers));
 
-    server.on('get', '/finder-leader', this.asHandler(projectBasedAdvisorFinderControllers));
+    this.server.on('get', '/finder-leader', this.asHandler(projectBasedAdvisorFinderControllers));
   }
 }
