@@ -1,4 +1,3 @@
-export type ProjectRequestDTO = {
-  name: string;
-  timestamp: string;
+export class ProjectRequestDTO {
+  public constructor(public name: string, public timestamp: string) { }
 };

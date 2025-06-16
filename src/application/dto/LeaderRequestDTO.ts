@@ -1,5 +1,3 @@
-export type LeaderRequestDTO = {
-  name: string;
-  email: string;
-  specialty: string;
+export class LeaderRequestDTO {
+  public constructor(public name: string, public email: string, public specialty: string) { }
 };

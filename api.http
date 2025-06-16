@@ -4,9 +4,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "pedro pascal",
-    "email": "pedro@gmail.com",
-    "specialty": "ingles"
+    "name": "lorena joana",
+    "email": "lorena@gmail.com",
+    "specialty": "matematica"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "geografia",
+    "name": "matematica",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -30,13 +30,13 @@ Content-Type: application/json
         "email": "marcos@gmail.com"
     },
     "leader": {
-        "email": "pedro@gmail.com"
+        "email": "lorena@gmail.com"
     },
     "project": {
-        "name": "ingles"
+        "name": "matematica"
     },
     "timestamp":"2025-12-05T12:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=ingles
+GET http://localhost:3000/finder-leader?name=matematica

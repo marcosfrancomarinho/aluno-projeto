@@ -2,12 +2,12 @@ import { inject, injectable } from 'tsyringe';
 import { PrismaSpecialistAdvisorFinder } from '../../infrastructure/repository/PrismaSpecialistAdvisorFinder';
 import { Leader } from '../entities/Leader';
 import { Project } from '../entities/Project';
-import { LeaderRequest, QualifiedLeaderFinderServices } from '../interfaces/QualifiedLeaderFinderServices';
+import { LeaderRequest } from '../interfaces/QualifiedLeaderFinderServices';
 import { SpecialistAdvisorFinder } from '../interfaces/SearchLeaderProject';
 import { Email } from '../valueobject/Email';
 
 @injectable()
-export class QualifiedLeaderFinder implements QualifiedLeaderFinderServices {
+export class QualifiedLeaderFinderServices {
   public constructor(@inject(PrismaSpecialistAdvisorFinder) private specialistAdvisorFinder: SpecialistAdvisorFinder) {}
 
   public async find(input: LeaderRequest, project: Project): Promise<Leader> {

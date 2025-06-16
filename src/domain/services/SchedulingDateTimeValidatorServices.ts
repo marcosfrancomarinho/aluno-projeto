@@ -6,13 +6,12 @@ import { Project } from '../entities/Project';
 import { Scheduling } from '../entities/Scheduling';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { ProjectFinderByName } from '../interfaces/ProjectFinderByDateAndName';
-import { SchedulingDateTimeValidatorServices } from '../interfaces/SchedulingDateTimeValidatorServices';
 import { ID } from '../valueobject/ID';
 import { Specialty } from '../valueobject/Specialty';
 import { Timestamp } from '../valueobject/Timestamp';
 
 @injectable()
-export class SchedulingDateTimeValidator implements SchedulingDateTimeValidatorServices {
+export class SchedulingDateTimeValidatorServices  {
   public constructor(
     @inject(UUID) private idGenerator: IdGenerator,
     @inject(PrismaProjectFinderByName) private projectFinderByName: ProjectFinderByName

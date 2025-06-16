@@ -1,3 +1,3 @@
-export type ProjectResponseDTO = {
-  projectId: string;
+export class ProjectResponseDTO {
+  public constructor(public projectId: string) { }
 }

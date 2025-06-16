@@ -1,3 +1,3 @@
-export type EnrollResponseDTO = {
-  enrollmentId:string
+export class EnrollResponseDTO {
+  public constructor(public enrollmentId: string) { }
 };

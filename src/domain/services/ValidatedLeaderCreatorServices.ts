@@ -5,14 +5,13 @@ import { PrimaSpecialtyExistenceFinder } from '../../infrastructure/repository/P
 import { Leader } from '../entities/Leader';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { SpecialtyExistenceFinder } from '../interfaces/SpecialtyExistenceFinder';
-import { ValidatedLeaderCreatorServices } from '../interfaces/ValidatedLeaderCreatorServices';
 import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
 import { Specialty } from '../valueobject/Specialty';
 
 @injectable()
-export class ValidatedLeaderCreator implements ValidatedLeaderCreatorServices {
+export class ValidatedLeaderCreatorServices  {
   public constructor(
     @inject(UUID) private idGenerator: IdGenerator,
     @inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder

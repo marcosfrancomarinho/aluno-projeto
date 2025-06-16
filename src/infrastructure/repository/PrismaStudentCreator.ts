@@ -12,17 +12,13 @@ export type DatasStudent = {
 
 @injectable()
 export class PrismaStudentCreator implements StudentCreator {
-  public async create(student: Student): Promise<ID> {
+  public async create(student: Student): Promise<void> {
     const data: DatasStudent = {
       registration: student.getRegistration(),
       name: student.getName(),
       email: student.getEmailStudent(),
     };
+    await Client.student.create({ data });
 
-    const { registration } = await Client.student.create({ data });
-
-    const idStudent: ID = ID.create(registration);
-
-    return idStudent;
   }
 }
