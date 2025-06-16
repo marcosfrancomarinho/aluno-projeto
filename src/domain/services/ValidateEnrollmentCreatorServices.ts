@@ -19,7 +19,7 @@ export class ValidateEnrollmentCreatorServices {
     const code = this.idGenerator.generete();
     const student = await this.ensureStudentExistsForEnrollmentServices.execute(input);
     const project = await this.resolveProjectForEnrollmentServices.resolve(input);
-    const leader = await this.qualifiedLeaderFinderServices.find(input.leader, project);
+    const leader = await this.qualifiedLeaderFinderServices.find(input, project);
 
     const enrollment: Enrollment = Enrollment.create(code, student, leader, project);
 
