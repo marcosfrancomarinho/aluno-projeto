@@ -9,12 +9,12 @@ import { Timestamp } from '../valueobject/Timestamp';
 
 @injectable()
 export class ResolveProjectForEnrollmentServices {
-  public constructor(@inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder) {}
+  public constructor(@inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder) { }
 
-  public async resolve({ project, timestamp }: EnrollRequestDTO): Promise<Project> {
-    const name: Specialty = Specialty.create(project.name);
+  public async resolve(enrollDTO: EnrollRequestDTO): Promise<Project> {
+    const name: Specialty = Specialty.create(enrollDTO.getNameProject());
     const code: ID | null = await this.specialtyExistenceFinder.find(name);
-    const datahours: Timestamp = Timestamp.create(timestamp);
+    const datahours: Timestamp = Timestamp.create(enrollDTO.getTimestamp());
 
     if (!code) throw new Error('non-existent project in the institution');
 

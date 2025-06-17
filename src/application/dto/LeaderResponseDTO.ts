@@ -1,3 +1,11 @@
 export class LeaderResponseDTO {
-  public constructor(public leaderId: string, public specialtyId: string) { }
+  public constructor(private leaderId: string, private specialtyId: string) { }
+
+  public toObject(): { leaderId: string; specialtyId: string; message: string; } {
+    return {
+      leaderId: this.leaderId,
+      specialtyId: this.specialtyId,
+      message: 'leader registered successfully'
+    };
+  }
 };

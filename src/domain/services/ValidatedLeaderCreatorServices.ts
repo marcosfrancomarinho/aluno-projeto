@@ -17,11 +17,11 @@ export class ValidatedLeaderCreatorServices  {
     @inject(PrimaSpecialtyExistenceFinder) private specialtyExistenceFinder: SpecialtyExistenceFinder
   ) {}
 
-  public async create(input: LeaderRequestDTO): Promise<Leader> {
+  public async create(leaderDTO: LeaderRequestDTO): Promise<Leader> {
     const id: ID = this.idGenerator.generete();
-    const name: Name = Name.create(input.name);
-    const email: Email = Email.create(input.email);
-    const specialty: Specialty = Specialty.create(input.specialty);
+    const name: Name = Name.create(leaderDTO.getName());
+    const email: Email = Email.create(leaderDTO.getEmail());
+    const specialty: Specialty = Specialty.create(leaderDTO.getSpecialty());
 
     const code: ID | null = await this.specialtyExistenceFinder.find(specialty);
 

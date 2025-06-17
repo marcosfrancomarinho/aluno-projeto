@@ -1,3 +1,7 @@
 export class LeaderContactResquestDTO {
-  public constructor(public name: string) { }
+  public constructor(private name: string) { }
+  
+  public getName(): string {
+    return this.name;
+  }
 }

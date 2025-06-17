@@ -4,9 +4,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "lorena joana",
-    "email": "lorena@gmail.com",
-    "specialty": "matematica"
+    "name": "ricardo lima",
+    "email": "ricardo@gmail.com",
+    "specialty": "logica de progamaçao"
 }
 
 ###
@@ -15,7 +15,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "matematica",
+    "name": "logica de progamaçao",
     "timestamp":"2025-12-05T12:00:00"
 }
 
@@ -26,17 +26,17 @@ Content-Type: application/json
 
 {
     "student": {
-        "name": "marcos",
-        "email": "marcos@gmail.com"
+        "name": "luiz",
+        "email": "luiz@gmail.com"
     },
     "leader": {
-        "email": "lorena@gmail.com"
+        "email": "mateus@gmail.com"
     },
     "project": {
-        "name": "matematica"
+        "name": "logica de progamaçao"
     },
     "timestamp":"2025-12-05T12:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=matematica
+GET http://localhost:3000/finder-leader?name=logica de progamação

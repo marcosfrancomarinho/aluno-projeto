@@ -14,10 +14,10 @@ export class StudentEnrollerInProjectControllers implements HttpController {
   public async execute(httpContext: HttpContext): Promise<void> {
     try {
       const { student, leader, project, timestamp } = httpContext.getRequestBody();
-      const requestDTO: EnrollRequestDTO = new EnrollRequestDTO(student, leader, project, timestamp);
-      const idsEnroll: EnrollResponseDTO = await this.studentEnrollerInProjectHandler.enroll(requestDTO);
+      const enrollRequestDTO: EnrollRequestDTO = new EnrollRequestDTO(student, leader, project, timestamp);
+      const enrollResponseDTO: EnrollResponseDTO = await this.studentEnrollerInProjectHandler.enroll(enrollRequestDTO);
 
-      httpContext.send(200, { ...idsEnroll, message: 'enroll whith successfully' });
+      httpContext.send(200, enrollResponseDTO.toObject());
     } catch (error) {
       httpContext.handlerError(error);
     }

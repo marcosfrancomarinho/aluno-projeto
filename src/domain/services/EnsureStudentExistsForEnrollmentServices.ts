@@ -19,9 +19,9 @@ export class EnsureStudentExistsForEnrollmentServices {
     @inject(UUID) private idGenerator: IdGenerator
   ) { }
 
-  public async execute(input: EnrollRequestDTO): Promise<Student> {
-    const name: Name = Name.create(input.student.name);
-    const email: Email = Email.create(input.student.email);
+  public async execute(enrollDTO: EnrollRequestDTO): Promise<Student> {
+    const name: Name = Name.create(enrollDTO.getNameStudent());
+    const email: Email = Email.create(enrollDTO.getEmailStudent());
     const registration: ID = this.idGenerator.generete();
     let student: Student = Student.create(registration, name, email);
 

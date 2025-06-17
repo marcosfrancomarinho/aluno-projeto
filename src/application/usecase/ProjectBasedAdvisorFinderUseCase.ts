@@ -10,15 +10,15 @@ import { LeaderContactResponseDTO } from '../dto/LeaderContactResponseDTO';
 export class ProjectBasedAdvisorFinderUseCase {
   public constructor(@inject(PrismaProjectBasedAdvisorFinder) private projectBasedAdvisorFinder: ProjectBasedAdvisorFinder) { }
 
-  public async findAll(input: LeaderContactResquestDTO): Promise<LeaderContactResponseDTO[]> {
-    const spcialty: Specialty = Specialty.create(input.name);
+  public async findAll(leaderContactDTO: LeaderContactResquestDTO): Promise<LeaderContactResponseDTO[]> {
+    const spcialty: Specialty = Specialty.create(leaderContactDTO.getName());
 
     const leaderList: Leader[] = await this.projectBasedAdvisorFinder.findAll(spcialty);
 
-    const LeaderContacts: LeaderContactResponseDTO[] = leaderList.map((leader) => (
+    const leaderContactResponseDTO: LeaderContactResponseDTO[] = leaderList.map((leader) => (
       new LeaderContactResponseDTO(leader.getName(), leader.getEmail(), leader.getCode())
     ));
 
-    return LeaderContacts;
+    return leaderContactResponseDTO;
   }
 }

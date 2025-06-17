@@ -19,8 +19,8 @@ export class LeaderCreatorUseCase {
     @inject(ValidatedLeaderCreatorServices) private validatedLeaderCreatorServices: ValidatedLeaderCreatorServices
   ) { }
 
-  public async create(input: LeaderRequestDTO): Promise<LeaderResponseDTO> {
-    const validatedLeader: Leader = await this.validatedLeaderCreatorServices.create(input);
+  public async create(leaderDTO: LeaderRequestDTO): Promise<LeaderResponseDTO> {
+    const validatedLeader: Leader = await this.validatedLeaderCreatorServices.create(leaderDTO);
 
     const leaderFound: Leader | null = await this.leaderFinder.find(validatedLeader);
 
@@ -36,8 +36,8 @@ export class LeaderCreatorUseCase {
   private async createSpecialization(leader: Leader): Promise<LeaderResponseDTO> {
     const { leaderId, specialtyId } = await this.advisorSpecializationCreator.create(leader);
 
-    const leaderIds: LeaderResponseDTO = new LeaderResponseDTO(leaderId.getValue(), specialtyId.getValue());
+    const leaderResponseDTO: LeaderResponseDTO = new LeaderResponseDTO(leaderId.getValue(), specialtyId.getValue());
 
-    return leaderIds;
+    return leaderResponseDTO;
   }
 }

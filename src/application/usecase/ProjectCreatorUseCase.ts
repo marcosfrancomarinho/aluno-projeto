@@ -17,16 +17,16 @@ export class ProjectCreatorUseCase {
     @inject(PrismaProjectCreator) private projectCreator: ProjectCreator
   ) { }
 
-  public async create(input: ProjectRequestDTO): Promise<ProjectResponseDTO> {
+  public async create(projectDTO: ProjectRequestDTO): Promise<ProjectResponseDTO> {
     const code: ID = this.idGenerator.generete();
-    const name: Specialty = Specialty.create(input.name);
-    const timestamp: Timestamp = Timestamp.create(input.timestamp);
+    const name: Specialty = Specialty.create(projectDTO.getName());
+    const timestamp: Timestamp = Timestamp.create(projectDTO.getTimestamp());
     const project: Project = Project.create(code, name, timestamp);
 
     await this.projectCreator.create(project);
 
-    const codeProject: ProjectResponseDTO = new ProjectResponseDTO(code.getValue());
+    const projectResponseDTO: ProjectResponseDTO = new ProjectResponseDTO(code.getValue());
 
-    return codeProject;
+    return projectResponseDTO;
   }
 }

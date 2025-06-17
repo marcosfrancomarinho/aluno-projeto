@@ -10,8 +10,8 @@ import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 export class QualifiedLeaderFinderServices {
   public constructor(@inject(PrismaSpecialistAdvisorFinder) private specialistAdvisorFinder: SpecialistAdvisorFinder) { }
 
-  public async find(input: EnrollRequestDTO, project: Project): Promise<Leader> {
-    const email: Email = Email.create(input.leader.email);
+  public async find(enrollDTO: EnrollRequestDTO, project: Project): Promise<Leader> {
+    const email: Email = Email.create(enrollDTO.getEmailLeader());
     const leader: Leader | null = await this.specialistAdvisorFinder.find(email, project);
 
     if (!leader) throw new Error('advisor inexistent or does not have the expertise for the project');

@@ -12,10 +12,10 @@ export class ProjectCreatorControllers implements HttpController {
   public async execute(httpContext: HttpContext): Promise<void> {
     try {
       const { name, timestamp } = httpContext.getRequestBody();
-      const requestDTO: ProjectRequestDTO = new ProjectRequestDTO(name, timestamp);
-      const { projectId }: ProjectResponseDTO = await this.projectCreatorHandler.create(requestDTO);
+      const projectRequestDTO: ProjectRequestDTO = new ProjectRequestDTO(name, timestamp);
+      const projectResponseDTO: ProjectResponseDTO = await this.projectCreatorHandler.create(projectRequestDTO);
 
-      httpContext.send(200, { projectId, message: 'project create successfully' });
+      httpContext.send(200, projectResponseDTO.toObject());
     } catch (error) {
       httpContext.handlerError(error);
     }

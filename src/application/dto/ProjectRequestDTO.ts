@@ -1,3 +1,11 @@
 export class ProjectRequestDTO {
-  public constructor(public name: string, public timestamp: string) { }
+  public constructor(private name: string, private timestamp: string) { }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getTimestamp(): string {
+    return this.timestamp;
+  }
 };

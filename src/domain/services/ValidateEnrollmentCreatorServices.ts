@@ -15,11 +15,11 @@ export class ValidateEnrollmentCreatorServices {
     @inject(QualifiedLeaderFinderServices) private qualifiedLeaderFinderServices: QualifiedLeaderFinderServices,
     @inject(UUID) private idGenerator: IdGenerator
   ) { }
-  public async create(input: EnrollRequestDTO): Promise<Enrollment> {
+  public async create(enrollDTO: EnrollRequestDTO): Promise<Enrollment> {
     const code = this.idGenerator.generete();
-    const student = await this.ensureStudentExistsForEnrollmentServices.execute(input);
-    const project = await this.resolveProjectForEnrollmentServices.resolve(input);
-    const leader = await this.qualifiedLeaderFinderServices.find(input, project);
+    const student = await this.ensureStudentExistsForEnrollmentServices.execute(enrollDTO);
+    const project = await this.resolveProjectForEnrollmentServices.resolve(enrollDTO);
+    const leader = await this.qualifiedLeaderFinderServices.find(enrollDTO, project);
 
     const enrollment: Enrollment = Enrollment.create(code, student, leader, project);
 

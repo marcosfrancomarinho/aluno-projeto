@@ -17,10 +17,10 @@ export class SchedulingDateTimeValidatorServices  {
     @inject(PrismaProjectFinderByName) private projectFinderByName: ProjectFinderByName
   ) {}
 
-  public async validate(input: EnrollRequestDTO): Promise<Scheduling> {
+  public async validate(enrollDTO: EnrollRequestDTO): Promise<Scheduling> {
     const code: ID = this.idGenerator.generete();
-    const timestamp: Timestamp = Timestamp.create(input.timestamp);
-    const specialty: Specialty = Specialty.create(input.project.name);
+    const timestamp: Timestamp = Timestamp.create(enrollDTO.getTimestamp());
+    const specialty: Specialty = Specialty.create(enrollDTO.getNameProject());
 
     const projectFound: Project | null = await this.projectFinderByName.find(specialty);
 

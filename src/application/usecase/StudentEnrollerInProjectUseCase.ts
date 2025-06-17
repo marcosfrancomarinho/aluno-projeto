@@ -17,13 +17,13 @@ export class StudentEnrollerInProjectUseCase {
     @inject(SchedulingDateTimeValidatorServices) private schedulingDateTimeValidatorServices: SchedulingDateTimeValidatorServices
   ) { }
 
-  public async enroll(input: EnrollRequestDTO): Promise<EnrollResponseDTO> {
-    const enrollment: Enrollment = await this.validateEnrollmentCreatorServices.create(input);
-    const scheduling: Scheduling = await this.schedulingDateTimeValidatorServices.validate(input);
+  public async enroll(enrollDTO: EnrollRequestDTO): Promise<EnrollResponseDTO> {
+    const enrollment: Enrollment = await this.validateEnrollmentCreatorServices.create(enrollDTO);
+    const scheduling: Scheduling = await this.schedulingDateTimeValidatorServices.validate(enrollDTO);
 
     const enrollmentId: ID = await this.studentEnrollerInProject.enroll(enrollment, scheduling);
 
-    const enrollmentIdGenereted: EnrollResponseDTO = new EnrollResponseDTO(enrollmentId.getValue());
-    return enrollmentIdGenereted;
+    const enrollResponseDTO: EnrollResponseDTO = new EnrollResponseDTO(enrollmentId.getValue());
+    return enrollResponseDTO;
   }
 }
