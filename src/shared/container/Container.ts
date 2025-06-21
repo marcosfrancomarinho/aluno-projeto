@@ -76,14 +76,14 @@ export class Container {
 
     private buildProjectBasedAdvisorController(): HttpController {
         const projectBasedAdvisorFinder = new PrismaProjectBasedAdvisorFinder();
-        const useCase = new ProjectBasedAdvisorFinderUseCase(projectBasedAdvisorFinder);
-        return new ProjectBasedAdvisorFinderControllers(useCase);
+        const projectBasedAdvisorFinderUseCase = new ProjectBasedAdvisorFinderUseCase(projectBasedAdvisorFinder);
+        return new ProjectBasedAdvisorFinderControllers(projectBasedAdvisorFinderUseCase);
     }
 
     private buildProjectCreatorController(idGenerator: IdGenerator): HttpController {
         const projectCreator = new PrismaProjectCreator();
-        const useCase = new ProjectCreatorUseCase(idGenerator, projectCreator);
-        return new ProjectCreatorControllers(useCase);
+        const projectCreatorUseCase = new ProjectCreatorUseCase(idGenerator, projectCreator);
+        return new ProjectCreatorControllers(projectCreatorUseCase);
     }
 
     private buildStudentEnrollerController(
@@ -115,14 +115,14 @@ export class Container {
         const projectFinderByName = new PrismaProjectFinderByName();
         const dateTimeValidator = new SchedulingDateTimeValidatorServices(idGenerator, projectFinderByName);
 
-        const useCase = new StudentEnrollerInProjectUseCase(
+        const studentEnrollerInProjectUseCase = new StudentEnrollerInProjectUseCase(
             studentEnroller,
             validateEnrollment,
             dateTimeValidator,
             notificationPublisher
         );
 
-        return new StudentEnrollerInProjectControllers(useCase);
+        return new StudentEnrollerInProjectControllers(studentEnrollerInProjectUseCase);
     }
 
     private buildNotificationPublisher(): NotificationPublisher {
