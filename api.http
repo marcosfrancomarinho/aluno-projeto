@@ -1,23 +1,24 @@
 ###
 
-POST http://localhost:3000/register-leader 
-Content-Type: application/json
-
-{
-    "name": "mateus lima",
-    "email": "mateus@gmail.com",
-    "specialty": "historia"
-}
-
-###
-
 POST http://localhost:3000/create-project 
 Content-Type: application/json
 
 {
-    "name": "historia",
+    "name": "geografia",
     "timestamp":"2025-12-05T12:00:00"
 }
+
+###
+
+POST http://localhost:3000/register-leader 
+Content-Type: application/json
+
+{
+    "name": "carlos almeida",
+    "email": "carlosalmeida@gmail.com",
+    "specialty": "historia"
+}
+
 
 ###
 
@@ -30,7 +31,7 @@ Content-Type: application/json
         "email": "marcosbarros@gmail.com"
     },
     "leader": {
-        "email": "mateus@gmail.com"
+        "email": "carlosalmeida@gmail.com"
     },
     "project": {
         "name": "historia"
