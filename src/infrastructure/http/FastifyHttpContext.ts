@@ -14,7 +14,7 @@ export class FastifyHttpContext implements HttpContext {
   public send(status: number, data: any): void {
     this.reply.code(status).send(data);
   }
-  public handlerError(error: any): void {
+  public sendError(error: any): void {
     this.reply.code(400).send({
       message: error.message,
     });

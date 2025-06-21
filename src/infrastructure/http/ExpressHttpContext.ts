@@ -14,7 +14,7 @@ export class ExpressHttpContext implements HttpContext {
   public send(status: number, data: any): void {
     this.response.status(status).json(data);
   }
-  public handlerError(error: any): void {
+  public sendError(error: any): void {
     this.response.status(400).send({
       message: error.message,
     });
