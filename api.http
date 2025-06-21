@@ -4,8 +4,8 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "ricardo lima",
-    "email": "ricardo@gmail.com",
+    "name": "pedro lima",
+    "email": "pedro@gmail.com",
     "specialty": "logica de progamaçao"
 }
 

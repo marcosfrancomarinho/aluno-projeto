@@ -14,7 +14,7 @@ export class LeaderCreatorControllers implements HttpController {
       const { name, specialty, email } = httpContext.getRequestBody();
       const leaderRequestDTO: LeaderRequestDTO = new LeaderRequestDTO(name, email, specialty);
       const leaderResponseDTO: LeaderResponseDTO = await this.leaderCreator.create(leaderRequestDTO);
-
+      
       httpContext.send(200, leaderResponseDTO.toObject());
     } catch (error) {
       httpContext.handlerError(error);

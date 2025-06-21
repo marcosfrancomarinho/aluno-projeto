@@ -13,7 +13,6 @@ function main(): void {
   routers.register(container);
   server.listen(port);
 }
-
 main()
 
 

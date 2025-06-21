@@ -22,7 +22,7 @@ export class PrismaProjectBasedAdvisorFinder implements ProjectBasedAdvisorFinde
         ID.create(leader.code),
         Name.create(leader.name),
         Email.create(leader.email),
-        ID.create(project.code)
+        ID.create(project.code),
       );
       return leaderCreated;
     });

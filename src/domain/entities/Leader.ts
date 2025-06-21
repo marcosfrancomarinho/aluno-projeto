@@ -3,7 +3,7 @@ import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
 
 export class Leader {
-  private constructor(private code: ID, private name: Name, private email: Email, private specialty: ID) {}
+  private constructor(private code: ID, private name: Name, private email: Email, private specialty: ID) { }
   public getSpecialty(): string {
     return this.specialty.getValue();
   }
@@ -16,9 +16,7 @@ export class Leader {
   public getEmail(): string {
     return this.email.getValue();
   }
-  public updateCode(codeLeader: string): void {
-    this.code = ID.create(codeLeader);
-  }
+
   public static create(code: ID, name: Name, email: Email, specialty: ID): Leader {
     return new Leader(code, name, email, specialty);
   }

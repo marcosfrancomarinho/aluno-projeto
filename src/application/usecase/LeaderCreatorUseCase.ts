@@ -29,7 +29,6 @@ export class LeaderCreatorUseCase {
       return await this.createSpecialization(validatedLeader);
     }
 
-    leaderFound.updateCode(leaderFound.getCode());
     return await this.createSpecialization(leaderFound);
   }
 
