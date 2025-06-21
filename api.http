@@ -4,8 +4,8 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "geografia",
-    "timestamp":"2025-12-05T12:00:00"
+    "name": "aprendendo inglês basico",
+    "timestamp":"2025-07-21T08:00:00"
 }
 
 ###
@@ -14,9 +14,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "carlos almeida",
-    "email": "carlosalmeida@gmail.com",
-    "specialty": "historia"
+    "name": "karol almeida",
+    "email": "karolalmeida@gmail.com",
+    "specialty": "APRENDENDO INGLES BASICO"
 }
 
 
@@ -31,13 +31,13 @@ Content-Type: application/json
         "email": "marcosbarros@gmail.com"
     },
     "leader": {
-        "email": "carlosalmeida@gmail.com"
+        "email": "karolalmeida@gmail.com"
     },
     "project": {
-        "name": "historia"
+        "name": "aprendendo ingles basico"
     },
-    "timestamp":"2025-12-05T12:00:00"
+    "timestamp":"2025-07-21T08:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=historia
+GET http://localhost:3000/finder-leader?name=aprendendo inglês basico
