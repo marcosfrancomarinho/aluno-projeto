@@ -24,11 +24,11 @@ export class PrismaSpecialistAdvisorFinder implements SpecialistAdvisorFinder {
       ID.create(leader.code),
       Name.create(leader.name),
       Email.create(leader.email),
-      ID.create(codeProject)
+      ID.create(codeProject),
+      listProjects
     );
 
-    leaderGenereted.setListSpecialties(listProjects);
-    
+
     return leaderGenereted;
   }
 }
