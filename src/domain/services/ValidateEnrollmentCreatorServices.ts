@@ -2,10 +2,13 @@ import { inject, injectable } from 'tsyringe';
 import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { UUID } from '../../infrastructure/idgenerator/UUID';
 import { Enrollment } from '../entities/Enrollment';
+import { Project } from '../entities/Project';
+import { Student } from '../entities/Student';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { EnsureStudentExistsForEnrollmentServices } from './EnsureStudentExistsForEnrollmentServices';
 import { QualifiedLeaderFinderServices } from './QualifiedLeaderFinderServices';
 import { ResolveProjectForEnrollmentServices } from './ResolveProjectForEnrollmentServices';
+import { Leader } from '../entities/Leader';
 
 @injectable()
 export class ValidateEnrollmentCreatorServices {
@@ -17,9 +20,9 @@ export class ValidateEnrollmentCreatorServices {
   ) { }
   public async create(enrollDTO: EnrollRequestDTO): Promise<Enrollment> {
     const code = this.idGenerator.generete();
-    const student = await this.ensureStudentExistsForEnrollmentServices.execute(enrollDTO);
-    const project = await this.resolveProjectForEnrollmentServices.resolve(enrollDTO);
-    const leader = await this.qualifiedLeaderFinderServices.find(enrollDTO, project);
+    const student: Student = await this.ensureStudentExistsForEnrollmentServices.execute(enrollDTO);
+    const project: Project = await this.resolveProjectForEnrollmentServices.resolve(enrollDTO);
+    const leader: Leader = await this.qualifiedLeaderFinderServices.find(enrollDTO, project);
 
     const enrollment: Enrollment = Enrollment.create(code, student, leader, project);
 

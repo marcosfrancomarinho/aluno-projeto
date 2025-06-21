@@ -14,8 +14,9 @@ export class QualifiedLeaderFinderServices {
     const email: Email = Email.create(enrollDTO.getEmailLeader());
     const leader: Leader | null = await this.specialistAdvisorFinder.find(email, project);
 
-    if (!leader) throw new Error('advisor inexistent or does not have the expertise for the project');
-
+    if (!leader) throw new Error('non-existent counselor in the institution.');
+    
+    leader.isSpecialized(project.getCode());
     return leader;
   }
 }

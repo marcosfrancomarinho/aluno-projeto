@@ -10,12 +10,15 @@ export class PrismaSpecialistAdvisorFinder implements SpecialistAdvisorFinder {
   public async find(email: Email, project: Project): Promise<Leader | null> {
     const emailLeader: string = email.getValue();
     const codeProject: string = project.getCode();
-    
+
     const leader = await Client.leader.findUnique({
-      where: { email: emailLeader, specialty: { some: { code_project: codeProject } } },
+      where: { email: emailLeader },
+      include: { specialty: true },
     });
 
     if (!leader) return null;
+
+    const listProjects: ID[] = leader.specialty.map(({ code_project }) => ID.create(code_project));
 
     const leaderGenereted: Leader = Leader.create(
       ID.create(leader.code),
@@ -23,6 +26,9 @@ export class PrismaSpecialistAdvisorFinder implements SpecialistAdvisorFinder {
       Email.create(leader.email),
       ID.create(codeProject)
     );
+
+    leaderGenereted.setListSpecialties(listProjects);
+    
     return leaderGenereted;
   }
 }

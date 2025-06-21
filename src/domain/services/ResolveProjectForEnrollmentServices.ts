@@ -13,12 +13,12 @@ export class ResolveProjectForEnrollmentServices {
 
   public async resolve(enrollDTO: EnrollRequestDTO): Promise<Project> {
     const name: Specialty = Specialty.create(enrollDTO.getNameProject());
-    const code: ID | null = await this.specialtyExistenceFinder.find(name);
+    const codeSpecialtyFound: ID | null = await this.specialtyExistenceFinder.find(name);
     const datahours: Timestamp = Timestamp.create(enrollDTO.getTimestamp());
 
-    if (!code) throw new Error('non-existent project in the institution');
+    if (!codeSpecialtyFound) throw new Error('non-existent project in the institution');
 
-    const projectCreated: Project = Project.create(code, name, datahours);
+    const projectCreated: Project = Project.create(codeSpecialtyFound, name, datahours);
     return projectCreated;
   }
 }
