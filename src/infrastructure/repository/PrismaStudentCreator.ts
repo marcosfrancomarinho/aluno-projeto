@@ -1,7 +1,5 @@
-import { injectable } from 'tsyringe';
 import { Student } from '../../domain/entities/Student';
 import { StudentCreator } from '../../domain/interfaces/StudentCreator';
-import { ID } from '../../domain/valueobject/ID';
 import { Client } from './Client';
 
 export type DatasStudent = {
@@ -10,7 +8,6 @@ export type DatasStudent = {
   email: string;
 };
 
-@injectable()
 export class PrismaStudentCreator implements StudentCreator {
   public async create(student: Student): Promise<void> {
     const data: DatasStudent = {

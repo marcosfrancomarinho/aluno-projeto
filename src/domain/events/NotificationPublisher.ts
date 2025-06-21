@@ -1,11 +1,14 @@
-import { injectable, injectAll } from "tsyringe";
-import { Observer } from "./Observer";
 import { Enrollment } from "../entities/Enrollment";
+import { Observer } from "./Observer";
 
-@injectable()
 export class NotificationPublisher {
-    public constructor(@injectAll("Observers") private observers: Observer[]) { }
-
+    private observers: Observer[];
+    public constructor() {
+        this.observers = [];
+    }
+    public register(observer: Observer): void {
+        this.observers.push(observer);
+    }
     public async notify(enrollment: Enrollment) {
         for (const observer of this.observers) {
             await observer.update(enrollment);

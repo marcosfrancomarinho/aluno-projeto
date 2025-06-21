@@ -1,7 +1,4 @@
-import { inject, injectable } from 'tsyringe';
-import { UUID } from '../../infrastructure/idgenerator/UUID';
-import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
-import { PrismaStudentFinder } from '../../infrastructure/repository/PrismaStudentFinder';
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { Student } from '../entities/Student';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { StudentCreator } from '../interfaces/StudentCreator';
@@ -9,14 +6,12 @@ import { StudentFinder } from '../interfaces/StudentFinder';
 import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
-import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 
-@injectable()
 export class EnsureStudentExistsForEnrollmentServices {
   public constructor(
-    @inject(PrismaStudentCreator) private studentCreator: StudentCreator,
-    @inject(PrismaStudentFinder) private studentFinder: StudentFinder,
-    @inject(UUID) private idGenerator: IdGenerator
+    private studentCreator: StudentCreator,
+    private studentFinder: StudentFinder,
+    private idGenerator: IdGenerator
   ) { }
 
   public async execute(enrollDTO: EnrollRequestDTO): Promise<Student> {

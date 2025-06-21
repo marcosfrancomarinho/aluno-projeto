@@ -1,15 +1,11 @@
-import { inject, injectable } from 'tsyringe';
+import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../application/dto/EnrollResponseDTO';
+import { StudentEnrollerInProjectUseCase } from '../../application/usecase/StudentEnrollerInProjectUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { HttpController } from '../../domain/interfaces/HttpController';
-import { StudentEnrollerInProjectUseCase } from '../../application/usecase/StudentEnrollerInProjectUseCase';
-import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 
-@injectable()
 export class StudentEnrollerInProjectControllers implements HttpController {
-  public constructor(
-    @inject(StudentEnrollerInProjectUseCase) private studentEnrollerInProjectHandler: StudentEnrollerInProjectUseCase
-  ) { }
+  public constructor(private studentEnrollerInProjectHandler: StudentEnrollerInProjectUseCase) { }
 
   public async execute(httpContext: HttpContext): Promise<void> {
     try {

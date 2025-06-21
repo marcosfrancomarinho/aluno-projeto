@@ -1,20 +1,16 @@
-import { inject, injectable } from 'tsyringe';
 import { Project } from '../../domain/entities/Project';
 import { IdGenerator } from '../../domain/interfaces/IdGenerator';
 import { ProjectCreator } from '../../domain/interfaces/ProjectCreator';
 import { ID } from '../../domain/valueobject/ID';
 import { Specialty } from '../../domain/valueobject/Specialty';
 import { Timestamp } from '../../domain/valueobject/Timestamp';
-import { UUID } from '../../infrastructure/idgenerator/UUID';
-import { PrismaProjectCreator } from '../../infrastructure/repository/PrismaProjectCreator';
 import { ProjectRequestDTO } from '../dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../dto/ProjectResponseDTO';
 
-@injectable()
 export class ProjectCreatorUseCase {
   public constructor(
-    @inject(UUID) private idGenerator: IdGenerator,
-    @inject(PrismaProjectCreator) private projectCreator: ProjectCreator
+    private idGenerator: IdGenerator,
+    private projectCreator: ProjectCreator
   ) { }
 
   public async create(projectDTO: ProjectRequestDTO): Promise<ProjectResponseDTO> {

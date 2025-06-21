@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "aprendendo inglês basico",
+    "name": "aprendendo inglês avançado",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "name": "karol almeida",
     "email": "karolalmeida@gmail.com",
-    "specialty": "APRENDENDO INGLES BASICO"
+    "specialty": "APRENDENDO INGLES avançado"
 }
 
 
@@ -34,10 +34,10 @@ Content-Type: application/json
         "email": "karolalmeida@gmail.com"
     },
     "project": {
-        "name": "aprendendo ingles basico"
+        "name": "aprendendo ingles avançado"
     },
     "timestamp":"2025-07-21T08:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=aprendendo inglês basico
+GET http://localhost:3000/finder-leader?name=aprendendo inglês avançado

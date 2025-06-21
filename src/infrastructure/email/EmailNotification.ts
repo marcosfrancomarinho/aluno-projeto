@@ -1,9 +1,7 @@
-import { injectable } from "tsyringe";
-import { Observer } from "../../domain/events/Observer";
-import { Enrollment } from "../../domain/entities/Enrollment";
 import nodemailer from "nodemailer";
+import { Enrollment } from "../../domain/entities/Enrollment";
+import { Observer } from "../../domain/events/Observer";
 
-@injectable()
 export class EmailNotification implements Observer {
     public async update(enrollment: Enrollment): Promise<void> {
         const transporter = nodemailer.createTransport({

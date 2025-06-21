@@ -1,4 +1,3 @@
-import { injectable } from 'tsyringe';
 import { Leader } from '../../domain/entities/Leader';
 import { LeaderCreator } from '../../domain/interfaces/LeaderCreator';
 import { ID } from '../../domain/valueobject/ID';
@@ -10,7 +9,6 @@ export type DatasLeader = {
   email: string;
 };
 
-@injectable()
 export class PrismaLeaderCreator implements LeaderCreator {
   public async create(leader: Leader): Promise<ID> {
     const data: DatasLeader = {

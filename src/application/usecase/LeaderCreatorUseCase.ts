@@ -1,22 +1,17 @@
-import { inject, injectable } from 'tsyringe';
 import { Leader } from '../../domain/entities/Leader';
 import { AdvisorSpecializationCreator } from '../../domain/interfaces/AdvisorSpecializationCreator';
 import { LeaderCreator } from '../../domain/interfaces/LeaderCreator';
 import { LeaderFinder } from '../../domain/interfaces/LeaderFinder';
 import { ValidatedLeaderCreatorServices } from '../../domain/services/ValidatedLeaderCreatorServices';
-import { PrismaAdvisorSpecializationCreator } from '../../infrastructure/repository/PrismaAdvisorSpecializationCreator';
-import { PrismaLeaderCreator } from '../../infrastructure/repository/PrismaLeaderCreator';
-import { PrismaLeaderFinder } from '../../infrastructure/repository/PrismaLeaderFinder';
 import { LeaderRequestDTO } from '../dto/LeaderRequestDTO';
 import { LeaderResponseDTO } from '../dto/LeaderResponseDTO';
 
-@injectable()
 export class LeaderCreatorUseCase {
   public constructor(
-    @inject(PrismaLeaderCreator) private leaderCreator: LeaderCreator,
-    @inject(PrismaLeaderFinder) private leaderFinder: LeaderFinder,
-    @inject(PrismaAdvisorSpecializationCreator) private advisorSpecializationCreator: AdvisorSpecializationCreator,
-    @inject(ValidatedLeaderCreatorServices) private validatedLeaderCreatorServices: ValidatedLeaderCreatorServices
+    private leaderCreator: LeaderCreator,
+    private leaderFinder: LeaderFinder,
+    private advisorSpecializationCreator: AdvisorSpecializationCreator,
+    private validatedLeaderCreatorServices: ValidatedLeaderCreatorServices
   ) { }
 
   public async create(leaderDTO: LeaderRequestDTO): Promise<LeaderResponseDTO> {

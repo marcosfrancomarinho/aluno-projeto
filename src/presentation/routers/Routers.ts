@@ -3,7 +3,7 @@ import { HttpServer } from '../../domain/interfaces/HttpServer';
 import { HttpController } from '../../domain/interfaces/HttpController';
 
 export class Routers {
-  public constructor(private server: HttpServer) {}
+  public constructor(private server: HttpServer) { }
 
   private asHandler(controller: HttpController) {
     return controller.execute.bind(controller);
