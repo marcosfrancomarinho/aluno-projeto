@@ -15,7 +15,7 @@ export class ProjectBasedAdvisorFinderControllers implements HttpController {
       const { name } = httpContext.getRequestQuery();
       const leaderContactResquestDTO: LeaderContactResquestDTO = new LeaderContactResquestDTO(name);
       const leaderContactResponseDTO: LeaderContactResponseDTO[] = await this.projectBasedAdvisorFinderHandler.findAll(leaderContactResquestDTO);
-      httpContext.send(200, leaderContactResponseDTO);
+      httpContext.send(200, leaderContactResponseDTO)
     } catch (error) {
       httpContext.sendError(error);
     }

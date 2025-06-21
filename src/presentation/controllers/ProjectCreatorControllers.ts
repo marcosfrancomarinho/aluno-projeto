@@ -15,7 +15,7 @@ export class ProjectCreatorControllers implements HttpController {
       const projectRequestDTO: ProjectRequestDTO = new ProjectRequestDTO(name, timestamp);
       const projectResponseDTO: ProjectResponseDTO = await this.projectCreatorHandler.create(projectRequestDTO);
 
-      httpContext.send(200, projectResponseDTO.toObject());
+      httpContext.send(200, projectResponseDTO.toObject())
     } catch (error) {
       httpContext.sendError(error);
     }

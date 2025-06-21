@@ -1,6 +1,6 @@
 export interface HttpContext {
   getRequestBody<T = any>(): T | Promise<T>;
   getRequestQuery<T = any>(): T | Promise<T>;
-  send(status: number, data: any): any;
-  sendError(error: any): void;
+  send<T = any>(status: number, data: T): any;
+  sendError<T = any>(error: T): void;
 }
