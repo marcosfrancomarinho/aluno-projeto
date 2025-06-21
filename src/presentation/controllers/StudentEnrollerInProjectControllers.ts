@@ -19,7 +19,7 @@ export class StudentEnrollerInProjectControllers implements HttpController {
 
       httpContext.send(200, enrollResponseDTO.toObject());
     } catch (error) {
-      httpContext.handlerError(error);
+      httpContext.sendError(error);
     }
   }
 }

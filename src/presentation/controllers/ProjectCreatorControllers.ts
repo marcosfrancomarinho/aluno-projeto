@@ -17,7 +17,7 @@ export class ProjectCreatorControllers implements HttpController {
 
       httpContext.send(200, projectResponseDTO.toObject());
     } catch (error) {
-      httpContext.handlerError(error);
+      httpContext.sendError(error);
     }
   }
 }

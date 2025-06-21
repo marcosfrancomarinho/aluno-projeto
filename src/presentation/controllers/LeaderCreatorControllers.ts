@@ -17,7 +17,7 @@ export class LeaderCreatorControllers implements HttpController {
       
       httpContext.send(200, leaderResponseDTO.toObject());
     } catch (error) {
-      httpContext.handlerError(error);
+      httpContext.sendError(error);
     }
   }
 }
