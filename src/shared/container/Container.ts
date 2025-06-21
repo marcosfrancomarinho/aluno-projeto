@@ -1,7 +1,45 @@
-import * as A from '../../application';
-import * as D from "../../domain";
-import * as I from "../../infrastructure";
-import * as P from "../../presentation";
+import {
+    LeaderCreatorUseCase,
+    ProjectBasedAdvisorFinderUseCase,
+    ProjectCreatorUseCase,
+    StudentEnrollerInProjectUseCase,
+} from '../../application';
+
+import {
+    ValidatedLeaderCreatorServices,
+    EnsureStudentExistsForEnrollmentServices,
+    ResolveProjectForEnrollmentServices,
+    QualifiedLeaderFinderServices,
+    ValidateEnrollmentCreatorServices,
+    SchedulingDateTimeValidatorServices,
+    NotificationPublisher,
+    IdGenerator,
+    SpecialtyExistenceFinder,
+    HttpController,
+} from '../../domain';
+
+import {
+    PrismaLeaderCreator,
+    PrismaLeaderFinder,
+    PrismaAdvisorSpecializationCreator,
+    PrismaProjectBasedAdvisorFinder,
+    PrismaProjectCreator,
+    PrismaStudentEnrollerInProject,
+    PrismaStudentCreator,
+    PrismaStudentFinder,
+    PrismaSpecialistAdvisorFinder,
+    PrismaProjectFinderByName,
+    PrimaSpecialtyExistenceFinder,
+    UUID,
+    EmailNotification,
+} from '../../infrastructure';
+
+import {
+    LeaderCreatorControllers,
+    ProjectBasedAdvisorFinderControllers,
+    ProjectCreatorControllers,
+    StudentEnrollerInProjectControllers,
+} from '../../presentation';
 
 export class Container {
     private static instance: Container;
@@ -14,98 +52,95 @@ export class Container {
     }
 
     private buildLeaderController(
-        idGeneretor: D.IdGenerator,
-        specialtyExistenceFinder: D.SpecialtyExistenceFinder
-    ): D.HttpController {
-        const leaderCreator = new I.PrismaLeaderCreator();
-        const leaderFinder = new I.PrismaLeaderFinder();
-        const advisorSpecializationCreator = new I.PrismaAdvisorSpecializationCreator();
+        idGenerator: IdGenerator,
+        specialtyExistenceFinder: SpecialtyExistenceFinder
+    ): HttpController {
+        const leaderCreator = new PrismaLeaderCreator();
+        const leaderFinder = new PrismaLeaderFinder();
+        const advisorSpecializationCreator = new PrismaAdvisorSpecializationCreator();
 
-        const validatedLeaderCreatorServices = new D.ValidatedLeaderCreatorServices(
-            idGeneretor,
+        const validatedLeaderCreatorServices = new ValidatedLeaderCreatorServices(
+            idGenerator,
             specialtyExistenceFinder
         );
 
-        const leaderCreatorUseCase = new A.LeaderCreatorUseCase(
+        const leaderCreatorUseCase = new LeaderCreatorUseCase(
             leaderCreator,
             leaderFinder,
             advisorSpecializationCreator,
             validatedLeaderCreatorServices
         );
 
-        return new P.LeaderCreatorControllers(leaderCreatorUseCase);
+        return new LeaderCreatorControllers(leaderCreatorUseCase);
     }
 
-    private buildProjectBasedAdvisorController(): D.HttpController {
-        const projectBasedAdvisorFinder = new I.PrismaProjectBasedAdvisorFinder();
-        const projectBasedAdvisorFinderUseCase = new A.ProjectBasedAdvisorFinderUseCase(
-            projectBasedAdvisorFinder
-        );
-
-        return new P.ProjectBasedAdvisorFinderControllers(projectBasedAdvisorFinderUseCase);
+    private buildProjectBasedAdvisorController(): HttpController {
+        const projectBasedAdvisorFinder = new PrismaProjectBasedAdvisorFinder();
+        const useCase = new ProjectBasedAdvisorFinderUseCase(projectBasedAdvisorFinder);
+        return new ProjectBasedAdvisorFinderControllers(useCase);
     }
 
-    private buildProjectCreatorController(idGeneretor: D.IdGenerator): D.HttpController {
-        const projectCreator = new I.PrismaProjectCreator();
-        const projectCreatorUseCase = new A.ProjectCreatorUseCase(idGeneretor, projectCreator);
-
-        return new P.ProjectCreatorControllers(projectCreatorUseCase);
+    private buildProjectCreatorController(idGenerator: IdGenerator): HttpController {
+        const projectCreator = new PrismaProjectCreator();
+        const useCase = new ProjectCreatorUseCase(idGenerator, projectCreator);
+        return new ProjectCreatorControllers(useCase);
     }
 
     private buildStudentEnrollerController(
-        idGeneretor: D.IdGenerator,
-        specialtyExistenceFinder: D.SpecialtyExistenceFinder,
-        notificationPublisher: D.NotificationPublisher
-    ): D.HttpController {
-        const studentEnrollerInProject = new I.PrismaStudentEnrollerInProject();
-        const studentCreator = new I.PrismaStudentCreator();
-        const studentFinder = new I.PrismaStudentFinder();
+        idGenerator: IdGenerator,
+        specialtyExistenceFinder: SpecialtyExistenceFinder,
+        notificationPublisher: NotificationPublisher
+    ): HttpController {
+        const studentEnroller = new PrismaStudentEnrollerInProject();
+        const studentCreator = new PrismaStudentCreator();
+        const studentFinder = new PrismaStudentFinder();
 
-        const ensureStudentExists = new D.EnsureStudentExistsForEnrollmentServices(
+        const ensureStudentExists = new EnsureStudentExistsForEnrollmentServices(
             studentCreator,
             studentFinder,
-            idGeneretor
+            idGenerator
         );
 
-        const resolveProject = new D.ResolveProjectForEnrollmentServices(specialtyExistenceFinder);
-        const specialistFinder = new I.PrismaSpecialistAdvisorFinder();
-        const qualifiedLeaderFinder = new D.QualifiedLeaderFinderServices(specialistFinder);
+        const resolveProject = new ResolveProjectForEnrollmentServices(specialtyExistenceFinder);
+        const specialistFinder = new PrismaSpecialistAdvisorFinder();
+        const qualifiedLeaderFinder = new QualifiedLeaderFinderServices(specialistFinder);
 
-        const validateEnrollment = new D.ValidateEnrollmentCreatorServices(
+        const validateEnrollment = new ValidateEnrollmentCreatorServices(
             ensureStudentExists,
             resolveProject,
             qualifiedLeaderFinder,
-            idGeneretor
+            idGenerator
         );
 
-        const projectFinderByName = new I.PrismaProjectFinderByName();
-        const dateTimeValidator = new D.SchedulingDateTimeValidatorServices(idGeneretor, projectFinderByName);
+        const projectFinderByName = new PrismaProjectFinderByName();
+        const dateTimeValidator = new SchedulingDateTimeValidatorServices(idGenerator, projectFinderByName);
 
-        const studentEnrollerUseCase = new A.StudentEnrollerInProjectUseCase(
-            studentEnrollerInProject,
+        const useCase = new StudentEnrollerInProjectUseCase(
+            studentEnroller,
             validateEnrollment,
             dateTimeValidator,
             notificationPublisher
         );
 
-        return new P.StudentEnrollerInProjectControllers(studentEnrollerUseCase);
+        return new StudentEnrollerInProjectControllers(useCase);
     }
-    private buildNotificationPublisher(): D.NotificationPublisher {
-        const publisher = new D.NotificationPublisher();
-        publisher.register(new I.EmailNotification());
+
+    private buildNotificationPublisher(): NotificationPublisher {
+        const publisher = new NotificationPublisher();
+        publisher.register(new EmailNotification());
         return publisher;
     }
 
     public dependencies() {
-        const idGeneretor = new I.UUID();
-        const specialtyExistenceFinder = new I.PrimaSpecialtyExistenceFinder();
+        const idGenerator = new UUID();
+        const specialtyExistenceFinder = new PrimaSpecialtyExistenceFinder();
         const notificationPublisher = this.buildNotificationPublisher();
 
         return {
-            leaderCreatorControllers: this.buildLeaderController(idGeneretor, specialtyExistenceFinder),
+            leaderCreatorControllers: this.buildLeaderController(idGenerator, specialtyExistenceFinder),
             projectBasedAdvisorFinderControllers: this.buildProjectBasedAdvisorController(),
-            projectCreatorControllers: this.buildProjectCreatorController(idGeneretor),
-            studentEnrollerInProjectControllers: this.buildStudentEnrollerController(idGeneretor, specialtyExistenceFinder, notificationPublisher),
+            projectCreatorControllers: this.buildProjectCreatorController(idGenerator),
+            studentEnrollerInProjectControllers: this.buildStudentEnrollerController(idGenerator, specialtyExistenceFinder, notificationPublisher),
         };
     }
 }
