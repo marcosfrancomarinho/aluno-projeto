@@ -4,11 +4,17 @@ import { Project } from './Project';
 import { Student } from './Student';
 
 export class Enrollment {
-  private constructor(private code: ID, private student: Student, private leader: Leader, private project: Project) {}
+  private constructor(private code: ID, private student: Student, private leader: Leader, private project: Project) { }
   public static create(code: ID, student: Student, leader: Leader, project: Project): Enrollment {
     return new Enrollment(code, student, leader, project);
   }
-
+  public getEmailStudent(): string {
+    return this.student.getEmailStudent();
+  }
+  public getNameProject(): string {
+    const name: string = this.project.getName();
+    return name.replace(/_/g, " ");
+  }
   public getIdentifiers() {
     return {
       id_leader: this.leader.getCode(),

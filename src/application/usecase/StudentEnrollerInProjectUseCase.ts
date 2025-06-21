@@ -8,13 +8,15 @@ import { ID } from '../../domain/valueobject/ID';
 import { PrismaStudentEnrollerInProject } from '../../infrastructure/repository/PrismaStudentEnrollerInProject';
 import { EnrollRequestDTO } from '../dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../dto/EnrollResponseDTO';
+import { NotificationPublisher } from '../../domain/events/NotificationPublisher';
 
 @injectable()
 export class StudentEnrollerInProjectUseCase {
   public constructor(
     @inject(PrismaStudentEnrollerInProject) private studentEnrollerInProject: StudentEnrollerInProject,
     @inject(ValidateEnrollmentCreatorServices) private validateEnrollmentCreatorServices: ValidateEnrollmentCreatorServices,
-    @inject(SchedulingDateTimeValidatorServices) private schedulingDateTimeValidatorServices: SchedulingDateTimeValidatorServices
+    @inject(SchedulingDateTimeValidatorServices) private schedulingDateTimeValidatorServices: SchedulingDateTimeValidatorServices,
+    @inject(NotificationPublisher) private notificationPublisher: NotificationPublisher
   ) { }
 
   public async enroll(enrollDTO: EnrollRequestDTO): Promise<EnrollResponseDTO> {
@@ -22,8 +24,8 @@ export class StudentEnrollerInProjectUseCase {
     const scheduling: Scheduling = await this.schedulingDateTimeValidatorServices.validate(enrollDTO);
 
     const enrollmentId: ID = await this.studentEnrollerInProject.enroll(enrollment, scheduling);
-
     const enrollResponseDTO: EnrollResponseDTO = new EnrollResponseDTO(enrollmentId.getValue());
+    await this.notificationPublisher.notify(enrollment);
     return enrollResponseDTO;
   }
 }

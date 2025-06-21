@@ -27,8 +27,8 @@ Content-Type: application/json
 
 {
     "student": {
-        "name": "marcos ",
-        "email": "marcosbarros@gmail.com"
+        "name": "marcos",
+        "email": "marcosmarinho19998@gmail.com"
     },
     "leader": {
         "email": "karolalmeida@gmail.com"
