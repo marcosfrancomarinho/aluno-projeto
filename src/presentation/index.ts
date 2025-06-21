@@ -1,4 +1,4 @@
-export * from "./controllers/LeaderCreatorControllers";
-export * from "./controllers/ProjectBasedAdvisorFinderControllers";
-export * from "./controllers/ProjectCreatorControllers";
-export * from "./controllers/StudentEnrollerInProjectControllers";
+export { LeaderCreatorControllers } from "./controllers/LeaderCreatorControllers";
+export { ProjectBasedAdvisorFinderControllers } from "./controllers/ProjectBasedAdvisorFinderControllers";
+export { ProjectCreatorControllers } from "./controllers/ProjectCreatorControllers";
+export { StudentEnrollerInProjectControllers } from "./controllers/StudentEnrollerInProjectControllers";
