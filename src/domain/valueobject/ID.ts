@@ -11,7 +11,17 @@ export class ID {
   }
   private static validate(id: string): void {
     const regex: RegExp = /^[a-zA-Z0-9-]+$/;
-    const checked: boolean = !!id && regex.test(id.trim());
-    if (!checked) throw new Exception('Identifier invalid.', 400, Exception.INVALID);
+
+    if (!id) throw new Exception('Identifier is required.', 400, Exception.UNDEFINED);
+
+    if (typeof id !== 'string') throw new Exception('Identifier must be a string.', 400, Exception.INVALID);
+
+    if (!regex.test(id.trim())) {
+      throw new Exception(
+        'Identifier format is invalid. Only alphanumerics and hyphens are allowed.',
+        400,
+        Exception.INVALID);
+    }
   }
+
 }

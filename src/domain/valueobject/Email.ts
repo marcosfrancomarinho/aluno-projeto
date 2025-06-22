@@ -12,8 +12,13 @@ export class Email {
   }
 
   private static validate(email: string): void {
-    const regex: RegExp = /^(?!\s*$)[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const checked: boolean = !!email && regex.test(email.trim());
-    if (!checked) throw new Exception('email invalid', 400, Exception.INVALID);
+    const regex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) throw new Exception('Email is required.', 400, Exception.UNDEFINED);
+
+    if (typeof email !== 'string') throw new Exception('Email must be a string.', 400, Exception.INVALID);
+
+    if (!regex.test(email.trim())) throw new Exception('Email format is invalid.', 400, Exception.INVALID);
   }
+
 }

@@ -1,6 +1,7 @@
 import { Exception } from "../../shared/error/Exception";
 
 export class Specialty {
+
   private constructor(private specialty: string, private raw?: string) { }
   public getValue(): string {
     return this.specialty;
@@ -28,7 +29,18 @@ export class Specialty {
 
   private static validate(specialty: string): void {
     const regex: RegExp = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
-    const checked: boolean = !!specialty && regex.test(specialty.trim());
-    if (!checked) throw new Exception(`specialty ${specialty} invalid`, 400, Exception.INVALID);
+
+    if (!specialty) throw new Exception('Specialty is required.', 400, Exception.UNDEFINED);
+
+    if (typeof specialty !== 'string') throw new Exception('Specialty must be a string.', 400, Exception.INVALID);
+
+    if (!regex.test(specialty.trim())) {
+      throw new Exception(
+        `Specialty "${specialty.trim()}" is invalid. It must have at least 3 letters and contain only alphabetic characters or spaces.`,
+        400,
+        Exception.INVALID
+      );
+    }
   }
+
 }

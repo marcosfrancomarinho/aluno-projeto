@@ -1,44 +1,55 @@
 import { Exception } from "../../shared/error/Exception";
 
 export class Timestamp {
-  private constructor(private datahours: Date) { }
+  private constructor(private dateTime: Date) {}
 
   public getValue(): Date {
-    return this.datahours;
+    return this.dateTime;
   }
 
   public getTimeMilliseconds(): number {
-    return this.datahours.getTime();
+    return this.dateTime.getTime();
   }
 
-
-  public static create(datahours: string): Timestamp {
-    this.validate(datahours);
-    const datahoursChecked: string = this.validate(datahours);
-    const datehourConverted: Date = this.convertInDate(datahoursChecked);
-    const timestamp: Timestamp = new Timestamp(datehourConverted);
-    this.ensureDateTimeIsValid(timestamp);
-    return timestamp;
+  public static create(dateTimeString: string): Timestamp {
+    const validatedDateTimeString = this.validate(dateTimeString);
+    const dateTime = this.convertToDate(validatedDateTimeString);
+    this.ensureDateTimeIsValid(dateTime);
+    return new Timestamp(dateTime);
   }
 
+  private static validate(dateTimeString: string): string {
+    if (!dateTimeString) {
+      throw new Exception('Timestamp is required.', 400, Exception.UNDEFINED);
+    }
 
-  private static validate(timestamp: string): string {
-    const regex: RegExp = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(Z|[+-]\d{2}:\d{2})?$/;
+    if (typeof dateTimeString !== 'string') {
+      throw new Exception('Timestamp must be a string.', 400, Exception.INVALID);
+    }
 
-    const checked: boolean = !!timestamp && regex.test(timestamp.trim());
-    if (!checked) throw new Exception(`Date ${timestamp} invalid. default(YYYY-MM-DDTHH:MH:SS).`, 400, Exception.INVALID);
+    const trimmed = dateTimeString.trim();
 
-    return timestamp;
+    const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(Z|[+-]\d{2}:\d{2})?$/;
+    if (!regex.test(trimmed)) {
+      throw new Exception(
+        'Timestamp format is invalid. Expected format: YYYY-MM-DDTHH:MM:SS.',
+        400,
+        Exception.INVALID
+      );
+    }
+
+    const date = new Date(trimmed);
+    if (isNaN(date.getTime())) {
+      throw new Exception('Timestamp value is not a valid date.', 400, Exception.INVALID);
+    }
+
+    return trimmed;
   }
 
-  private static ensureDateTimeIsValid(timestamp: Timestamp): void {
-    const currentDate: Date = new Date();
-    currentDate.setSeconds(0, 0);
+  private static ensureDateTimeIsValid(date: Date): void {
+    const now = this.getCurrentDateWithoutSeconds();
 
-    const currentDateInMilliseconds: number = currentDate.getTime();
-    const timestampInMilliseconds: number = timestamp.getValue().getTime();
-
-    if (timestampInMilliseconds < currentDateInMilliseconds) {
+    if (date.getTime() < now.getTime()) {
       throw new Exception(
         'Invalid data: the provided date is in the past.',
         400,
@@ -47,10 +58,25 @@ export class Timestamp {
     }
   }
 
+  private static convertToDate(dateTimeString: string): Date {
+    const date = new Date(dateTimeString);
+    return this.getDateWithoutSeconds(date);
+  }
 
-  private static convertInDate(timestamp: string): Date {
-    const datetime: Date = new Date(timestamp.trim());
-    datetime.setSeconds(0, 0);
-    return datetime;
+  private static getCurrentDateWithoutSeconds(): Date {
+    const now = new Date();
+    return this.getDateWithoutSeconds(now);
+  }
+
+  private static getDateWithoutSeconds(date: Date): Date {
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      0,
+      0
+    );
   }
 }
