@@ -34,7 +34,7 @@ Content-Type: application/json
         "email": "karolalmeida@gmail.com"
     },
     "project": {
-        "name": "aprendendo inglês basico"
+        "name": "informatica"
     },
     "timestamp":"2025-07-21T08:00:00"
 }

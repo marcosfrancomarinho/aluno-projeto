@@ -25,7 +25,6 @@ export class EnsureStudentExistsForEnrollmentServices {
       student = studentFound;
       return student;
     }
-    console.log('teste')
     await this.studentCreator.create(student);
     return student;
   }
