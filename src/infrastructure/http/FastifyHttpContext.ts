@@ -19,25 +19,28 @@ export class FastifyHttpContext implements HttpContext {
   public sendError(error: unknown): any {
     if (error instanceof Exception) {
       return this.reply.status(error.statusCode).send({
-        message: error.message,
-        statusCode: error.statusCode,
         status: false,
+        statusCode: error.statusCode,
+        message: error.message,
         code: error.code.description
       });
     }
     if (error instanceof PrismaClientKnownRequestError) {
       return this.reply.status(409).send({
-        message: `${error.meta?.modelName} already registered, must be unique.`,
-        statusCode: 409,
         status: false,
+        statusCode: 409,
+        message: `${error.meta?.modelName?.toString() ?? 'Field'} already registered, must be unique.`,
         code: error.code
       });
     }
+    console.error('Unhandled internal error:', error);
     return this.reply.status(500).send({
-      message: "Erro interno do servidor",
-      statusCode: 500,
       status: false,
-      code: "INTERNAL_SERVER_ERROR"
+      statusCode: 500,
+      message: 'Internal server error',
+      code: 'INTERNAL_SERVER_ERROR'
     });
   }
+
 }
+

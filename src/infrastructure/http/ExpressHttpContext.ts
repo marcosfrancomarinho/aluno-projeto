@@ -18,26 +18,27 @@ export class ExpressHttpContext implements HttpContext {
   }
   public sendError(error: unknown): any {
     if (error instanceof Exception) {
-      return this.response.status(error.statusCode).json({
-        message: error.message,
-        statusCode: error.statusCode,
+      return this.response.status(error.statusCode).send({
         status: false,
+        statusCode: error.statusCode,
+        message: error.message,
         code: error.code.description
       });
     }
     if (error instanceof PrismaClientKnownRequestError) {
-      return this.response.status(409).json({
-        message: `${error.meta?.modelName} already registered, must be unique.`,
-        statusCode: 409,
+      return this.response.status(409).send({
         status: false,
+        statusCode: 409,
+        message: `${error.meta?.modelName?.toString() ?? 'Field'} already registered, must be unique.`,
         code: error.code
       });
     }
-    return this.response.status(500).json({
-      statusCode: 500,
+    console.error('Unhandled internal error:', error);
+    return this.response.status(500).send({
       status: false,
-      message: "Erro interno do servidor",
-      code: "INTERNAL_SERVER_ERROR"
+      statusCode: 500,
+      message: 'Internal server error',
+      code: 'INTERNAL_SERVER_ERROR'
     });
   }
 }
