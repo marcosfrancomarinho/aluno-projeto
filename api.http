@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "dfdfd",
+    "name": "fisica quantica",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -14,9 +14,9 @@ POST http://localhost:3000/register-leader
 Content-Type: application/json
 
 {
-    "name": "karol almeida",
-    "email": "karolalmeida@gmail.com",
-    "specialty": "infórmatica"
+    "name": "joao almeida",
+    "email": "joaoalmeida@gmail.com",
+    "specialty": "fisica quantica"
 }
 
 
@@ -28,13 +28,13 @@ Content-Type: application/json
 {
     "student": {
         "name": "marcos franco marinho",
-        "email": "marcosmarinho@gmail.com"
+        "email": "marcosmarinho1998@gmail.com"
     },
     "leader": {
-        "email": "karolalmeida@gmail.com"
+        "email": "joaoalmeida@gmail.com"
     },
     "project": {
-        "name": "informatica"
+        "name": "fisica quantica"
     },
     "timestamp":"2025-07-21T08:00:00"
 }
