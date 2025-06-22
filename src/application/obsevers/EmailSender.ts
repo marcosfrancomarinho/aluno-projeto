@@ -1,9 +1,8 @@
-import { renderFile } from "ejs";
+import { join } from "path";
 import { Enrollment } from "../../domain/entities/Enrollment";
 import { EmailNotification } from "../../domain/interfaces/EmailNotification";
-import { Observer } from "./Observer";
-import { join } from "path";
 import { TemplateRenderer } from "../../domain/interfaces/RenderTamplates";
+import { Observer } from "./Observer";
 
 export class EmailSender implements Observer<Enrollment> {
     public constructor(private emailNotification: EmailNotification, private templateRenderer: TemplateRenderer) { }
