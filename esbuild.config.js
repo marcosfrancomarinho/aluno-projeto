@@ -1,5 +1,5 @@
 const { build } = require('esbuild');
-const { dependencies } = require('./package.json');
+const { dependencies , devDependencies} = require('./package.json');
 const { main } = require('./package.json');
 
 build({
@@ -8,6 +8,6 @@ build({
   outfile: './dist/bundle.js',
   minify: true,
   platform: 'node',
-  external: Object.keys(dependencies),
+  external: [...Object.keys(dependencies), ...Object.keys(devDependencies)],
   target: ['ES2016'],
 }).catch(() => process.exit(1));
