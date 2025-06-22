@@ -4,17 +4,14 @@
   "main": "src/main.ts",
   "license": "MIT",
   "scripts": {
-    "start": "node --env-file=.env dist/bundle.js",
+    "start": "node dist/bundle.js",
     "dev": "tsx --watch --env-file=.env src/main.ts",
     "type": "tsc --watch --noEmit",
     "build": "node esbuild.config.js && cpx  \"src/application/templates/**/*\" dist",
     "migrate": "prisma generate && prisma migrate dev --name start"
   },
   "dependencies": {
-    "@fastify/cors": "^11.0.1",
-    "@hono/node-server": "^1.14.2",
     "@prisma/client": "^6.6.0",
-    "@types/nodemailer": "^6.4.17",
     "cors": "^2.8.5",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
@@ -23,6 +20,8 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@types/nodemailer": "^6.4.17",
     "@types/cors": "^2.8.17",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.1",
