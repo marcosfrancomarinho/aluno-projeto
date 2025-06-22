@@ -1,4 +1,4 @@
-import { Observer } from "../../application/obsevers/Observer";
+import { Observer } from "../../application/observers/Observer";
 import { Enrollment } from "../entities/Enrollment";
 
 export class NotificationPublisher {
