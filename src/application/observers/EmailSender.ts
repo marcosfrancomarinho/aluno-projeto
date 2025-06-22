@@ -19,7 +19,7 @@ export class EmailSender implements Observer<Enrollment> {
     }
 
     private getPath(): string {
-        return process.env.NODE_ENV !== "DEV"
+        return process.env.NODE_ENV === "DEV"
             ? resolve(__dirname, "../templates/body-email.ejs")
             : resolve(process.cwd(), "dist/body-email.ejs");
     }
