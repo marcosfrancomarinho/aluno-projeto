@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "informatica",
+    "name": "dfdfd",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 {
     "student": {
         "name": "marcos franco marinho",
-        "email": "marcosmarinho19998@gmail.com"
+        "email": "marcosmarinho@gmail.com"
     },
     "leader": {
         "email": "karolalmeida@gmail.com"

@@ -1,3 +1,4 @@
+import { Exception } from '../../shared/error/Exception';
 import { Email } from '../valueobject/Email';
 import { ID } from '../valueobject/ID';
 import { Name } from '../valueobject/Name';
@@ -18,9 +19,9 @@ export class Leader {
   }
 
   public isSpecialized(projectCode: string): void {
-    if (!this.listSpecialties) throw new Error("list of specialties do leader has not been defined");
+    if (!this.listSpecialties) throw new Exception("list of specialties do leader has not been defined", 400, Exception.UNDEFINED);
     const specialtyEqual: boolean = this.listSpecialties.some(specialty => specialty.getValue() === projectCode);
-    if (!specialtyEqual) throw new Error("advisor not have the expertise for the project.");
+    if (!specialtyEqual) throw new Exception("advisor not have the expertise for the project.", 400, Exception.NO_SPECIALTY);
   }
   public static create(code: ID, name: Name, email: Email, specialty: ID, listSpecialties?: ID[]): Leader {
     return new Leader(code, name, email, specialty, listSpecialties);

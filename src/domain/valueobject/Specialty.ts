@@ -1,10 +1,12 @@
+import { Exception } from "../../shared/error/Exception";
+
 export class Specialty {
   private constructor(private specialty: string, private raw?: string) { }
   public getValue(): string {
     return this.specialty;
   }
   public getValueRaw(): string {
-    if (!this.raw) throw new Error('value raw of specialty not defined.');
+    if (!this.raw) throw new Exception('Value raw of specialty not defined.', 400, Exception.UNDEFINED);
     return this.raw.trim();
   }
   public static create(specialty: string): Specialty {
@@ -27,6 +29,6 @@ export class Specialty {
   private static validate(specialty: string): void {
     const regex: RegExp = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
     const checked: boolean = !!specialty && regex.test(specialty.trim());
-    if (!checked) throw new Error(`specialty /${specialty}/ invalid`);
+    if (!checked) throw new Exception(`specialty ${specialty} invalid`, 400, Exception.INVALID);
   }
 }

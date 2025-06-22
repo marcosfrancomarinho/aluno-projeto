@@ -1,4 +1,5 @@
 import { LeaderRequestDTO } from '../../application/dto/LeaderRequestDTO';
+import { Exception } from '../../shared/error/Exception';
 import { Leader } from '../entities/Leader';
 import { IdGenerator } from '../interfaces/IdGenerator';
 import { SpecialtyExistenceFinder } from '../interfaces/SpecialtyExistenceFinder';
@@ -21,7 +22,7 @@ export class ValidatedLeaderCreatorServices {
 
     const code: ID | null = await this.specialtyExistenceFinder.find(specialty);
 
-    if (!code) throw new Error('specialization is not part of the projects');
+    if (!code) throw new Exception('specialization is not part of the projects', 400, Exception.NO_SPECIALTY);
 
     const leader: Leader = Leader.create(id, name, email, code);
     return leader;

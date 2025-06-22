@@ -1,4 +1,5 @@
 import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
+import { Exception } from '../../shared/error/Exception';
 import { Project } from '../entities/Project';
 import { Scheduling } from '../entities/Scheduling';
 import { IdGenerator } from '../interfaces/IdGenerator';
@@ -20,7 +21,7 @@ export class SchedulingDateTimeValidatorServices {
 
     const projectFound: Project | null = await this.projectFinderByName.find(specialty);
 
-    if (!projectFound) throw new Error('non-existent project reported');
+    if (!projectFound) throw new Exception('non-existent project reported', 400, Exception.NO_EXIST);
 
     const scheduling: Scheduling = Scheduling.create(code, timestamp);
     scheduling.isEnrollmentDateMatchProjectDate(projectFound);

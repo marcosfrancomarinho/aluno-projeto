@@ -1,9 +1,10 @@
+import { Exception } from '../../shared/error/Exception';
 import { ID } from '../valueobject/ID';
 import { Timestamp } from '../valueobject/Timestamp';
 import { Project } from './Project';
 
 export class Scheduling {
-  private constructor(private code: ID, private timestamp: Timestamp) {}
+  private constructor(private code: ID, private timestamp: Timestamp) { }
 
   public getPersistenceData() {
     return {
@@ -21,9 +22,11 @@ export class Scheduling {
     const registrationDateInMilliseconds: number = this.timestamp.getTimeMilliseconds();
 
     if (projectDateInMilliseconds !== registrationDateInMilliseconds) {
-      throw new Error(
+      throw new Exception(
         `The provided date and time do not match the project's scheduled date and time, 
-        date project is : ${project.getTimestamp()}`
+        date project is : ${project.getTimestamp()}`,
+        400,
+        Exception.TIME_NOT_MATCH
       );
     }
   }
