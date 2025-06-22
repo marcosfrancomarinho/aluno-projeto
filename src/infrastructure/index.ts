@@ -11,4 +11,4 @@ export { PrismaSpecialistAdvisorFinder } from './repository/PrismaSpecialistAdvi
 export { PrismaStudentCreator } from './repository/PrismaStudentCreator';
 export { PrismaStudentEnrollerInProject } from './repository/PrismaStudentEnrollerInProject';
 export { PrismaStudentFinder } from './repository/PrismaStudentFinder';
-
+export {EjsTemplateRenderer } from "./email/EjsTemplateRenderer";

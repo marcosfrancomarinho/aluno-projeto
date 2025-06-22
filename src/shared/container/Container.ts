@@ -1,4 +1,5 @@
 import {
+    EmailSender,
     LeaderCreatorUseCase,
     ProjectBasedAdvisorFinderUseCase,
     ProjectCreatorUseCase,
@@ -6,32 +7,33 @@ import {
 } from '../../application';
 
 import {
-    ValidatedLeaderCreatorServices,
     EnsureStudentExistsForEnrollmentServices,
-    ResolveProjectForEnrollmentServices,
-    QualifiedLeaderFinderServices,
-    ValidateEnrollmentCreatorServices,
-    SchedulingDateTimeValidatorServices,
-    NotificationPublisher,
-    IdGenerator,
-    SpecialtyExistenceFinder,
     HttpController,
+    IdGenerator,
+    NotificationPublisher,
+    QualifiedLeaderFinderServices,
+    ResolveProjectForEnrollmentServices,
+    SchedulingDateTimeValidatorServices,
+    SpecialtyExistenceFinder,
+    ValidatedLeaderCreatorServices,
+    ValidateEnrollmentCreatorServices,
 } from '../../domain';
 
 import {
+    EjsTemplateRenderer,
+    NodeMailerEmailNotification,
+    PrimaSpecialtyExistenceFinder,
+    PrismaAdvisorSpecializationCreator,
     PrismaLeaderCreator,
     PrismaLeaderFinder,
-    PrismaAdvisorSpecializationCreator,
     PrismaProjectBasedAdvisorFinder,
     PrismaProjectCreator,
-    PrismaStudentEnrollerInProject,
-    PrismaStudentCreator,
-    PrismaStudentFinder,
-    PrismaSpecialistAdvisorFinder,
     PrismaProjectFinderByName,
-    PrimaSpecialtyExistenceFinder,
+    PrismaSpecialistAdvisorFinder,
+    PrismaStudentCreator,
+    PrismaStudentEnrollerInProject,
+    PrismaStudentFinder,
     UUID,
-    NodeMailerEmailNotification,
 } from '../../infrastructure';
 
 import {
@@ -127,7 +129,7 @@ export class Container {
 
     private buildNotificationPublisher(): NotificationPublisher {
         const publisher = new NotificationPublisher();
-        publisher.register(new NodeMailerEmailNotification());
+        publisher.register(new EmailSender(new NodeMailerEmailNotification(), new EjsTemplateRenderer()));
         return publisher;
     }
 

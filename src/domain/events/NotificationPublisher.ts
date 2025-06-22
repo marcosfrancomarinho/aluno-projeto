@@ -1,5 +1,5 @@
+import { Observer } from "../../application/obsevers/Observer";
 import { Enrollment } from "../entities/Enrollment";
-import { Observer } from "./Observer";
 
 export class NotificationPublisher {
     private observers: Observer[];
