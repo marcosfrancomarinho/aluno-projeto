@@ -8,7 +8,7 @@ export class EmailSender implements Observer<Enrollment> {
     public constructor(private emailNotification: EmailNotification, private templateRenderer: TemplateRenderer) { }
 
     public async update(enrollment: Enrollment): Promise<void> {
-        const path: string = resolve(__dirname, "../templates/body-email.ejs");
+        const path: string = this.getPath();
         const studentName: string = enrollment.getNameStudent();
         const studentEmail: string = enrollment.getEmailStudent();
         const projectName: string = enrollment.getNameProjectRaw();
@@ -16,6 +16,12 @@ export class EmailSender implements Observer<Enrollment> {
         const title: string = `Inscrição no curso ${projectName} feita com sucesso`;
         const content: string = await this.templateRenderer.render(path, { studentName, projectName });
         await this.emailNotification.send(studentEmail, sender, content, title);
+    }
+
+    private getPath(): string {
+        return process.env.NODE_ENV === "PRODUCTION"
+            ? resolve(process.cwd(), "dist/body-email.ejs")
+            : resolve(__dirname, "../templates/body-email.ejs");
     }
 
 }

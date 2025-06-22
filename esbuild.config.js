@@ -7,6 +7,7 @@ build({
   bundle: true,
   outfile: './dist/bundle.js',
   minify: true,
+  platform: 'node',
   external: Object.keys(dependencies),
   target: ['ES2016'],
 }).catch(() => process.exit(1));
