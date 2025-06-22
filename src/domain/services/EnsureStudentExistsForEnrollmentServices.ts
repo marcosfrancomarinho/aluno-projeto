@@ -21,12 +21,11 @@ export class EnsureStudentExistsForEnrollmentServices {
     let student: Student = Student.create(registration, name, email);
 
     const studentFound: Student | null = await this.studentFinder.find(student);
-
     if (studentFound) {
       student = studentFound;
       return student;
     }
-
+    console.log('teste')
     await this.studentCreator.create(student);
     return student;
   }

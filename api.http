@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "aprendendo inglês avançado",
+    "name": "informatica",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "name": "karol almeida",
     "email": "karolalmeida@gmail.com",
-    "specialty": "APRENDENDO INGLêS avançado"
+    "specialty": "infórmatica"
 }
 
 
@@ -27,14 +27,14 @@ Content-Type: application/json
 
 {
     "student": {
-        "name": "marcos",
+        "name": "marcos franco marinho",
         "email": "marcosmarinho19998@gmail.com"
     },
     "leader": {
         "email": "karolalmeida@gmail.com"
     },
     "project": {
-        "name": "aprendendo inglês avançado"
+        "name": "informatica"
     },
     "timestamp":"2025-07-21T08:00:00"
 }

@@ -9,8 +9,7 @@ export class PrismaStudentFinder implements StudentFinder {
   public async find(student: Student): Promise<Student | null> {
     const email: string = student.getEmail();
     const name: string = student.getName();
-
-    const studentFound = await Client.student.findUnique({ where: { email, name } });
+    const studentFound = await Client.student.findUnique({ where: { email } });
 
     if (!studentFound) return null;
 
