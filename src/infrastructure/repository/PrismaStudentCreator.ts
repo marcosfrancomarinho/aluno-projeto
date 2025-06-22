@@ -13,7 +13,7 @@ export class PrismaStudentCreator implements StudentCreator {
     const data: DatasStudent = {
       registration: student.getRegistration(),
       name: student.getName(),
-      email: student.getEmailStudent(),
+      email: student.getEmail(),
     };
     await Client.student.create({ data });
 

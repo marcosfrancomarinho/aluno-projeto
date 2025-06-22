@@ -1,14 +1,16 @@
 export class Specialty {
-  private constructor(private specialty: string) {}
-
+  private constructor(private specialty: string, private raw?: string) { }
   public getValue(): string {
     return this.specialty;
   }
-
+  public getValueRaw(): string {
+    if (!this.raw) throw new Error('value raw of specialty not defined.');
+    return this.raw.trim();
+  }
   public static create(specialty: string): Specialty {
     this.validate(specialty);
     const formattedSpecialty: string = this.normalizeString(specialty);
-    return new Specialty(formattedSpecialty);
+    return new Specialty(formattedSpecialty, specialty);
   }
   public static with(specialty: string): Specialty {
     return new Specialty(specialty);

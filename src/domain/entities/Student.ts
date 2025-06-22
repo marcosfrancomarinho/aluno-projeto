@@ -4,7 +4,7 @@ import { Name } from '../valueobject/Name';
 
 export class Student {
   private constructor(private registration: ID, private name: Name, private email: Email) {}
-  public getEmailStudent(): string {
+  public getEmail(): string {
     return this.email.getValue();
   }
   public getName(): string {

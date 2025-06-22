@@ -31,7 +31,7 @@ import {
     PrismaProjectFinderByName,
     PrimaSpecialtyExistenceFinder,
     UUID,
-    EmailNotification,
+    NodeMailerEmailNotification,
 } from '../../infrastructure';
 
 import {
@@ -127,7 +127,7 @@ export class Container {
 
     private buildNotificationPublisher(): NotificationPublisher {
         const publisher = new NotificationPublisher();
-        publisher.register(new EmailNotification());
+        publisher.register(new NodeMailerEmailNotification());
         return publisher;
     }
 

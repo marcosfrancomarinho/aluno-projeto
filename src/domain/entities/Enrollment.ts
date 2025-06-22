@@ -9,11 +9,13 @@ export class Enrollment {
     return new Enrollment(code, student, leader, project);
   }
   public getEmailStudent(): string {
-    return this.student.getEmailStudent();
+    return this.student.getEmail();
   }
-  public getNameProject(): string {
-    const name: string = this.project.getName();
-    return name.replace(/_/g, " ");
+  public getNameProjectRaw(): string {
+    return this.project.getNameRaw();
+  }
+  public getNameStudent(): string {
+    return this.student.getName();
   }
   public getIdentifiers() {
     return {

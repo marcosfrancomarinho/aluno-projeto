@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "name": "karol almeida",
     "email": "karolalmeida@gmail.com",
-    "specialty": "APRENDENDO INGLES avançado"
+    "specialty": "APRENDENDO INGLêS avançado"
 }
 
 
@@ -28,13 +28,13 @@ Content-Type: application/json
 {
     "student": {
         "name": "marcos",
-        "email": "marcosmarinho19998@gmail.com"
+        "email": "marcosmarinho1998@gmail.com"
     },
     "leader": {
         "email": "karolalmeida@gmail.com"
     },
     "project": {
-        "name": "aprendendo ingles avançado"
+        "name": "aprendendo inglês avançado"
     },
     "timestamp":"2025-07-21T08:00:00"
 }

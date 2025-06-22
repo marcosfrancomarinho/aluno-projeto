@@ -1,4 +1,4 @@
-export { EmailNotification } from "./email/EmailNotification";
+export { NodeMailerEmailNotification } from "./email/NodeMailerEmailNotification";
 export { UUID } from "./idgenerator/UUID";
 export { PrimaSpecialtyExistenceFinder } from './repository/PrimaSpecialtyExistenceFinder';
 export { PrismaAdvisorSpecializationCreator } from './repository/PrismaAdvisorSpecializationCreator';
