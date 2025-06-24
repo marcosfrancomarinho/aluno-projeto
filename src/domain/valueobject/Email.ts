@@ -14,7 +14,7 @@ export class Email {
   private static validate(email: string): void {
     const regex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!email) throw new Exception('Email is required.', 400, Exception.UNDEFINED);
+    if (!email ) throw new Exception('Email is required.', 400, Exception.UNDEFINED);
 
     if (typeof email !== 'string') throw new Exception('Email must be a string.', 400, Exception.INVALID);
 

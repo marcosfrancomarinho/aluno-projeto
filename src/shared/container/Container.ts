@@ -1,47 +1,37 @@
-import {
-    EmailSender,
-    LeaderCreatorUseCase,
-    ProjectBasedAdvisorFinderUseCase,
-    ProjectCreatorUseCase,
-    StudentEnrollerInProjectUseCase,
-} from '../../application';
+import { EmailSender } from "../../application/observers/EmailSender";
+import { LeaderCreatorUseCase } from "../../application/usecase/LeaderCreatorUseCase";
+import { ProjectBasedAdvisorFinderUseCase } from "../../application/usecase/ProjectBasedAdvisorFinderUseCase";
+import { ProjectCreatorUseCase } from "../../application/usecase/ProjectCreatorUseCase";
+import { StudentEnrollerInProjectUseCase } from "../../application/usecase/StudentEnrollerInProjectUseCase";
+import { NotificationPublisher } from "../../domain/events/NotificationPublisher";
+import { HttpController } from "../../domain/interfaces/HttpController";
+import { IdGenerator } from "../../domain/interfaces/IdGenerator";
+import { SpecialtyExistenceFinder } from "../../domain/interfaces/SpecialtyExistenceFinder";
+import { EnsureStudentExistsForEnrollmentServices } from "../../domain/services/EnsureStudentExistsForEnrollmentServices";
+import { QualifiedLeaderFinderServices } from "../../domain/services/QualifiedLeaderFinderServices";
+import { ResolveProjectForEnrollmentServices } from "../../domain/services/ResolveProjectForEnrollmentServices";
+import { SchedulingDateTimeValidatorServices } from "../../domain/services/SchedulingDateTimeValidatorServices";
+import { ValidatedLeaderCreatorServices } from "../../domain/services/ValidatedLeaderCreatorServices";
+import { ValidateEnrollmentCreatorServices } from "../../domain/services/ValidateEnrollmentCreatorServices";
+import { EjsTemplateRenderer } from "../../infrastructure/email/EjsTemplateRenderer";
+import { NodeMailerEmailNotification } from "../../infrastructure/email/NodeMailerEmailNotification";
+import { UUID } from "../../infrastructure/idgenerator/UUID";
+import { PrimaSpecialtyExistenceFinder } from "../../infrastructure/repository/PrimaSpecialtyExistenceFinder";
+import { PrismaAdvisorSpecializationCreator } from "../../infrastructure/repository/PrismaAdvisorSpecializationCreator";
+import { PrismaLeaderCreator } from "../../infrastructure/repository/PrismaLeaderCreator";
+import { PrismaLeaderFinder } from "../../infrastructure/repository/PrismaLeaderFinder";
+import { PrismaProjectBasedAdvisorFinder } from "../../infrastructure/repository/PrismaProjectBasedAdvisorFinder";
+import { PrismaProjectCreator } from "../../infrastructure/repository/PrismaProjectCreator";
+import { PrismaProjectFinderByName } from "../../infrastructure/repository/PrismaProjectFinderByName";
+import { PrismaSpecialistAdvisorFinder } from "../../infrastructure/repository/PrismaSpecialistAdvisorFinder";
+import { PrismaStudentCreator } from "../../infrastructure/repository/PrismaStudentCreator";
+import { PrismaStudentEnrollerInProject } from "../../infrastructure/repository/PrismaStudentEnrollerInProject";
+import { PrismaStudentFinder } from "../../infrastructure/repository/PrismaStudentFinder";
+import { LeaderCreatorControllers } from "../../presentation/controllers/LeaderCreatorControllers";
+import { ProjectBasedAdvisorFinderControllers } from "../../presentation/controllers/ProjectBasedAdvisorFinderControllers";
+import { ProjectCreatorControllers } from "../../presentation/controllers/ProjectCreatorControllers";
+import { StudentEnrollerInProjectControllers } from "../../presentation/controllers/StudentEnrollerInProjectControllers";
 
-import {
-    EnsureStudentExistsForEnrollmentServices,
-    HttpController,
-    IdGenerator,
-    NotificationPublisher,
-    QualifiedLeaderFinderServices,
-    ResolveProjectForEnrollmentServices,
-    SchedulingDateTimeValidatorServices,
-    SpecialtyExistenceFinder,
-    ValidatedLeaderCreatorServices,
-    ValidateEnrollmentCreatorServices,
-} from '../../domain';
-
-import {
-    EjsTemplateRenderer,
-    NodeMailerEmailNotification,
-    PrimaSpecialtyExistenceFinder,
-    PrismaAdvisorSpecializationCreator,
-    PrismaLeaderCreator,
-    PrismaLeaderFinder,
-    PrismaProjectBasedAdvisorFinder,
-    PrismaProjectCreator,
-    PrismaProjectFinderByName,
-    PrismaSpecialistAdvisorFinder,
-    PrismaStudentCreator,
-    PrismaStudentEnrollerInProject,
-    PrismaStudentFinder,
-    UUID,
-} from '../../infrastructure';
-
-import {
-    LeaderCreatorControllers,
-    ProjectBasedAdvisorFinderControllers,
-    ProjectCreatorControllers,
-    StudentEnrollerInProjectControllers,
-} from '../../presentation';
 
 export class Container {
     private static instance: Container;
