@@ -69,3 +69,11 @@ model scheduling {
 
   @@id([code])
 }
+
+model User {
+  id        String @id
+  name      String
+  email     String @unique
+  password  String
+  algorithm String
+}
