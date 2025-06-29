@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "fisica quantica",
+    "name": "ingles",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "name": "joao almeida",
     "email": "joaoalmeida@gmail.com",
-    "specialty": "fisica quantica"
+    "specialty": "ingles"
 }
 
 
@@ -26,18 +26,16 @@ POST http://localhost:3000/enroll-project
 Content-Type: application/json
 
 {
-    "student": {
-        "name": "marcos franco marinho",
-        "email": "marcosmarinho19998@gmail.com"
-    },
-    "leader": {
-        "email": "joaoalmeida@gmail.com"
-    },
-    "project": {
-        "name": "fisica quantica"
-    },
+    "student_name": "marcos franco marinho",
+    "student_email": "marcosmarinho1998@gmail.com",
+    "leader_email": "joaoalmeida@gmail.com",
+    "project_name": "ingles",
     "timestamp":"2025-07-21T08:00:00"
 }
 
 ###
-GET http://localhost:3000/finder-leader?name=aprendendo inglês avançado
+GET http://localhost:3000/finder-leader?name=inglês
+
+
+###
+GET http://localhost:3000/finder-all-projects

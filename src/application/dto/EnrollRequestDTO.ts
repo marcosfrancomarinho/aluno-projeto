@@ -1,22 +1,23 @@
 export class EnrollRequestDTO {
   public constructor(
-    private student: { name: string; email: string; },
-    private leader: { email: string; },
-    private project: { name: string; },
+    private student_name: string,
+    private student_email: string,
+    private leader_email: string,
+    private project_name: string,
     private timestamp: string
   ) { }
 
   public getNameStudent(): string {
-    return this.student.name;
+    return this.student_name;
   }
   public getEmailStudent(): string {
-    return this.student.email;
+    return this.student_email;
   }
   public getEmailLeader(): string {
-    return this.leader.email;
+    return this.leader_email;
   }
   public getNameProject(): string {
-    return this.project.name;
+    return this.project_name;
   }
   public getTimestamp(): string {
     return this.timestamp;

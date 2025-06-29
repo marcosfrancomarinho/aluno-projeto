@@ -9,5 +9,5 @@ build({
   minify: true,
   platform: 'node',
   external: [...Object.keys(dependencies), ...Object.keys(devDependencies)],
-  target: ['ES2016'],
+  target: ["ES2015"],
 }).catch(() => process.exit(1));

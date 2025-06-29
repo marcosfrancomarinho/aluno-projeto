@@ -6,6 +6,7 @@ import { Client } from './Client';
 export type ProjectDatas = {
   code: string;
   name: string;
+  raw_name: string;
   timestamp: Date;
 };
 
@@ -14,6 +15,7 @@ export class PrismaProjectCreator implements ProjectCreator {
     const data: ProjectDatas = {
       code: project.getCode(),
       name: project.getName(),
+      raw_name: project.getRawName(),
       timestamp: project.getTimestamp(),
     };
     const { code } = await Client.project.create({ data });

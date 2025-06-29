@@ -12,7 +12,7 @@ export class Enrollment {
     return this.student.getEmail();
   }
   public getNameProjectRaw(): string {
-    return this.project.getNameRaw();
+    return this.project.getRawName();
   }
   public getNameStudent(): string {
     return this.student.getName();

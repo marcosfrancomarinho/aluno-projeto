@@ -11,7 +11,7 @@ export class Project {
   public getName(): string {
     return this.name.getValue();
   }
-  public getNameRaw(): string {
+  public getRawName(): string {
     return this.name.getValueRaw();
   }
   public getTimestamp(): Date {

@@ -40,6 +40,7 @@ model specialty {
 model project {
   code      String      @id
   name      String      @unique
+  raw_name  String
   timestamp DateTime
   enroll    enroll[]
   specialty specialty[]

@@ -8,12 +8,12 @@ export class Specialty {
   }
   public getValueRaw(): string {
     if (!this.raw) throw new Exception('Value raw of specialty not defined.', 400, Exception.UNDEFINED);
-    return this.raw.trim();
+    return this.raw;
   }
   public static create(specialty: string): Specialty {
-    this.validate(specialty);
+    const rawSpecialty: string = this.validate(specialty);
     const formattedSpecialty: string = this.normalizeString(specialty);
-    return new Specialty(formattedSpecialty, specialty);
+    return new Specialty(formattedSpecialty, rawSpecialty);
   }
   public static with(specialty: string): Specialty {
     return new Specialty(specialty);
@@ -27,7 +27,7 @@ export class Specialty {
       .replace(/\s+/g, '_');
   }
 
-  private static validate(specialty: string): void {
+  private static validate(specialty: string): string {
     const regex: RegExp = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
 
     if (!specialty) throw new Exception('Specialty is required.', 400, Exception.UNDEFINED);
@@ -41,6 +41,7 @@ export class Specialty {
         Exception.INVALID
       );
     }
+    return specialty.trim().toLowerCase();
   }
 
 }
