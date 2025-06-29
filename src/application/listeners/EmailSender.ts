@@ -8,14 +8,19 @@ export class EmailSender implements Observer {
     public constructor(private emailNotification: EmailNotification, private templateRenderer: TemplateRenderer) { }
 
     public async update(enrollment: Enrollment): Promise<void> {
-        const path: string = this.getPath();
-        const studentName: string = enrollment.getNameStudent();
-        const studentEmail: string = enrollment.getEmailStudent();
-        const projectName: string = enrollment.getNameProjectRaw();
-        const sender: string = process.env.EMAIL as string;
-        const title: string = `Inscrição no curso ${projectName} feita com sucesso`;
-        const content: string = await this.templateRenderer.render(path, { studentName, projectName });
-        await this.emailNotification.send(studentEmail, sender, content, title);
+        try {
+            const path: string = this.getPath();
+            const studentName: string = enrollment.getNameStudent();
+            const studentEmail: string = enrollment.getEmailStudent();
+            const projectName: string = enrollment.getNameProjectRaw();
+            const sender: string = process.env.EMAIL as string;
+            const title: string = `Inscrição no curso ${projectName} feita com sucesso`;
+            const content: string = await this.templateRenderer.render(path, { studentName, projectName });
+            await this.emailNotification.send(studentEmail, sender, content, title);
+        } catch (error) {
+            console.log((error as Error).message);
+        }
+
     }
 
     private getPath(): string {

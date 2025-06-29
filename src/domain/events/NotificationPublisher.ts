@@ -11,9 +11,9 @@ export class NotificationPublisher {
         this.observers.push(observer);
     }
 
-    public async notify(enrollment: Enrollment): Promise<void> {
+    public notify(enrollment: Enrollment): void {
         for (const observer of this.observers) {
-            await observer.update(enrollment);
+            observer.update(enrollment);
         }
     }
 }

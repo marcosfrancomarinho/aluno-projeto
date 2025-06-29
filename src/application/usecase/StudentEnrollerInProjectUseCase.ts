@@ -22,7 +22,7 @@ export class StudentEnrollerInProjectUseCase {
 
     const enrollmentId: ID = await this.studentEnrollerInProject.enroll(enrollment, scheduling);
     const enrollResponseDTO: EnrollResponseDTO = new EnrollResponseDTO(enrollmentId.getValue());
-    await this.notificationPublisher.notify(enrollment);
+    this.notificationPublisher.notify(enrollment);
     return enrollResponseDTO;
   }
 }
