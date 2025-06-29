@@ -7,7 +7,7 @@
     "start": "node dist/bundle.js",
     "dev": "tsx --watch --env-file=.env src/main.ts",
     "type": "tsc --watch --noEmit",
-    "build": "node esbuild.config.js && cpx  \"src/application/templates/**/*\" dist",
+    "build": "node esbuild.config.js && cpx  \"src/templates/**/*\" dist",
     "migrate": "prisma generate && prisma migrate dev --name start",
     "test": "vitest"
   },

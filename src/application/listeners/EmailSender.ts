@@ -2,9 +2,9 @@ import { resolve } from "path";
 import { Enrollment } from "../../domain/entities/Enrollment";
 import { EmailNotification } from "../../domain/interfaces/EmailNotification";
 import { TemplateRenderer } from "../../domain/interfaces/RenderTamplates";
-import { Observer } from "./Observer";
+import { Observer } from "../../domain/interfaces/Observer";
 
-export class EmailSender implements Observer{
+export class EmailSender implements Observer {
     public constructor(private emailNotification: EmailNotification, private templateRenderer: TemplateRenderer) { }
 
     public async update(enrollment: Enrollment): Promise<void> {

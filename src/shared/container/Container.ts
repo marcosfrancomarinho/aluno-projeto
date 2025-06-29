@@ -1,4 +1,4 @@
-import { EmailSender } from "../../application/observers/EmailSender";
+import { EmailSender } from "../../application/listeners/EmailSender";
 import { LeaderCreatorUseCase } from "../../application/usecase/LeaderCreatorUseCase";
 import { ProjectBasedAdvisorFinderUseCase } from "../../application/usecase/ProjectBasedAdvisorFinderUseCase";
 import { ProjectCreatorUseCase } from "../../application/usecase/ProjectCreatorUseCase";
