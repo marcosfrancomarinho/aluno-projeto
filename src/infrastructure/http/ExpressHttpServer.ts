@@ -10,7 +10,14 @@ export class ExpressHttpServer implements HttpServer {
   public constructor() {
     this.app = express();
     this.app.use(express.json());
-    this.app.use(cors());
+    this.app.use(
+      cors({
+        exposedHeaders: ['token'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        origin: ['*'],
+        methods: ['GET', 'POST'],
+      })
+    );
   }
 
   public on(method: Method, path: string, handler: (httpContext: HttpContext) => Promise<void>): void {

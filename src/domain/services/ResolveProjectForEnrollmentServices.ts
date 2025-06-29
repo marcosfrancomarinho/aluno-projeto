@@ -7,7 +7,7 @@ import { Specialty } from '../valueobject/Specialty';
 import { Timestamp } from '../valueobject/Timestamp';
 
 export class ResolveProjectForEnrollmentServices {
-  public constructor(private specialtyExistenceFinder: SpecialtyExistenceFinder) { }
+  public constructor(private specialtyExistenceFinder: SpecialtyExistenceFinder) {}
 
   public async resolve(enrollDTO: EnrollRequestDTO): Promise<Project> {
     const name: Specialty = Specialty.create(enrollDTO.getNameProject());

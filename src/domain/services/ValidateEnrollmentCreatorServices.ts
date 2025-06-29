@@ -14,7 +14,7 @@ export class ValidateEnrollmentCreatorServices {
     private resolveProjectForEnrollmentServices: ResolveProjectForEnrollmentServices,
     private qualifiedLeaderFinderServices: QualifiedLeaderFinderServices,
     private idGenerator: IdGenerator
-  ) { }
+  ) {}
   public async create(enrollDTO: EnrollRequestDTO): Promise<Enrollment> {
     const code = this.idGenerator.generete();
     const student: Student = await this.ensureStudentExistsForEnrollmentServices.execute(enrollDTO);

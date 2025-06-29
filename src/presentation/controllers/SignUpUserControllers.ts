@@ -7,14 +7,14 @@ import { HttpController } from '../../domain/interfaces/HttpController';
 export class SignUpUserControllers implements HttpController {
   public constructor(private signUpUserUseCase: SignUpUserUseCase) {}
 
-  public async execute(http: HttpContext): Promise<void> {
+  public async execute(httpContext: HttpContext): Promise<void> {
     try {
-      const { name, email, password } = http.getRequestBody();
+      const { name, email, password } = httpContext.getRequestBody();
       const signUpUserRequestDTO: SignUpUserRequestDTO = new SignUpUserRequestDTO(name, email, password);
       const signUpUserResponseDTO: SignUpUserResponseDTO = await this.signUpUserUseCase.sign(signUpUserRequestDTO);
-      http.send(201, signUpUserResponseDTO.toObject());
+      httpContext.send(201, signUpUserResponseDTO.toObject());
     } catch (error) {
-      http.sendError(error);
+      httpContext.sendError(error);
     }
   }
 }

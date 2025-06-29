@@ -9,15 +9,19 @@ export class User {
   private constructor(
     private email: Email,
     private password: Password,
-    private algorithm: Algorithm,
+    private algorithm?: Algorithm,
     private id?: ID,
     private name?: Name
   ) {}
 
-  public static create(email: Email, password: Password, algorithm: Algorithm, id?: ID, name?: Name): User {
+  public static create(email: Email, password: Password, algorithm: Algorithm, id: ID, name: Name): User {
     return new User(email, password, algorithm, id, name);
   }
+  public static with(email: Email, password: Password): User {
+    return new User(email, password);
+  }
   public getAlgorithm() {
+    if (!this.algorithm) throw new Exception('Value algorithm not defined.', 400, Exception.UNDEFINED);
     return this.algorithm.getValue();
   }
 

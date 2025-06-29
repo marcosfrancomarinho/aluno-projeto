@@ -14,7 +14,7 @@ export class StudentEnrollerInProjectUseCase {
     private validateEnrollmentCreatorServices: ValidateEnrollmentCreatorServices,
     private schedulingDateTimeValidatorServices: SchedulingDateTimeValidatorServices,
     private notificationPublisher: NotificationPublisher
-  ) { }
+  ) {}
 
   public async enroll(enrollDTO: EnrollRequestDTO): Promise<EnrollResponseDTO> {
     const enrollment: Enrollment = await this.validateEnrollmentCreatorServices.create(enrollDTO);

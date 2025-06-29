@@ -9,10 +9,7 @@ import { Name } from '../valueobject/Name';
 import { Specialty } from '../valueobject/Specialty';
 
 export class ValidatedLeaderCreatorServices {
-  public constructor(
-    private idGenerator: IdGenerator,
-    private specialtyExistenceFinder: SpecialtyExistenceFinder
-  ) { }
+  public constructor(private idGenerator: IdGenerator, private specialtyExistenceFinder: SpecialtyExistenceFinder) {}
 
   public async create(leaderDTO: LeaderRequestDTO): Promise<Leader> {
     const id: ID = this.idGenerator.generete();

@@ -8,10 +8,7 @@ import { ProjectRequestDTO } from '../dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../dto/ProjectResponseDTO';
 
 export class ProjectCreatorUseCase {
-  public constructor(
-    private idGenerator: IdGenerator,
-    private projectCreator: ProjectCreator
-  ) { }
+  public constructor(private idGenerator: IdGenerator, private projectCreator: ProjectCreator) {}
 
   public async create(projectDTO: ProjectRequestDTO): Promise<ProjectResponseDTO> {
     const code: ID = this.idGenerator.generete();

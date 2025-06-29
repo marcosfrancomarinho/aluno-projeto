@@ -39,10 +39,18 @@ Content-Type: application/json
 
 {
     "name":"marcos  franco marinho", 
-    "email":"marcosmatrinho1998@gmail.com",
-    "password":"@Marco1"
-    }
+    "email":"marcosmatrinho@gmail.com",
+    "password":"@Marco123"
+}
 
+###
+POST http://localhost:3000/login-user
+Content-Type: application/json
+
+{ 
+    "email":"marcosmatrinho@gmail.com",
+    "password":"@Marco123"
+}
 
 ###
 GET http://localhost:3000/finder-leader?name=inglês

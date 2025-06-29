@@ -9,7 +9,8 @@ export class BcryptPasswordEncryptor implements PasswordEncryptor {
     return Password.with(hash);
   }
 
-  public async validatePasswordHash(password: Password, passwordHash: Password): Promise<boolean> {
-    throw new Error('not yet implemented');
+  public async validatePasswordHash(password: string, passwordHash: string): Promise<boolean> {
+    const isPassswordCorrect: boolean = await bcrypt.compare(password, passwordHash);
+    return isPassswordCorrect;
   }
 }

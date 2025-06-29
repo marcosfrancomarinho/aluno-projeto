@@ -6,7 +6,7 @@ import { SpecialistAdvisorFinder } from '../interfaces/SearchLeaderProject';
 import { Email } from '../valueobject/Email';
 
 export class QualifiedLeaderFinderServices {
-  public constructor(private specialistAdvisorFinder: SpecialistAdvisorFinder) { }
+  public constructor(private specialistAdvisorFinder: SpecialistAdvisorFinder) {}
 
   public async find(enrollDTO: EnrollRequestDTO, project: Project): Promise<Leader> {
     const email: Email = Email.create(enrollDTO.getEmailLeader());

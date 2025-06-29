@@ -12,7 +12,7 @@ export class EnsureStudentExistsForEnrollmentServices {
     private studentCreator: StudentCreator,
     private studentFinder: StudentFinder,
     private idGenerator: IdGenerator
-  ) { }
+  ) {}
 
   public async execute(enrollDTO: EnrollRequestDTO): Promise<Student> {
     const name: Name = Name.create(enrollDTO.getNameStudent());

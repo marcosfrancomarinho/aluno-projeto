@@ -12,7 +12,7 @@ export class LeaderCreatorUseCase {
     private leaderFinder: LeaderFinder,
     private advisorSpecializationCreator: AdvisorSpecializationCreator,
     private validatedLeaderCreatorServices: ValidatedLeaderCreatorServices
-  ) { }
+  ) {}
 
   public async create(leaderDTO: LeaderRequestDTO): Promise<LeaderResponseDTO> {
     const validatedLeader: Leader = await this.validatedLeaderCreatorServices.create(leaderDTO);

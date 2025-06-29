@@ -4,9 +4,8 @@ import { LeaderCreatorUseCase } from '../../application/usecase/LeaderCreatorUse
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { HttpController } from '../../domain/interfaces/HttpController';
 
-
 export class LeaderCreatorControllers implements HttpController {
-  public constructor(private leaderCreator: LeaderCreatorUseCase) { }
+  public constructor(private leaderCreator: LeaderCreatorUseCase) {}
 
   public async execute(httpContext: HttpContext): Promise<void> {
     try {

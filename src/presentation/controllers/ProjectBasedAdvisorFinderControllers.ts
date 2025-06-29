@@ -5,12 +5,14 @@ import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { HttpController } from '../../domain/interfaces/HttpController';
 
 export class ProjectBasedAdvisorFinderControllers implements HttpController {
-  public constructor(private projectBasedAdvisorFinderHandler: ProjectBasedAdvisorFinderUseCase) { }
+  public constructor(private projectBasedAdvisorFinderHandler: ProjectBasedAdvisorFinderUseCase) {}
   public async execute(httpContext: HttpContext): Promise<void> {
     try {
       const { name } = httpContext.getRequestQuery();
       const leaderContactResquestDTO: LeaderContactResquestDTO = new LeaderContactResquestDTO(name);
-      const leaderContactResponseDTO: LeaderContactResponseDTO[] = await this.projectBasedAdvisorFinderHandler.findAll(leaderContactResquestDTO);
+      const leaderContactResponseDTO: LeaderContactResponseDTO[] = await this.projectBasedAdvisorFinderHandler.findAll(
+        leaderContactResquestDTO
+      );
       httpContext.send(200, leaderContactResponseDTO);
     } catch (error) {
       httpContext.sendError(error);

@@ -9,10 +9,7 @@ import { Specialty } from '../valueobject/Specialty';
 import { Timestamp } from '../valueobject/Timestamp';
 
 export class SchedulingDateTimeValidatorServices {
-  public constructor(
-    private idGenerator: IdGenerator,
-    private projectFinderByName: ProjectFinderByDateAndName
-  ) { }
+  public constructor(private idGenerator: IdGenerator, private projectFinderByName: ProjectFinderByDateAndName) {}
 
   public async validate(enrollDTO: EnrollRequestDTO): Promise<Scheduling> {
     const code: ID = this.idGenerator.generete();

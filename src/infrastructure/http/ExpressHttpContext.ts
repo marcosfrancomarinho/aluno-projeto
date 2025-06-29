@@ -4,7 +4,7 @@ import { Exception } from '../../shared/error/Exception';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 export class ExpressHttpContext implements HttpContext {
-  public constructor(private request: Request, private response: Response) { }
+  public constructor(private request: Request, private response: Response) {}
   public getRequestBody<T = any>(): T {
     const { body } = this.request;
     return body as T;
@@ -13,8 +13,8 @@ export class ExpressHttpContext implements HttpContext {
     const { query } = this.request;
     return query as T;
   }
-  public send(status: number, data: any): void {
-    this.response.status(status).json(data);
+  public send(status: number, data: any, token?: string): any {
+    token ? this.response.status(status).setHeader('token', token).json(data) : this.response.status(status).json(data);
   }
   public sendError(error: unknown): any {
     if (error instanceof Exception) {
@@ -22,7 +22,7 @@ export class ExpressHttpContext implements HttpContext {
         status: false,
         statusCode: error.statusCode,
         message: error.message,
-        code: error.code.description
+        code: error.code.description,
       });
     }
     if (error instanceof PrismaClientKnownRequestError) {
@@ -30,7 +30,7 @@ export class ExpressHttpContext implements HttpContext {
         status: false,
         statusCode: 409,
         message: `${error.meta?.modelName?.toString() ?? 'Field'} already registered, must be unique.`,
-        code: error.code
+        code: error.code,
       });
     }
     console.error('Unhandled internal error:', error);
@@ -38,7 +38,7 @@ export class ExpressHttpContext implements HttpContext {
       status: false,
       statusCode: 500,
       message: 'Internal server error',
-      code: 'INTERNAL_SERVER_ERROR'
+      code: 'INTERNAL_SERVER_ERROR',
     });
   }
 }
