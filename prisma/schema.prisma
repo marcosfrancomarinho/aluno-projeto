@@ -70,7 +70,7 @@ model scheduling {
   @@id([code])
 }
 
-model User {
+model user {
   id        String @id
   name      String
   email     String @unique

@@ -16,6 +16,7 @@ export class Routers {
       studentEnrollerInProjectControllers,
       projectBasedAdvisorFinderControllers,
       allProjectFinderControllers,
+      signUpUserControllers,
     } = container.dependencies();
 
     this.server.on('post', '/register-leader', this.asHandler(leaderCreatorControllers));
@@ -27,5 +28,7 @@ export class Routers {
     this.server.on('get', '/finder-leader', this.asHandler(projectBasedAdvisorFinderControllers));
 
     this.server.on('get', '/finder-all-projects', this.asHandler(allProjectFinderControllers));
+
+    this.server.on('post', '/sign-up-user', this.asHandler(signUpUserControllers));
   }
 }

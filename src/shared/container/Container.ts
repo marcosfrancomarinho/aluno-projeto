@@ -3,10 +3,12 @@ import { AllProjectFinderUseCase } from '../../application/usecase/AllProjectFin
 import { LeaderCreatorUseCase } from '../../application/usecase/LeaderCreatorUseCase';
 import { ProjectBasedAdvisorFinderUseCase } from '../../application/usecase/ProjectBasedAdvisorFinderUseCase';
 import { ProjectCreatorUseCase } from '../../application/usecase/ProjectCreatorUseCase';
+import { SignUpUserUseCase } from '../../application/usecase/SignUpUserUseCase';
 import { StudentEnrollerInProjectUseCase } from '../../application/usecase/StudentEnrollerInProjectUseCase';
 import { NotificationPublisher } from '../../domain/events/NotificationPublisher';
 import { HttpController } from '../../domain/interfaces/HttpController';
 import { IdGenerator } from '../../domain/interfaces/IdGenerator';
+import { PasswordEncryptor } from '../../domain/interfaces/PasswordEncryptor';
 import { SpecialtyExistenceFinder } from '../../domain/interfaces/SpecialtyExistenceFinder';
 import { EnsureStudentExistsForEnrollmentServices } from '../../domain/services/EnsureStudentExistsForEnrollmentServices';
 import { QualifiedLeaderFinderServices } from '../../domain/services/QualifiedLeaderFinderServices';
@@ -16,6 +18,7 @@ import { ValidatedLeaderCreatorServices } from '../../domain/services/ValidatedL
 import { ValidateEnrollmentCreatorServices } from '../../domain/services/ValidateEnrollmentCreatorServices';
 import { EjsTemplateRenderer } from '../../infrastructure/email/EjsTemplateRenderer';
 import { NodeMailerEmailNotification } from '../../infrastructure/email/NodeMailerEmailNotification';
+import { BcryptPasswordEncryptor } from '../../infrastructure/encryptor/BcryptPasswordEncryptor';
 import { UUID } from '../../infrastructure/idgenerator/UUID';
 import { PrimaSpecialtyExistenceFinder } from '../../infrastructure/repository/PrimaSpecialtyExistenceFinder';
 import { PrismaAdvisorSpecializationCreator } from '../../infrastructure/repository/PrismaAdvisorSpecializationCreator';
@@ -25,6 +28,7 @@ import { PrismaLeaderFinder } from '../../infrastructure/repository/PrismaLeader
 import { PrismaProjectBasedAdvisorFinder } from '../../infrastructure/repository/PrismaProjectBasedAdvisorFinder';
 import { PrismaProjectCreator } from '../../infrastructure/repository/PrismaProjectCreator';
 import { PrismaProjectFinderByName } from '../../infrastructure/repository/PrismaProjectFinderByName';
+import { PrismaSignUpUser } from '../../infrastructure/repository/PrismaSignUpUser';
 import { PrismaSpecialistAdvisorFinder } from '../../infrastructure/repository/PrismaSpecialistAdvisorFinder';
 import { PrismaStudentCreator } from '../../infrastructure/repository/PrismaStudentCreator';
 import { PrismaStudentEnrollerInProject } from '../../infrastructure/repository/PrismaStudentEnrollerInProject';
@@ -33,6 +37,7 @@ import { AllProjectFinderControllers } from '../../presentation/controllers/AllP
 import { LeaderCreatorControllers } from '../../presentation/controllers/LeaderCreatorControllers';
 import { ProjectBasedAdvisorFinderControllers } from '../../presentation/controllers/ProjectBasedAdvisorFinderControllers';
 import { ProjectCreatorControllers } from '../../presentation/controllers/ProjectCreatorControllers';
+import { SignUpUserControllers } from '../../presentation/controllers/SignUpUserControllers';
 import { StudentEnrollerInProjectControllers } from '../../presentation/controllers/StudentEnrollerInProjectControllers';
 
 export class Container {
@@ -120,8 +125,15 @@ export class Container {
     const allProjectFinderControllers = new AllProjectFinderControllers(allProjectFinderAllUseCase);
     return allProjectFinderControllers;
   }
+  private buildSignUpUserController(idGenerator: IdGenerator, passwordEncyptor: PasswordEncryptor): HttpController {
+    const signUpUser = new PrismaSignUpUser();
+    const signUpUserUseCase = new SignUpUserUseCase(signUpUser, idGenerator, passwordEncyptor);
+    const signUpUserControllers = new SignUpUserControllers(signUpUserUseCase);
+    return signUpUserControllers;
+  }
   public dependencies() {
     const idGenerator = new UUID();
+    const passwordEncyptor = new BcryptPasswordEncryptor();
     const specialtyExistenceFinder = new PrimaSpecialtyExistenceFinder();
     const notificationPublisher = this.buildNotificationPublisher();
 
@@ -130,6 +142,7 @@ export class Container {
       projectBasedAdvisorFinderControllers: this.buildProjectBasedAdvisorController(),
       projectCreatorControllers: this.buildProjectCreatorController(idGenerator),
       allProjectFinderControllers: this.buildAllProjectFinderController(),
+      signUpUserControllers: this.buildSignUpUserController(idGenerator, passwordEncyptor),
       studentEnrollerInProjectControllers: this.buildStudentEnrollerController(
         idGenerator,
         specialtyExistenceFinder,
