@@ -4,7 +4,7 @@ import { Token } from '../../domain/valueobject/Token';
 import jwt from 'jsonwebtoken';
 
 export class JwtUserAuthenticator implements UserAuthenticator {
-  public genereteToken(user: User): Token {
+  public generateToken(user: User): Token {
     const userId: string = user.getId();
     const keySecret = process.env.KEY_SECRET as string;
     const hash: string = jwt.sign({ userId }, keySecret, { expiresIn: '1d' });

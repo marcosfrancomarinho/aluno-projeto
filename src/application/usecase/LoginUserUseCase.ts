@@ -21,7 +21,7 @@ export class LoginUserUseCase {
     const user: User = User.with(email, password);
     const foundUser: User | null = await this.loginUser.login(user);
     await this.verifyUserCredentialsServices.verify(user, foundUser);
-    const token: Token = this.userAuthenticator.genereteToken(foundUser as User);
+    const token: Token = this.userAuthenticator.generateToken(foundUser as User);
     const loginUserResponseDTO: LoginUserResponseDTO = new LoginUserResponseDTO(token.getValue());
     return loginUserResponseDTO;
   }
