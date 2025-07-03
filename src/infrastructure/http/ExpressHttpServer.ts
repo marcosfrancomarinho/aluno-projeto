@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express, { Express, Request, Response } from 'express';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 import { HttpServer, Method } from '../../domain/interfaces/HttpServer';
 import { ExpressHttpContext } from './ExpressHttpContext';
 
@@ -20,15 +21,20 @@ export class ExpressHttpServer implements HttpServer {
     );
   }
 
-  public on(method: Method, path: string, handler: (httpContext: HttpContext) => Promise<void>): void {
+  public on(method: Method, path: string, controller: HttpControllers, middlewares: HttpControllers[]): any {
     this.app[method](path, async (request: Request, response: Response) => {
       const context: HttpContext = new ExpressHttpContext(request, response);
-      await handler(context);
+      if (middlewares) {
+        for (const middleware of middlewares) {
+          await middleware.execute(context);
+          if (response.headersSent) return;
+        }
+      }
+      await controller.execute(context);
     });
   }
-
   public listen(port: number): void {
-    this.app.listen(port, () => {
+    this.app.listen(port, '0.0.0.0', () => {
       console.log(`server online on http://localhost:${port}`);
     });
   }

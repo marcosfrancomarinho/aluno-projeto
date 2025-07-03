@@ -1,13 +1,8 @@
-import { Container } from '../../shared/container/Container';
 import { HttpServer } from '../../domain/interfaces/HttpServer';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { Container } from '../../shared/container/Container';
 
 export class Routers {
   public constructor(private server: HttpServer) {}
-
-  private asHandler(controller: HttpController) {
-    return controller.execute.bind(controller);
-  }
 
   public register(container: Container) {
     const {
@@ -18,20 +13,21 @@ export class Routers {
       allProjectFinderControllers,
       signUpUserControllers,
       loginUserControllers,
-    } = container.dependencies();
+      userAuthenticatorMiddlewares,
+    } = container.dependencies()
 
-    this.server.on('post', '/register-leader', this.asHandler(leaderCreatorControllers));
+    this.server.on('post', '/register-leader', leaderCreatorControllers);
 
-    this.server.on('post', '/create-project', this.asHandler(projectCreatorControllers));
+    this.server.on('post', '/create-project', projectCreatorControllers);
 
-    this.server.on('post', '/enroll-project', this.asHandler(studentEnrollerInProjectControllers));
+    this.server.on('post', '/enroll-project', studentEnrollerInProjectControllers);
 
-    this.server.on('get', '/finder-leader', this.asHandler(projectBasedAdvisorFinderControllers));
+    this.server.on('get', '/finder-leader', projectBasedAdvisorFinderControllers, [userAuthenticatorMiddlewares]);
 
-    this.server.on('get', '/finder-all-projects', this.asHandler(allProjectFinderControllers));
+    this.server.on('get', '/finder-all-projects', allProjectFinderControllers);
 
-    this.server.on('post', '/sign-up-user', this.asHandler(signUpUserControllers));
+    this.server.on('post', '/sign-up-user', signUpUserControllers);
 
-    this.server.on('post', '/login-user', this.asHandler(loginUserControllers));
+    this.server.on('post', '/login-user', loginUserControllers);
   }
 }

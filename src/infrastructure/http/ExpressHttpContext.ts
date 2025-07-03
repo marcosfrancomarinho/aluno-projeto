@@ -1,7 +1,7 @@
-import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { Request, Response } from 'express';
-import { Exception } from '../../shared/error/Exception';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { Request, Response } from 'express';
+import { HttpContext } from '../../domain/interfaces/HttpContext';
+import { Exception } from '../../shared/error/Exception';
 
 export class ExpressHttpContext implements HttpContext {
   public constructor(private request: Request, private response: Response) {}
@@ -40,5 +40,9 @@ export class ExpressHttpContext implements HttpContext {
       message: 'Internal server error',
       code: 'INTERNAL_SERVER_ERROR',
     });
+  }
+  public getToken<T = any>(key: string): T {
+    const token = this.request.headers[key] ?? '';
+    return token as T;
   }
 }

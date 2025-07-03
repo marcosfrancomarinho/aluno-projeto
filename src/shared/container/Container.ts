@@ -7,7 +7,7 @@ import { ProjectCreatorUseCase } from '../../application/usecase/ProjectCreatorU
 import { SignUpUserUseCase } from '../../application/usecase/SignUpUserUseCase';
 import { StudentEnrollerInProjectUseCase } from '../../application/usecase/StudentEnrollerInProjectUseCase';
 import { NotificationPublisher } from '../../domain/events/NotificationPublisher';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 import { IdGenerator } from '../../domain/interfaces/IdGenerator';
 import { PasswordEncryptor } from '../../domain/interfaces/PasswordEncryptor';
 import { SpecialtyExistenceFinder } from '../../domain/interfaces/SpecialtyExistenceFinder';
@@ -44,6 +44,7 @@ import { ProjectBasedAdvisorFinderControllers } from '../../presentation/control
 import { ProjectCreatorControllers } from '../../presentation/controllers/ProjectCreatorControllers';
 import { SignUpUserControllers } from '../../presentation/controllers/SignUpUserControllers';
 import { StudentEnrollerInProjectControllers } from '../../presentation/controllers/StudentEnrollerInProjectControllers';
+import { UserAuthenticatorMiddlewares } from '../../presentation/middlewares/UserAuthenticatorMiddlewares';
 
 export class Container {
   private static instance: Container;
@@ -55,7 +56,7 @@ export class Container {
     return Container.instance;
   }
 
-  private buildLeaderController(idGenerator: IdGenerator, specialtyExistenceFinder: SpecialtyExistenceFinder): HttpController {
+  private buildLeaderController(idGenerator: IdGenerator, specialtyExistenceFinder: SpecialtyExistenceFinder): HttpControllers {
     const leaderCreator = new PrismaLeaderCreator();
     const leaderFinder = new PrismaLeaderFinder();
     const advisorSpecializationCreator = new PrismaAdvisorSpecializationCreator();
@@ -72,13 +73,13 @@ export class Container {
     return new LeaderCreatorControllers(leaderCreatorUseCase);
   }
 
-  private buildProjectBasedAdvisorController(): HttpController {
+  private buildProjectBasedAdvisorController(): HttpControllers {
     const projectBasedAdvisorFinder = new PrismaProjectBasedAdvisorFinder();
     const projectBasedAdvisorFinderUseCase = new ProjectBasedAdvisorFinderUseCase(projectBasedAdvisorFinder);
     return new ProjectBasedAdvisorFinderControllers(projectBasedAdvisorFinderUseCase);
   }
 
-  private buildProjectCreatorController(idGenerator: IdGenerator): HttpController {
+  private buildProjectCreatorController(idGenerator: IdGenerator): HttpControllers {
     const projectCreator = new PrismaProjectCreator();
     const projectCreatorUseCase = new ProjectCreatorUseCase(idGenerator, projectCreator);
     return new ProjectCreatorControllers(projectCreatorUseCase);
@@ -88,7 +89,7 @@ export class Container {
     idGenerator: IdGenerator,
     specialtyExistenceFinder: SpecialtyExistenceFinder,
     notificationPublisher: NotificationPublisher
-  ): HttpController {
+  ): HttpControllers {
     const studentEnroller = new PrismaStudentEnrollerInProject();
     const studentCreator = new PrismaStudentCreator();
     const studentFinder = new PrismaStudentFinder();
@@ -124,13 +125,13 @@ export class Container {
     publisher.register(new EmailSender(new NodeMailerEmailNotification(), new EjsTemplateRenderer()));
     return publisher;
   }
-  private buildAllProjectFinderController(): HttpController {
+  private buildAllProjectFinderController(): HttpControllers {
     const allProjectFinderAll = new PrismaAllProjectFinder();
     const allProjectFinderAllUseCase = new AllProjectFinderUseCase(allProjectFinderAll);
     const allProjectFinderControllers = new AllProjectFinderControllers(allProjectFinderAllUseCase);
     return allProjectFinderControllers;
   }
-  private buildSignUpUserController(idGenerator: IdGenerator, passwordEncyptor: PasswordEncryptor): HttpController {
+  private buildSignUpUserController(idGenerator: IdGenerator, passwordEncyptor: PasswordEncryptor): HttpControllers {
     const signUpUser = new PrismaSignUpUser();
 
     const signUpUserUseCase = new SignUpUserUseCase(signUpUser, idGenerator, passwordEncyptor);
@@ -144,6 +145,12 @@ export class Container {
     const loginUserControllers = new LoginUserControllers(loginUserUseCase);
     return loginUserControllers;
   }
+  private buildUserAuthenticatorMiddlewares() {
+    const jwtUserAuthenticator = new JwtUserAuthenticator();
+    const userAuthenticatorMiddlewares = new UserAuthenticatorMiddlewares(jwtUserAuthenticator);
+    return userAuthenticatorMiddlewares;
+  }
+
   public dependencies() {
     const idGenerator = new UUID();
     const passwordEncyptor = new BcryptPasswordEncryptor();
@@ -158,6 +165,7 @@ export class Container {
       allProjectFinderControllers: this.buildAllProjectFinderController(),
       signUpUserControllers: this.buildSignUpUserController(idGenerator, passwordEncyptor),
       loginUserControllers: this.buildLoginUserControllers(passwordEncyptor, userAuthenticator),
+      userAuthenticatorMiddlewares: this.buildUserAuthenticatorMiddlewares(),
       studentEnrollerInProjectControllers: this.buildStudentEnrollerController(
         idGenerator,
         specialtyExistenceFinder,

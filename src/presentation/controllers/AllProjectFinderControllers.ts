@@ -1,9 +1,9 @@
 import { AllProjectResponseDTO } from '../../application/dto/AllProjectResponseDTO';
 import { AllProjectFinderUseCase } from '../../application/usecase/AllProjectFinderUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class AllProjectFinderControllers implements HttpController {
+export class AllProjectFinderControllers implements HttpControllers {
   public constructor(private allProjectFinderUseCase: AllProjectFinderUseCase) {}
 
   public async execute(http: HttpContext): Promise<void> {

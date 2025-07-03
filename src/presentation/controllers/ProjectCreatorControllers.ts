@@ -2,9 +2,9 @@ import { ProjectRequestDTO } from '../../application/dto/ProjectRequestDTO';
 import { ProjectResponseDTO } from '../../application/dto/ProjectResponseDTO';
 import { ProjectCreatorUseCase } from '../../application/usecase/ProjectCreatorUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class ProjectCreatorControllers implements HttpController {
+export class ProjectCreatorControllers implements HttpControllers {
   public constructor(private projectCreatorHandler: ProjectCreatorUseCase) {}
 
   public async execute(httpContext: HttpContext): Promise<void> {

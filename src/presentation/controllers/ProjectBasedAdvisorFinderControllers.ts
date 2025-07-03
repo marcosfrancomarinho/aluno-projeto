@@ -2,9 +2,9 @@ import { LeaderContactResquestDTO } from '../../application/dto/LeaderContactReq
 import { LeaderContactResponseDTO } from '../../application/dto/LeaderContactResponseDTO';
 import { ProjectBasedAdvisorFinderUseCase } from '../../application/usecase/ProjectBasedAdvisorFinderUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class ProjectBasedAdvisorFinderControllers implements HttpController {
+export class ProjectBasedAdvisorFinderControllers implements HttpControllers {
   public constructor(private projectBasedAdvisorFinderHandler: ProjectBasedAdvisorFinderUseCase) {}
   public async execute(httpContext: HttpContext): Promise<void> {
     try {

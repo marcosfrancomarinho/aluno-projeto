@@ -2,9 +2,9 @@ import { LeaderRequestDTO } from '../../application/dto/LeaderRequestDTO';
 import { LeaderResponseDTO } from '../../application/dto/LeaderResponseDTO';
 import { LeaderCreatorUseCase } from '../../application/usecase/LeaderCreatorUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class LeaderCreatorControllers implements HttpController {
+export class LeaderCreatorControllers implements HttpControllers {
   public constructor(private leaderCreator: LeaderCreatorUseCase) {}
 
   public async execute(httpContext: HttpContext): Promise<void> {

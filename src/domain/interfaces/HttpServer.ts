@@ -1,14 +1,9 @@
-import { HttpContext } from './HttpContext';
+import { HttpControllers } from './HttpController';
 
 export type Method = 'get' | 'post' | 'delete' | 'put';
 
 export interface HttpServer {
-  on(
-    method: Method,
-    path: string,
-    handler: (httpContext: HttpContext) => Promise<void>,
-    middlewares?: ((http: HttpContext) => Promise<boolean>)[]
-  ): void;
+  on(method: Method, path: string, controller: HttpControllers, middlewares?: HttpControllers[]): any;
 
   listen(port: number): void | Promise<void>;
 }

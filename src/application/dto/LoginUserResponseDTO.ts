@@ -7,7 +7,7 @@ export class LoginUserResponseDTO {
   public toObject() {
     return {
       message: 'login successfully',
-      token: this.token,
+      status: true,
     };
   }
 }

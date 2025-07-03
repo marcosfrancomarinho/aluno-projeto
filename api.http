@@ -4,7 +4,7 @@ POST http://localhost:3000/create-project
 Content-Type: application/json
 
 {
-    "name": "ingles",
+    "name": "informatica",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
     "name": "joao almeida",
     "email": "joaoalmeida@gmail.com",
-    "specialty": "ingles"
+    "specialty": "informatica"
 }
 
 
@@ -29,7 +29,7 @@ Content-Type: application/json
     "student_name": "marcos franco marinho",
     "student_email": "marcosmarinho1998@gmail.com",
     "leader_email": "joaoalmeida@gmail.com",
-    "project_name": "ingles",
+    "project_name": "informatica",
     "timestamp":"2025-07-21T08:00:00"
 }
 
@@ -54,6 +54,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/finder-leader?name=inglês
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZjNmYmUzMi1jOWUyLTRiNzktYjdhMy00OTMyZTA0YWQwNGQiLCJpYXQiOjE3NTE1ODM0MjQsImV4cCI6MTc1MTY2OTgyNH0.mQhBKAuRbCC5VQf44mfLG4VGma7-W-l2Q3Uq93PmfGU
 
 
 ###

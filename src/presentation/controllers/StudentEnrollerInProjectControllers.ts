@@ -2,9 +2,9 @@ import { EnrollRequestDTO } from '../../application/dto/EnrollRequestDTO';
 import { EnrollResponseDTO } from '../../application/dto/EnrollResponseDTO';
 import { StudentEnrollerInProjectUseCase } from '../../application/usecase/StudentEnrollerInProjectUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class StudentEnrollerInProjectControllers implements HttpController {
+export class StudentEnrollerInProjectControllers implements HttpControllers {
   public constructor(private studentEnrollerInProjectHandler: StudentEnrollerInProjectUseCase) {}
 
   public async execute(httpContext: HttpContext): Promise<void> {

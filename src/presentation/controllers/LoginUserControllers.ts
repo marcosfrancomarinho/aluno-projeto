@@ -2,9 +2,9 @@ import { LoginUserRequestDTO } from '../../application/dto/LoginUserRequestDTO';
 import { LoginUserResponseDTO } from '../../application/dto/LoginUserResponseDTO';
 import { LoginUserUseCase } from '../../application/usecase/LoginUserUseCase';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
-import { HttpController } from '../../domain/interfaces/HttpController';
+import { HttpControllers } from '../../domain/interfaces/HttpController';
 
-export class LoginUserControllers implements HttpController {
+export class LoginUserControllers implements HttpControllers {
   public constructor(private loginUserUseCase: LoginUserUseCase) {}
 
   public async execute(httpContext: HttpContext): Promise<void> {
