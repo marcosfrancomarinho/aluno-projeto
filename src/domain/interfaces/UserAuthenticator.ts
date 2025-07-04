@@ -1,5 +1,5 @@
 import { User } from '../entities/User';
-import { Token } from '../valueobject/Token';
+import { Token } from '../entities/Token';
 export type Payload = { userId: string; iat: number; exp: number };
 
 export interface UserAuthenticator {

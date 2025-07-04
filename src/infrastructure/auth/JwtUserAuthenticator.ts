@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../../domain/entities/User';
 import { Payload, UserAuthenticator } from '../../domain/interfaces/UserAuthenticator';
-import { Token } from '../../domain/valueobject/Token';
+import { Token } from '../../domain/entities/Token';
 
 export class JwtUserAuthenticator implements UserAuthenticator {
   public generateToken(user: User): Token {
@@ -17,4 +17,3 @@ export class JwtUserAuthenticator implements UserAuthenticator {
     return payload;
   }
 }
-

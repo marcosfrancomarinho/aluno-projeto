@@ -1,7 +1,7 @@
 export class Token {
-  public constructor(private token: string) {}
+  private constructor(private token: string) {}
 
-  public getValue(): string {
+  public getValue() {
     return this.token;
   }
 

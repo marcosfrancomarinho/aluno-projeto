@@ -21,14 +21,12 @@ export class ExpressHttpServer implements HttpServer {
     );
   }
 
-  public on(method: Method, path: string, controller: HttpControllers, middlewares: HttpControllers[]): any {
+  public on(method: Method, path: string, controller: HttpControllers, middlewares: HttpControllers[] = []): any {
     this.app[method](path, async (request: Request, response: Response) => {
       const context: HttpContext = new ExpressHttpContext(request, response);
-      if (middlewares) {
-        for (const middleware of middlewares) {
-          await middleware.execute(context);
-          if (response.headersSent) return;
-        }
+      for (const middleware of middlewares) {
+        await middleware.execute(context);
+        if (response.headersSent) return;
       }
       await controller.execute(context);
     });

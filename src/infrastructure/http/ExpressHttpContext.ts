@@ -2,6 +2,8 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { Request, Response } from 'express';
 import { HttpContext } from '../../domain/interfaces/HttpContext';
 import { Exception } from '../../shared/error/Exception';
+import { JsonWebTokenError } from 'jsonwebtoken';
+import { Token } from '../../domain/entities/Token';
 
 export class ExpressHttpContext implements HttpContext {
   public constructor(private request: Request, private response: Response) {}
@@ -33,6 +35,14 @@ export class ExpressHttpContext implements HttpContext {
         code: error.code,
       });
     }
+    if (error instanceof JsonWebTokenError) {
+      return this.response.status(409).send({
+        status: false,
+        statusCode: 401,
+        message: error.message,
+        code: 'JWT_INVALID',
+      });
+    }
     console.error('Unhandled internal error:', error);
     return this.response.status(500).send({
       status: false,
@@ -41,8 +51,8 @@ export class ExpressHttpContext implements HttpContext {
       code: 'INTERNAL_SERVER_ERROR',
     });
   }
-  public getToken<T = any>(key: string): T {
-    const token = this.request.headers[key] ?? '';
-    return token as T;
+  public getToken(key: string): Token {
+    const token = this.request.headers[key] as string;
+    return Token.create(token);
   }
 }

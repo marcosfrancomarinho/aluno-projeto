@@ -4,7 +4,7 @@ import { UserAuthenticator } from '../../domain/interfaces/UserAuthenticator';
 import { VerifyUserCredentialsServices } from '../../domain/services/VerifyUserCredentialsServices';
 import { Email } from '../../domain/valueobject/Email';
 import { Password } from '../../domain/valueobject/Password';
-import { Token } from '../../domain/valueobject/Token';
+import { Token } from '../../domain/entities/Token';
 import { LoginUserRequestDTO } from '../dto/LoginUserRequestDTO';
 import { LoginUserResponseDTO } from '../dto/LoginUserResponseDTO';
 
