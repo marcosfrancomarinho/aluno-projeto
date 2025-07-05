@@ -14,7 +14,7 @@ export class Routers {
       signUpUserControllers,
       loginUserControllers,
       userAuthenticatorMiddlewares,
-    } = container.dependencies()
+    } = container.dependencies();
 
     this.server.on('post', '/register-leader', leaderCreatorControllers);
 
