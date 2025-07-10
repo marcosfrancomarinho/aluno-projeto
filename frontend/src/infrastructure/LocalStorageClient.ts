@@ -9,4 +9,7 @@ export class LocalStorageClient implements StorageClient {
   public set(key: string, datas: any): void {
     localStorage.setItem(key, JSON.stringify(datas));
   }
+  public delete(key: string): void {
+    localStorage.removeItem(key);
+  }
 }

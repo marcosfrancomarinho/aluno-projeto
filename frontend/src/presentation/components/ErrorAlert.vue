@@ -9,7 +9,7 @@ onMounted(() => time());
 
 <template>
   <div v-show="visible"
-    class="bg-red-500 mb-2 absolute top-50 text-white px-4 py-3 rounded flex justify-between items-center shadow-md animate-fade-in"
+    class="bg-red-500 mb-2 absolute top-12 text-white px-4 py-3 rounded flex justify-between items-center shadow-md animate-fade-in"
     role="alert">
     <span class="font-semibold">{{ message }}</span>
     <button @click="close" class="ml-4 text-white text-xl leading-none hover:text-gray-200">

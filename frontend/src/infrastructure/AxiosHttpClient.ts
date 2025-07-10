@@ -12,7 +12,10 @@ export class AxiosHttpClient implements HttpClient {
       const response = await this.instance.post<T>(url, data);
       return response.data;
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
+      if (error.response.data.code === 'INVALID_CREDENTIALS') {
+        throw new Error('Email ou senha inválida.');
+      }
       throw new Error(error.response.data.message);
     }
   }

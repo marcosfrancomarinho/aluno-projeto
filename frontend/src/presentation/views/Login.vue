@@ -4,18 +4,24 @@ import { LOGIN_USER } from '../../shared/keys/Keys.ts';
 import { LoginUserUseCase } from '../../application/usecase/LoginUserUseCase.ts';
 import ErrorAlert from '../components/ErrorAlert.vue';
 import Spin from '../components/Spin.vue';
+import { useRouter } from 'vue-router';
 
 const loginUserUseCase = inject(LOGIN_USER) as LoginUserUseCase;
 const error = ref<Error | null>(null);
 const loading = ref<boolean>(false);
+const visiblePassword = ref<boolean>(false);
+const router = useRouter()
 
-const loginUser = async (e: any): Promise<void> => {
+const handleVisiblePassword = () => visiblePassword.value = !visiblePassword.value;
+
+const handleLoginUser = async (e: any): Promise<void> => {
   try {
     error.value = null;
     loading.value = true;
     e.preventDefault();
     const { email, password } = Object.fromEntries(new FormData(e.target)) as { email: string, password: string; };
     await loginUserUseCase.login({ email, password });
+    router.push("login/")
 
   } catch (err: any) {
     error.value = err;
@@ -23,27 +29,27 @@ const loginUser = async (e: any): Promise<void> => {
     loading.value = false;
   }
 }
-
-
 </script>
 
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8 relative">
     <ErrorAlert v-if="error" :message="error.message" />
     <div class="bg-white w-full max-w-md sm:max-w-lg p-6 sm:p-6 lg:p-6 rounded-2xl shadow-md">
       <h2 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-6">
         Área destinada para admins
       </h2>
-      <form v-on:submit="loginUser" class="space-y-5">
+      <form v-on:submit="handleLoginUser" class="space-y-5">
         <div>
           <label for="email" class="block text-sm sm:text-base font-medium text-gray-700">Email</label>
           <input type="email" name="email" id="email" required
             class="mt-1 w-full px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
-        <div>
+        <div class="relative">
+          <img v-on:click="handleVisiblePassword" class="absolute bottom-2 sm:bottom-4  w-5 right-1"
+            :src="visiblePassword ? '/icons/show.svg' : '/icons/hide.svg'" alt="hide or show" />
           <label for="password" class="block text-sm sm:text-base font-medium text-gray-700">Senha</label>
-          <input type="password" name="password" id="password"
+          <input :type="visiblePassword ? 'text' : 'password'" name="password" id="password"
             class="mt-1 w-full px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div class="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
