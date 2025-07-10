@@ -16,6 +16,5 @@ export class PrismaStudentCreator implements StudentCreator {
       email: student.getEmail(),
     };
     await Client.student.create({ data });
-
   }
 }

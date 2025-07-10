@@ -28,7 +28,6 @@ export class PrismaSpecialistAdvisorFinder implements SpecialistAdvisorFinder {
       listProjects
     );
 
-
     return leaderGenereted;
   }
 }

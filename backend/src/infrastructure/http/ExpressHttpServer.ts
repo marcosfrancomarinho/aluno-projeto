@@ -15,7 +15,7 @@ export class ExpressHttpServer implements HttpServer {
       cors({
         exposedHeaders: ['token'],
         allowedHeaders: ['Content-Type', 'Authorization'],
-        origin: ['*'],
+        origin: "*",
         methods: ['GET', 'POST'],
       })
     );

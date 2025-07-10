@@ -1,8 +1,7 @@
-import { Exception } from "../../shared/error/Exception";
+import { Exception } from '../../shared/error/Exception';
 
 export class Name {
-
-  private constructor(private name: string) { }
+  private constructor(private name: string) {}
 
   public getValue(): string {
     return this.name;

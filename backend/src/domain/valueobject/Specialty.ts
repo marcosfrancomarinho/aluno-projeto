@@ -1,8 +1,7 @@
-import { Exception } from "../../shared/error/Exception";
+import { Exception } from '../../shared/error/Exception';
 
 export class Specialty {
-
-  private constructor(private specialty: string, private raw?: string) { }
+  private constructor(private specialty: string, private raw?: string) {}
   public getValue(): string {
     return this.specialty;
   }
@@ -43,5 +42,4 @@ export class Specialty {
     }
     return specialty.trim().toLowerCase();
   }
-
 }

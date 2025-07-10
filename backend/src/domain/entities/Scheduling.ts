@@ -4,7 +4,7 @@ import { Timestamp } from '../valueobject/Timestamp';
 import { Project } from './Project';
 
 export class Scheduling {
-  private constructor(private code: ID, private timestamp: Timestamp) { }
+  private constructor(private code: ID, private timestamp: Timestamp) {}
 
   public getPersistenceData() {
     return {

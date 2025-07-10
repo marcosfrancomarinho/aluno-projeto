@@ -9,4 +9,3 @@ export class UUID implements IdGenerator {
     return idGenereted;
   }
 }
-

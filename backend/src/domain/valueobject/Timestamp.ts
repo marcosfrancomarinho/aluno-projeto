@@ -1,4 +1,4 @@
-import { Exception } from "../../shared/error/Exception";
+import { Exception } from '../../shared/error/Exception';
 
 export class Timestamp {
   private constructor(private dateTime: Date) {}
@@ -31,11 +31,7 @@ export class Timestamp {
 
     const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(Z|[+-]\d{2}:\d{2})?$/;
     if (!regex.test(trimmed)) {
-      throw new Exception(
-        'Timestamp format is invalid. Expected format: YYYY-MM-DDTHH:MM:SS.',
-        400,
-        Exception.INVALID
-      );
+      throw new Exception('Timestamp format is invalid. Expected format: YYYY-MM-DDTHH:MM:SS.', 400, Exception.INVALID);
     }
 
     const date = new Date(trimmed);
@@ -50,11 +46,7 @@ export class Timestamp {
     const now = this.getCurrentDateWithoutSeconds();
 
     if (date.getTime() < now.getTime()) {
-      throw new Exception(
-        'Invalid data: the provided date is in the past.',
-        400,
-        Exception.TIME_PAST
-      );
+      throw new Exception('Invalid data: the provided date is in the past.', 400, Exception.TIME_PAST);
     }
   }
 
@@ -69,14 +61,6 @@ export class Timestamp {
   }
 
   private static getDateWithoutSeconds(date: Date): Date {
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      0,
-      0
-    );
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), 0, 0);
   }
 }

@@ -1,7 +1,7 @@
-import { Exception } from "../../shared/error/Exception";
+import { Exception } from '../../shared/error/Exception';
 
 export class ID {
-  private constructor(private id: string) { }
+  private constructor(private id: string) {}
   public getValue(): string {
     return this.id;
   }
@@ -17,11 +17,7 @@ export class ID {
     if (typeof id !== 'string') throw new Exception('Identifier must be a string.', 400, Exception.INVALID);
 
     if (!regex.test(id.trim())) {
-      throw new Exception(
-        'Identifier format is invalid. Only alphanumerics and hyphens are allowed.',
-        400,
-        Exception.INVALID);
+      throw new Exception('Identifier format is invalid. Only alphanumerics and hyphens are allowed.', 400, Exception.INVALID);
     }
   }
-
 }

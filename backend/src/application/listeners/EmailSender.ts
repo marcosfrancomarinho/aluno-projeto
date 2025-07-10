@@ -17,7 +17,7 @@ export class EmailSender implements Observer {
       const title: string = `Inscrição no curso ${projectName} feita com sucesso`;
       const content: string = await this.templateRenderer.render(path, { studentName, projectName });
       await this.emailNotification.send(studentEmail, sender, content, title);
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error.message);
     }
   }

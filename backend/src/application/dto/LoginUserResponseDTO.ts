@@ -8,6 +8,7 @@ export class LoginUserResponseDTO {
     return {
       message: 'login successfully',
       status: true,
+      token: this.token,
     };
   }
 }

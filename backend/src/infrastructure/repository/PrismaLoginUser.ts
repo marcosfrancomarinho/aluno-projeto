@@ -11,7 +11,7 @@ export class PrismaLoginUser implements LoginUser {
   public async login(user: User): Promise<User | null> {
     const email: string = user.getEmail();
     const foundUser = await Client.user.findUnique({ where: { email } });
-    
+
     if (!foundUser) return null;
 
     return User.create(

@@ -11,7 +11,6 @@ export type DatasEnroll = {
   id_project: string;
 };
 
-
 export type DatasScheduling = {
   code: string;
   timestamp: Date;
